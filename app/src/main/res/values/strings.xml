@@ -1,0 +1,261 @@
+<resources>
+    <string name="app_name">Dream House</string>
+    <string name="app_slogan">Build Every Brick with Accurate Records</string>
+
+    <!--Menu-->
+    <string name="menu_home">Home</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_backup">Backup</string>
+    <string name="menu_share">Share App</string>
+    <string name="menu_today">Today</string>
+    <string name="menu_monthly">Monthly</string>
+    <string name="menu_yearly">Yearly</string>
+    <string name="menu_note">Keep Note</string>
+    <string name="menu_all_transactions">All Transactions</string>
+    <string name="menu_category_chart">Category Chart</string>
+
+    <!--Home Screen-->
+    <string name="home_title">Home</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="balance">Balance</string>
+    <string name="add_income">Add Income</string>
+    <string name="add_expense">Add Expense</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_backup">Backup &amp; Restore</string>
+    <string name="nav_language">Language</string>
+    <string name="nav_chart">Category Chart</string>
+    <string name="nav_all_transactions">All Transactions</string>
+
+    <string name="export_backup">Export Backup File</string>
+    <string name="import_restore">Import &amp; Restore Data</string>
+
+    <string name="currency_symbol">$</string>
+    <string name="label_all_records">All Records</string>
+    <string name="label_income_records">Income Records</string>
+    <string name="label_expense_records">Expense Records</string>
+    <string name="label_add_transaction">Add Transaction</string>
+    <string name="label_edit_transaction">Edit Transaction</string>
+    <string name="label_income">Income</string>
+    <string name="label_expense">Expense</string>
+    <string name="label_balance">Balance</string>
+    <string name="label_current_balance">Current Balance</string>
+    <string name="label_add_income">Add Income</string>
+    <string name="label_add_expense">Add Expense</string>
+    <string name="label_edit_income">Edit Income</string>
+    <string name="label_edit_expense">Edit Expense</string>
+    <string name="label_update_income">Update Income</string>
+    <string name="label_update_expense">Update Expense</string>
+    <string name="title_select_language">Select Language</string>
+
+    <string name="btn_add">Add</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_apply">Apply</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_save_income">Save Income</string>
+    <string name="btn_save_expense">Save Expense</string>
+    <string name="btn_update_income">Update Income</string>
+    <string name="btn_update_expense">Update Expense</string>
+
+    <string name="msg_added">Transaction added successfully</string>
+    <string name="msg_updated">Transaction updated successfully</string>
+    <string name="msg_deleted">Transaction deleted successfully</string>
+
+    <string name="cat_salary">Salary</string>
+    <string name="cat_business">Business</string>
+    <string name="cat_freelance">Freelance</string>
+    <string name="cat_bonus">Bonus</string>
+    <string name="cat_investment">Investment</string>
+    <string name="cat_gift">Gift</string>
+    <string name="cat_food">Food</string>
+    <string name="cat_rent">Rent</string>
+    <string name="cat_shopping">Shopping</string>
+    <string name="cat_health">Health</string>
+    <string name="cat_education">Education</string>
+    <string name="cat_entertainment">Entertainment</string>
+
+    <!--Add Income/Expense Screen-->
+    <string name="select_category">Select Category</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+
+    <string name="msg_select_category">Please select a category</string>
+    <string name="msg_enter_description">Please enter a description</string>
+    <string name="msg_enter_amount">Please enter a valid amount (greater than 0)</string>
+    <string name="msg_save_success">Saved successfully!</string>
+
+    <string name="delete_title">Delete Transaction?</string>
+    <string name="delete_msg">Are you sure you want to delete this record? This cannot be undone.</string>
+
+    <!--Note Screen-->
+    <string name="label_add_new_note">Add New Note</string>
+    <string name="label_note_desc_hint">Description / Person Name</string>
+    <string name="msg_invalid_amount">Please enter a valid amount</string>
+    <string name="msg_empty_desc">Description cannot be empty</string>
+    <string name="msg_note_saved">Note saved successfully!</string>
+    <string name="msg_delete_note_confirm">Are you sure you want to remove this record? This action cannot be undone.</string>
+    <string name="disclaimer_note">These are personal notes for your debts and receivables. These records will not be added to your main transaction balance.</string>
+    <string name="title_personal_notes">Personal Notes</string>
+    <string name="label_total_debt">Total Debt</string>
+    <string name="label_total_receivable">Total Receivable</string>
+    <string name="label_net_debt">Net Debt</string>
+    <string name="label_net_receivable">Net Receivable</string>
+    <string name="filter_all">All</string>
+    <string name="filter_debt">Debt</string>
+    <string name="filter_receivable">Receivable</string>
+    <string name="label_note_amount">Amount</string>
+    <string name="label_note_description">Description</string>
+    <string name="msg_empty_fields">Please fill in all fields</string>
+    <string name="btn_save_note">Save Note</string>
+
+    <string name="msg_generating_report">Generating &amp; Downloading Report</string>
+    <string name="msg_wait_excel">Please wait while we prepare your Excel file. This won\'t take long.</string>
+    <string name="download_report_title">Download Report?</string>
+    <string name="download_report_desc">Do you want to download the transactions as an Excel file?\n\nLocation: Downloads/Daily Expense/Transaction Report</string>
+    <string name="btn_download">Download</string>
+    <string name="download_complete">Download Complete!</string>
+    <string name="label_please_wait">Please Wait…</string>
+    <string name="label_saving_data">Saving Your Data…</string>
+    <string name="msg_error">Something went wrong. Please try again.</string>
+    <string name="share_report_title">Share Report?</string>
+    <string name="share_report_desc">Do you want to share the transaction report as an Excel file?</string>
+    <string name="btn_share">Share</string>
+
+    <string name="title_monthly_transactions">Monthly Transactions</string>
+    <string name="title_yearly_transactions">Yearly Transactions</string>
+    <string name="title_today_transactions">Today\'s Transactions</string>
+
+    <string name="title_select_month_year">Select Month &amp; Year</string>
+    <string name="title_select_year">Select Year</string>
+    <string name="label_year">Year:</string>
+    <string name="label_month">Month:</string>
+    <string name="action_apply">Apply</string>
+
+    <string name="placeholder_search_description">Search description…</string>
+    <string name="placeholder_filtered_by_date">Filtered by Date</string>
+    <string name="title_all_transactions">All Transactions</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_minimize">Minimize</string>
+
+    <string name="title_category_analytics">Category Analytics</string>
+    <string name="tab_income">Income</string>
+    <string name="tab_expense">Expense</string>
+
+    <string name="label_total_income_colon">Total Income: </string>
+    <string name="label_total_expense_colon">Total Expense: </string>
+    <string name="label_no_data_available">No data available</string>
+    <string name="label_category_distribution">Category Distribution</string>
+
+    <string name="label_percentage_of_total">%1$s%% of total</string>
+    <string name="label_target_100">Target 100%</string>
+
+    <!--About Screen-->
+    <string name="menu_about">About App</string>
+    <string name="about_description">Daily Expense helps you manage your money easily. Track income, expenses, and analyze your financial habits with powerful charts and reports.</string>
+    <string name="feature_1">✔ Detailed Income/Expense Tracking</string>
+    <string name="feature_2">✔ Interactive Category Charts</string>
+    <string name="feature_3">✔ Calculator Tools</string>
+    <string name="feature_4">✔ Multi-language Support (English, Bangla, Hindi)</string>
+    <string name="feature_5">✔ Easily Share Expense Reports with Others</string>
+    <string name="feature_6">✔ Download Data to Excel Sheet</string>
+    <string name="label_app_version">App Version: </string>
+    <string name="label_developer">Developed by</string>
+    <string name="dev_name">Shuva Ranjan Rishi</string>
+    <string name="dev_brand">The Rishi Developer</string>
+    <string name="dev_email">therishideveloper95@gmail.com</string>
+    <string name="label_main_menu">Main Menu</string>
+    <string name="label_settings">Settings &amp; Tools</string>
+    <string name="label_help">Help</string>
+    <string name="label_more">Support &amp; About</string>
+    <string name="share_text">Check out this amazing Daily Expense app to manage your finances easily! Download here: </string>
+
+    <string name="backup_top_title">Backup &amp; Restore</string>
+    <string name="backup_title">Secure Your Data</string>
+    <string name="backup_subtitle">Keep your financial records safe and portable</string>
+    <string name="btn_export">Export Backup File</string>
+    <string name="btn_import">Import &amp; Restore Data</string>
+    <string name="label_instructions">Instructions</string>
+    <string name="inst_1">Backup files are stored in the \'Download/Daily Expense/Backup\' folder.</string>
+    <string name="inst_2">Daily backups will replace the previous one for the same day.</string>
+    <string name="inst_3">Upload your .json file to Cloud Storage for extra safety.</string>
+    <string name="label_why_backup">Why use Backup?</string>
+    <string name="why_1">Avoid data loss during phone damage or factory reset.</string>
+    <string name="why_2">Seamlessly migrate data to your new Android device.</string>
+    <string name="why_3">Keep your local offline records permanently secure.</string>
+    <string name="restore_confirm_title">Restore Confirmation</string>
+    <string name="restore_confirm_msg">Warning: Restoring data will permanently overwrite all your current local records. Do you want to proceed?</string>
+    <string name="btn_yes_restore">Yes, Restore</string>
+    <string name="msg_backup_failed">Backup Failed!</string>
+    <string name="msg_restore_success">Data Restored Successfully!</string>
+
+    <!--Category-->
+    <string name="cat_guide">Category Guide</string>
+    <string name="back">Back</string>
+
+    <string name="section_income">💰 Income &amp; Savings</string>
+    <string name="section_structural">🏗️ Structural Materials</string>
+    <string name="section_labor">👷 Labor &amp; Services</string>
+    <string name="section_finishing">✨ Finishing Work</string>
+    <string name="section_miscellaneous">📦 Miscellaneous Expenses</string>
+
+    <string name="cat_savings">Own Savings</string>
+    <string name="cat_bank_loan">Bank Loan</string>
+    <string name="cat_relative_loan">Relative Loan</string>
+    <string name="cat_invest">Partner Investment</string>
+    <string name="cat_others_income">Others Income</string>
+
+    <string name="cat_rod">Rod / Steel</string>
+    <string name="cat_cement">Cement</string>
+    <string name="cat_bricks">Bricks / Blocks</string>
+    <string name="cat_sand">Sand</string>
+    <string name="cat_stone">Stone / Chips</string>
+
+    <string name="cat_mason">Mason Labor</string>
+    <string name="cat_shuttering">Shuttering</string>
+    <string name="cat_excavation">Earth Digging</string>
+    <string name="cat_engineer">Engineer Fee</string>
+
+    <string name="cat_tiles">Tiles &amp; Marble</string>
+    <string name="cat_paint">Paint</string>
+    <string name="cat_electric">Electrical</string>
+    <string name="cat_plumbing">Plumbing</string>
+    <string name="cat_doors">Doors &amp; Windows</string>
+
+    <string name="cat_transport">Transport</string>
+    <string name="cat_utility">Utility Bill</string>
+    <string name="cat_legal">Legal &amp; Permit</string>
+    <string name="cat_security">Security / Guard</string>
+    <string name="cat_others_expense">Others Expense</string>
+
+    <string name="desc_savings">Personal savings or cash on hand used for construction.</string>
+    <string name="desc_bank_loan">Money received from a bank as a home construction loan.</string>
+    <string name="desc_invest">Investment or funds contributed by a business partner.</string>
+    <string name="desc_relative_loan">Money borrowed from friends or family members.</string>
+    <string name="desc_others_income">Extra funds or income from any other sources.</string>
+    <string name="desc_rod">Cost of steel rods for foundation, beams, and roof slabs.</string>
+    <string name="desc_cement">Cost of cement for casting, bricklaying, and plastering.</string>
+    <string name="desc_bricks">Cost of bricks or concrete blocks for walls and flooring.</string>
+    <string name="desc_sand">Cost of sand used for filling, plastering, or concrete.</string>
+    <string name="desc_stone">Cost of crushed stones or brick chips for casting work.</string>
+    <string name="desc_mason">Wages for masons, helpers, or payments to contractors.</string>
+    <string name="desc_shuttering">Rent or cost of wooden/steel frames for concrete support.</string>
+    <string name="desc_excavation">Labor cost for digging earth for foundations or bases.</string>
+    <string name="desc_engineer">Fees for architectural design and site supervision.</string>
+    <string name="desc_tiles">Costs for floor tiles, marble, or wall tiles.</string>
+    <string name="desc_paint">Cost of wall paint, putty, and labor for painting work.</string>
+    <string name="desc_electric">Costs for wiring, switches, fans, lights, and electrician.</string>
+    <string name="desc_plumbing">Costs for pipes, basins, commodes, and bathroom fittings.</string>
+    <string name="desc_doors">Costs for making or installing doors and window frames.</string>
+    <string name="desc_transport">Truck, van, or labor costs for bringing materials to site.</string>
+    <string name="desc_utility">Monthly water and electricity bills during construction.</string>
+    <string name="desc_legal">Government or legal fees for plan approval and permits.</string>
+    <string name="desc_security">Salary for site guards or costs for safety fencing.</string>
+    <string name="desc_others_expense">Any small or miscellaneous costs not listed above.</string>
+
+</resources>

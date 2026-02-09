@@ -1,0 +1,266 @@
+<resources>
+    <string name="app_name">Dream House</string>
+    <string name="app_slogan">প্রতিটি ইটের গাঁথুনি হোক সঠিক হিসাবের সাথে</string>
+
+    <!--Menu-->
+    <string name="menu_home">হোম</string>
+    <string name="menu_language">ভাষা</string>
+    <string name="menu_backup">ব্যাক আপ</string>
+    <string name="menu_share">অ্যাপ শেয়ার করুন</string>
+    <string name="menu_today">আজকের লেনদেন</string>
+    <string name="menu_monthly">মাসিক লেনদেন</string>
+    <string name="menu_yearly">বার্ষিক লেনদেন</string>
+    <string name="menu_note">নোট রাখুন</string>
+    <string name="menu_all_transactions">সব লেনদেন</string>
+    <string name="menu_category_chart">ক্যাটেগরি চার্ট</string>
+
+    <!--Home Screen-->
+    <string name="home_title">হোম</string>
+    <string name="income">আয়</string>
+    <string name="expense">ব্যয়</string>
+    <string name="balance">ব্যালেন্স</string>
+    <string name="add_income">আয় যোগ করুন</string>
+    <string name="add_expense">ব্যয় যোগ করুন</string>
+
+    <string name="nav_home">হোম</string>
+    <string name="nav_backup">ব্যাকআপ এবং রিস্টোর</string>
+    <string name="nav_language">ভাষা পরিবর্তন</string>
+    <string name="nav_chart">ক্যাটেগরি চার্ট</string>
+    <string name="nav_all_transactions">সব লেনদেন</string>
+
+    <string name="export_backup">ব্যাকআপ ফাইল তৈরি করুন</string>
+    <string name="import_restore">ইম্পোর্ট এবং রিস্টোর</string>
+
+    <string name="currency_symbol">৳</string>
+    <string name="label_all_records">সব রেকর্ড</string>
+    <string name="label_income_records">আয়ের রেকর্ডসমূহ</string>
+    <string name="label_expense_records">ব্যয়ের রেকর্ডসমূহ</string>
+    <string name="label_add_transaction">লেনদেন যোগ করুন</string>
+    <string name="label_edit_transaction">লেনদেন সংশোধন</string>
+    <string name="label_income">আয়</string>
+    <string name="label_expense">ব্যয়</string>
+    <string name="label_balance">অবশিষ্ট</string>
+    <string name="label_current_balance">বর্তমান ব্যালেন্স</string>
+    <string name="label_edit_income">আয় এডিট করুন</string>
+    <string name="label_edit_expense">ব্যয় এডিট করুন</string>
+    <string name="label_add_income">আয় যোগ করুন</string>
+    <string name="label_add_expense">ব্যয় যোগ করুন</string>
+    <string name="label_update_income">আয় আপডেট করুন</string>
+    <string name="label_update_expense">ব্যয় আপডেট করুন</string>
+    <string name="title_select_language">ভাষা নির্বাচন করুন</string>
+
+    <string name="btn_add">যোগ করুন</string>
+    <string name="btn_edit">এডিট</string>
+    <string name="btn_update">আপডেট</string>
+    <string name="btn_ok">ঠিক আছে</string>
+    <string name="btn_save">সংরক্ষণ করুন</string>
+    <string name="btn_cancel">বাতিল</string>
+    <string name="btn_apply">প্রয়োগ করুন</string>
+    <string name="btn_delete">মুছে ফেলুন</string>
+    <string name="btn_save_income">আয় সংরক্ষণ করুন</string>
+    <string name="btn_save_expense">ব্যয় সংরক্ষণ করুন</string>
+    <string name="btn_update_income">আয় আপডেট করুন</string>
+    <string name="btn_update_expense">ব্যয় আপডেট করুন</string>
+
+    <string name="msg_added">লেনদেনটি সফলভাবে যোগ করা হয়েছে</string>
+    <string name="msg_updated">লেনদেনটি সফলভাবে আপডেট করা হয়েছে</string>
+    <string name="msg_deleted">লেনদেনটি সফলভাবে মুছে ফেলা হয়েছে</string>
+
+    <string name="cat_salary">বেতন</string>
+    <string name="cat_business">ব্যবসা</string>
+    <string name="cat_freelance">ফ্রিল্যান্সিং</string>
+    <string name="cat_bonus">বোনাস</string>
+    <string name="cat_investment">বিনিয়োগ</string>
+    <string name="cat_gift">উপহার</string>
+    <string name="cat_food">খাবার</string>
+    <string name="cat_rent">ভাড়া</string>
+    <string name="cat_shopping">কেনাকাটা</string>
+    <string name="cat_health">চিকিৎসা</string>
+    <string name="cat_education">শিক্ষা</string>
+    <string name="cat_entertainment">বিনোদন</string>
+
+    <!--Add Income/Expense Screen-->
+    <string name="select_category">ক্যাটেগরি নির্বাচন করুন</string>
+    <string name="description">বিবরণ</string>
+    <string name="amount">পরিমাণ</string>
+    <string name="date">তারিখ</string>
+
+    <string name="msg_select_category">অনুগ্রহ করে একটি ক্যাটেগরি নির্বাচন করুন</string>
+    <string name="msg_enter_description">অনুগ্রহ করে বিবরণ লিখুন</string>
+    <string name="msg_enter_amount">অনুগ্রহ করে সঠিক পরিমাণ লিখুন (০ এর বেশি)</string>
+    <string name="msg_save_success">সফলভাবে সংরক্ষণ করা হয়েছে!</string>
+
+    <string name="delete_title">রেকর্ডটি মুছে ফেলবেন?</string>
+    <string name="delete_msg">আপনি কি নিশ্চিত যে আপনি এটি মুছে ফেলতে চান? এটি আর ফিরে পাওয়া যাবে না।</string>
+
+    <!--Note Screen-->
+    <string name="label_add_new_note">নতুন নোট যোগ করুন</string>
+    <string name="label_note_desc_hint">বিবরণ / ব্যক্তির নাম</string>
+    <string name="msg_invalid_amount">অনুগ্রহ করে সঠিক পরিমাণ লিখুন</string>
+    <string name="msg_empty_desc">বিবরণ খালি রাখা যাবে না</string>
+    <string name="msg_note_saved">নোটটি সফলভাবে সংরক্ষণ করা হয়েছে!</string>
+    <string name="msg_delete_note_confirm">আপনি কি নিশ্চিত যে এই রেকর্ডটি মুছে ফেলতে চান? এটি আর ফিরে পাওয়া যাবে না।</string>
+    <string name="disclaimer_note">এগুলো আপনার দেনা এবং পাওনার ব্যক্তিগত নোট। এই রেকর্ডগুলো আপনার মূল ট্রানজেকশন ব্যালেন্সের সাথে যোগ করা হবে না।</string>
+    <string name="title_personal_notes">ব্যক্তিগত নোট</string>
+    <string name="label_total_debt">মোট দেনা</string>
+    <string name="label_total_receivable">মোট পাওনা</string>
+    <string name="label_net_debt">নীট দেনা</string>
+    <string name="label_net_receivable">নীট পাওনা</string>
+    <string name="filter_all">সব</string>
+    <string name="filter_debt">দেনা</string>
+    <string name="filter_receivable">পাওনা</string>
+    <string name="label_note_amount">পরিমাণ</string>
+    <string name="label_note_description">বিবরণ</string>
+    <string name="msg_empty_fields">অনুগ্রহ করে সব ঘর পূরণ করুন</string>
+    <string name="btn_save_note">নোট সংরক্ষণ করুন</string>
+
+    <string name="msg_generating_report">রিপোর্ট তৈরি এবং ডাউনলোড হচ্ছে</string>
+    <string name="msg_wait_excel">আপনার এক্সেল ফাইলটি তৈরি হতে কিছুটা সময় লাগবে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন।</string>
+    <string name="download_report_title">রিপোর্ট ডাউনলোড করবেন?</string>
+    <string name="download_report_desc">আপনি কি লেনদেনের তালিকাটি এক্সেল ফাইল হিসেবে ডাউনলোড করতে চান?\n\nস্থান: Downloads/Daily Expense/Transaction Report</string>
+    <string name="btn_download">ডাউনলোড</string>
+    <string name="download_complete">ডাউনলোড সম্পন্ন হয়েছে!</string>
+    <string name="label_please_wait">দয়া করে অপেক্ষা করুন…</string>
+    <string name="label_saving_data">আপনার তথ্য সংরক্ষণ করা হচ্ছে…</string>
+    <string name="msg_error">কিছু ভুল হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="share_report_title">রিপোর্ট শেয়ার করবেন?</string>
+    <string name="share_report_desc">আপনি কি লেনদেনের রিপোর্টটি এক্সেল ফাইল হিসেবে শেয়ার করতে চান?</string>
+    <string name="btn_share">শেয়ার করুন</string>
+
+    <string name="title_monthly_transactions">মাসিক লেনদেন</string>
+    <string name="title_yearly_transactions">বার্ষিক লেনদেন</string>
+    <string name="title_today_transactions">আজকের লেনদেন</string>
+
+    <string name="title_select_month_year">মাস ও বছর নির্বাচন করুন</string>
+    <string name="title_select_year">বছর নির্বাচন করুন</string>
+    <string name="label_year">বছর:</string>
+    <string name="label_month">মাস:</string>
+    <string name="action_apply">প্রয়োগ করুন</string>
+
+    <string name="placeholder_search_description">বিবরণ দিয়ে খুঁজুন...</string>
+    <string name="placeholder_filtered_by_date">তারিখ অনুযায়ী ফিল্টার করা</string>
+    <string name="title_all_transactions">সব লেনদেন</string>
+    <string name="btn_close">বন্ধ করুন</string>
+    <string name="btn_minimize">ছোট করুন</string>
+
+    <string name="title_category_analytics">ক্যাটেগরি ভিত্তিক বিশ্লেষণ</string>
+    <string name="tab_income">আয়</string>
+    <string name="tab_expense">ব্যয়</string>
+
+    <string name="label_total_income_colon">মোট আয়: </string>
+    <string name="label_total_expense_colon">মোট ব্যয়: </string>
+    <string name="label_no_data_available">কোনো তথ্য পাওয়া যায়নি</string>
+    <string name="label_category_distribution">ক্যাটেগরি ভিত্তিক বণ্টন</string>
+
+    <string name="label_percentage_of_total">মোটের %1$s%%</string>
+    <string name="label_target_100">লক্ষ্য ১০০%</string>
+
+    <!--About Screen-->
+    <string name="menu_about">অ্যাপ সম্পর্কে</string>
+    <string name="about_description">ডেইলই এক্সপেন্স আপনার অর্থ ব্যবস্থাপনাকে সহজ করে তোলে। শক্তিশালী চার্ট এবং রিপোর্টের মাধ্যমে আপনার আয়-ব্যয় ট্র্যাক করুন এবং অর্থনৈতিক অভ্যাস বিশ্লেষণ করুন।</string>
+    <string name="feature_1">✔ আয় ও ব্যয়ের বিস্তারিত ট্র্যাকিং</string>
+    <string name="feature_2">✔ আকর্ষণীয় ক্যাটাগরি চার্ট</string>
+    <string name="feature_3">✔ ক্যালকুলেটর টুলস</string>
+    <string name="feature_4">✔ বহুভাষী সাপোর্ট (বাংলা, ইংরেজি, হিন্দি)</string>
+    <string name="feature_5">✔ অন্যদের সাথে আয় ব্যয়ের হিসাব শেয়ার করার সুবিধা</string>
+    <string name="feature_6">✔ এক্সেল (Excel) শীট হিসেবে রিপোর্ট ডাউনলোড</string>
+    <string name="label_app_version">অ্যাপ ভার্সন: </string>
+    <string name="label_developer">ডেভেলপার</string>
+    <string name="dev_name">শুভ রঞ্জন ঋষি</string>
+    <string name="dev_brand">দ্য ঋষি ডেভেলপার</string>
+    <string name="dev_email">therishideveloper95@gmail.com</string>
+    <string name="label_main_menu">প্রধান মেনু</string>
+    <string name="label_settings">সেটিংস ও টুলস</string>
+    <string name="label_help">সহায়তা</string>
+    <string name="label_more">সাপোর্ট ও পরিচিতি</string>
+    <string name="share_text">আপনার দৈনন্দিন আয়-ব্যয় সহজে পরিচালনা করতে এই চমৎকার Daily Expense অ্যাপটি ব্যবহার করুন! ডাউনলোড লিঙ্ক: </string>
+
+    <!--Backup Screen-->
+    <string name="backup_top_title">ব্যাকআপ এবং রিস্টোর</string>
+    <string name="backup_title">আপনার তথ্য সুরক্ষিত রাখুন</string>
+    <string name="backup_subtitle">আর্থিক রেকর্ড নিরাপদ এবং বহনযোগ্য রাখুন</string>
+    <string name="btn_export">ব্যাকআপ ফাইল এক্সপোর্ট করুন</string>
+    <string name="btn_import">ডেটা রিস্টোর করুন</string>
+    <string name="label_instructions">নির্দেশাবলী</string>
+    <string name="inst_1">ব্যাকআপ ফাইলগুলো \'Download/Daily Expense/Backup\' ফোল্ডারে সংরক্ষিত থাকে।</string>
+    <string name="inst_2">একই দিনের নতুন ব্যাকআপ আগের ব্যাকআপকে প্রতিস্থাপন করবে।</string>
+    <string name="inst_3">অতিরিক্ত নিরাপত্তার জন্য ফাইলটি ক্লাউড স্টোরেজে আপলোড করুন।</string>
+    <string name="label_why_backup">কেন ব্যাকআপ ব্যবহার করবেন?</string>
+    <string name="why_1">ফোন নষ্ট বা ফ্যাক্টরি রিসেট হলেও ডেটা হারানোর ভয় নেই।</string>
+    <string name="why_2">সহজেই আপনার নতুন অ্যান্ড্রয়েড ডিভাইসে ডেটা স্থানান্তর করুন।</string>
+    <string name="why_3">আপনার অফলাইন রেকর্ডগুলো স্থায়ীভাবে সুরক্ষিত রাখুন।</string>
+    <string name="restore_confirm_title">রিস্টোর নিশ্চিতকরণ</string>
+    <string name="restore_confirm_msg">সতর্কতা: ডেটা রিস্টোর করলে বর্তমানের সব রেকর্ড মুছে গিয়ে ব্যাকআপ ফাইল থেকে নতুন ডেটা যুক্ত হবে। আপনি কি এগিয়ে যেতে চান?</string>
+    <string name="btn_yes_restore">হ্যাঁ, রিস্টোর করুন</string>
+    <string name="msg_backup_failed">ব্যাকআপ ব্যর্থ হয়েছে!</string>
+    <string name="msg_restore_success">ডেটা সফলভাবে রিস্টোর করা হয়েছে!</string>
+
+    <!--Category-->
+    <string name="cat_guide">ক্যাটাগরি গাইড</string>
+    <string name="back">ফিরে যান</string>
+
+    <string name="section_income">💰 আয় বা জমা সেকশন</string>
+    <string name="section_structural">🏗️ কাঠামো বা মূল উপকরণ</string>
+    <string name="section_labor">👷 শ্রম ও সেবা</string>
+    <string name="section_finishing">✨ ফিনিশিং বা সাজ-সজ্জা</string>
+    <string name="section_miscellaneous">📦 বিবিধ খরচ</string>
+
+    <string name="cat_savings">নিজস্ব সঞ্চয়</string>
+    <string name="cat_bank_loan">ব্যাংক লোন</string>
+    <string name="cat_relative_loan">আত্মীয়র কাছ থেকে ঋণ</string>
+    <string name="cat_invest">পার্টনার ইনভেস্টমেন্ট</string>
+    <string name="cat_others_income">অন্যান্য আয়</string>
+
+    <string name="cat_rod">রড / স্টিল</string>
+    <string name="cat_cement">সিমেন্ট</string>
+    <string name="cat_bricks">ইট / ব্লক</string>
+    <string name="cat_sand">বালু</string>
+    <string name="cat_stone">পাথর / খোয়া</string>
+
+    <string name="cat_mason">রাজমিস্ত্রি</string>
+    <string name="cat_shuttering">শাটারিং</string>
+    <string name="cat_excavation">মাটি কাটা</string>
+    <string name="cat_engineer">ইঞ্জিনিয়ার ফি</string>
+
+    <string name="cat_tiles">টাইলস ও মার্বেল</string>
+    <string name="cat_paint">রঙ</string>
+    <string name="cat_electric">ইলেকট্রিক</string>
+    <string name="cat_plumbing">প্লাম্বিং</string>
+    <string name="cat_doors">দরজা ও জানালা</string>
+
+    <string name="cat_transport">পরিবহন ভাড়া</string>
+    <string name="cat_utility">ইউটিলিটি বিল</string>
+    <string name="cat_legal">অনুমতি ও আইনি ফি</string>
+    <string name="cat_security">নিরাপত্তা প্রহরী</string>
+    <string name="cat_others_expense">অন্যান্য খরচ</string>
+
+    <string name="desc_savings">আপনার জমানো টাকা যা বাড়ি তৈরিতে খরচ হচ্ছে।</string>
+    <string name="desc_bank_loan">বাড়ি তৈরির জন্য ব্যাংক থেকে নেওয়া ঋণের টাকা।</string>
+    <string name="desc_invest">পার্টনার বা অংশীদারের দেওয়া বিনিয়োগকৃত টাকা।</string>
+    <string name="desc_relative_loan">বন্ধু বা আত্মীয়ের কাছ থেকে ধার নেওয়া টাকা।</string>
+    <string name="desc_others_income">অন্যান্য উৎস থেকে আসা বাড়তি টাকা।</string>
+
+    <string name="desc_rod">ফাউন্ডেশন, বিম এবং ছাদ ঢালাইয়ের রডের খরচ।</string>
+    <string name="desc_cement">ঢালাই, গাঁথুনি এবং প্লাস্টারের সিমেন্টের খরচ।</string>
+    <string name="desc_bricks">দেয়াল তৈরি বা খোয়া বানানোর ইট বা ব্লকের খরচ।</string>
+    <string name="desc_sand">ভরাট এবং ঢালাইয়ের কাজে ব্যবহৃত বালুর খরচ।</string>
+    <string name="desc_stone">ঢালাইয়ের জন্য কেনা পাথর বা ইটের খোয়ার খরচ।</string>
+
+    <string name="desc_mason">রাজমিস্ত্রি ও শ্রমিকদের মজুরি বা কন্টাক্টরের পেমেন্ট।</string>
+    <string name="desc_shuttering">ঢালাইয়ের জন্য কাঠ বা বাঁশের ফ্রেম ভাড়ার খরচ।</string>
+    <string name="desc_excavation">ফাউন্ডেশনের জন্য মাটি কাটার শ্রমিকের খরচ।</string>
+    <string name="desc_engineer">বাড়ির নকশা ও তদারকির জন্য ইঞ্জিনিয়ারের ফি।</string>
+
+    <string name="desc_tiles">মেঝের টাইলস, মার্বেল বা পাথরের যাবতীয় খরচ।</string>
+    <string name="desc_paint">দেয়ালের রঙ, পুটি এবং মিস্ত্রির মজুরি।</string>
+    <string name="desc_electric">তার, সুইচ, লাইট ও ইলেকট্রিক মিস্ত্রির খরচ।</string>
+    <string name="desc_plumbing">পাইপ, বেসিন, কমোড ও বাথরুম ফিটিংসের খরচ।</string>
+    <string name="desc_doors">দরজা ও জানালা তৈরি বা লাগানোর যাবতীয় খরচ।</string>
+
+    <string name="desc_transport">মালামাল সাইটে আনার ট্রাক বা কুলি ভাড়া।</string>
+    <string name="desc_utility">কাজ চলাকালীন পানি ও বিদ্যুতের মাসিক বিল।</string>
+    <string name="desc_legal">প্ল্যান পাস ও অনুমোদনের সরকারি বা আইনি ফি।</string>
+    <string name="desc_security">সাইট পাহারার জন্য গার্ডের বেতন বা সুরক্ষা খরচ।</string>
+    <string name="desc_others_expense">তালিকায় নেই এমন যেকোনো ছোটখাটো খরচ।</string>
+
+</resources>
