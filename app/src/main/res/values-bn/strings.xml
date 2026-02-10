@@ -13,6 +13,8 @@
     <string name="menu_note">নোট রাখুন</string>
     <string name="menu_all_transactions">সব লেনদেন</string>
     <string name="menu_category_chart">ক্যাটেগরি চার্ট</string>
+    <string name="menu_construction_plan">নির্মাণ পরিকল্পনা</string>
+    <string name="label_stages">নির্মাণ পর্যায়সমূহ</string>
 
     <!--Home Screen-->
     <string name="home_title">হোম</string>
@@ -262,5 +264,76 @@
     <string name="desc_legal">প্ল্যান পাস ও অনুমোদনের সরকারি বা আইনি ফি।</string>
     <string name="desc_security">সাইট পাহারার জন্য গার্ডের বেতন বা সুরক্ষা খরচ।</string>
     <string name="desc_others_expense">তালিকায় নেই এমন যেকোনো ছোটখাটো খরচ।</string>
+
+    <!--Budget, Estimation, Construction Stage-->
+    <string name="label_add_stage">নতুন ধাপ যোগ করুন</string>
+    <string name="select_work_stage">কাজের ধাপ নির্বাচন করুন</string>
+    <string name="stage_name">ধাপের নাম</string>
+    <string name="estimated_budget">এই ধাপের আনুমানিক বাজেট</string>
+    <string name="budget_taka">বাজেট (টাকা)</string>
+    <string name="select_timeframe">সময়সীমা নির্ধারণ করুন</string>
+    <string name="start_date">শুরুর তারিখ</string>
+    <string name="end_date">শেষের তারিখ</string>
+    <string name="save_stage">ধাপটি সেভ করুন</string>
+    <string name="total_days_needed">%s দিন</string>
+    <string name="label_total_days_needed">মোট সময় লাগবে: %d দিন</string>
+
+    <string name="stage_foundation">ফাউন্ডেশন (ভিত্তি)</string>
+    <string name="stage_short_column">শর্ট কলাম ও সেফটি ট্যাংক</string>
+    <string name="stage_grade_beam">গ্রেড বিম ও ফ্লোর</string>
+    <string name="stage_column">কলাম (Column)</string>
+    <string name="stage_slab">বিম এবং ছাদ ঢালাই</string>
+    <string name="stage_brick_plaster">গাঁথুনি ও প্লাস্টার</string>
+    <string name="stage_finishing">ফিনিশিং কাজ</string>
+    <string name="stage_others">অন্যান্য</string>
+
+    <string name="desc_foundation">মাটি কাটা এবং বেইস ঢালাইয়ের কাজ</string>
+    <string name="desc_short_column">গ্রেড বিম পর্যন্ত কলাম ও সেফটি ট্যাংক</string>
+    <string name="desc_grade_beam">গ্রেড বিম ঢালাই এবং নিচ তলার ফ্লোর</string>
+    <string name="desc_column">ছাদ পর্যন্ত কলাম উঠানোর কাজ</string>
+    <string name="desc_slab">Roof Slab এবং বিম ঢালাইয়ের কাজ</string>
+    <string name="desc_brick_plaster">ইটের দেয়াল গাঁথুনি এবং প্লাস্টার</string>
+    <string name="desc_finishing">টাইলস, রঙ, ইলেকট্রিক ও প্লাম্বিং</string>
+    <string name="desc_others">নির্মাণ সংশ্লিষ্ট অন্যান্য বিবিধ কাজ</string>
+
+    <string name="err_fill_all">দয়া করে একটি ধাপ নির্বাচন করুন এবং সঠিক বাজেট দিন।</string>
+
+    <string name="total_allocated_budget">মোট বরাদ্দ</string>
+    <string name="total_duration">মোট সময়সীমা</string>
+    <string name="no_stages_added">কোনো ধাপ যোগ করা হয়নি।\nশুরু করতে + বাটনে ক্লিক করুন।</string>
+    <string name="title_project_setup">প্রজেক্ট সেটআপ</string>
+    <string name="hint_project_info">আপনার স্বপ্নের বাড়ির তথ্য দিন</string>
+    <string name="label_house_name">বাড়ির নাম (যেমন: স্বপ্ন নীড়)</string>
+    <string name="label_total_budget_taka">মোট বাজেট (টাকা)</string>
+    <string name="label_project_timeline">প্রজেক্টের আনুমানিক সময়সীমা</string>
+    <string name="label_start_date">শুরুর তারিখ</string>
+    <string name="label_end_date">সম্ভাব্য শেষের তারিখ</string>
+    <string name="btn_start">শুরু করুন</string>
+    <string name="err_invalid_input">দয়া করে সঠিক তথ্য দিন</string>
+
+    <string name="year">বছর</string>
+    <string name="month">মাস</string>
+    <string name="day">দিন</string>
+    <string name="days">দিন</string>
+
+    <string name="label_default_project_name">আমার বাড়ি</string>
+    <string name="label_address">ঠিকানা</string>
+    <string name="label_stages_title">নির্মাণ পর্যায়সমূহ</string>
+    <string name="label_stages_subtitle">ধাপ অনুযায়ী বাজেট ও সময় দেখুন</string>
+    <string name="label_total_budget">মোট বাজেট</string>
+    <string name="label_allocated_amount">বরাদ্দকৃত অর্থ</string>
+    <string name="label_duration">সময়কাল</string>
+
+    <string name="label_master_budget">মাস্টার বাজেট</string>
+    <string name="label_total_duration">মোট সময়সীমা</string>
+    <string name="label_allocated_cost">বরাদ্দ খরচ: %s</string>
+    <string name="label_allocated_time">বরাদ্দ সময়: %s</string>
+
+    <string name="msg_warning_both">⚠️ বাজেট ও সময়সীমা অতিক্রম করেছে!</string>
+    <string name="msg_warning_budget">⚠️ বাজেট অতিক্রম করেছে!</string>
+    <string name="msg_warning_time">⚠️ নির্ধারিত সময়সীমা অতিক্রম করেছে!</string>
+
+    <string name="status_completed">সম্পন্ন</string>
+    <string name="status_pending">চলমান</string>
 
 </resources>

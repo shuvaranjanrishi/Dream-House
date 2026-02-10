@@ -64,7 +64,6 @@ fun AllTransactionScreen(
     var selectedDate by remember { mutableStateOf<Long?>(null) }
     var selectedTransactionForDetail by remember { mutableStateOf<Transaction?>(null) }
     var showDetailSheet by remember { mutableStateOf(false) }
-    var showConfirmDialog by remember { mutableStateOf(false) }
 
     // --- Dynamic Categories Logic using Enum ---
     val currentCategories = remember(selectedTab) {

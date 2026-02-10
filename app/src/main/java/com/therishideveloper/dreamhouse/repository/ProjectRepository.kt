@@ -1,0 +1,17 @@
+package com.therishideveloper.dreamhouse.repository
+
+import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
+import com.therishideveloper.dreamhouse.data.entity.StageEntity
+import kotlinx.coroutines.flow.Flow
+
+interface ProjectRepository {
+    // Project operations
+    suspend fun insertProject(project: ProjectEntity): Long
+    fun getProjectById(projectId: Int): Flow<ProjectEntity?>
+
+    // Stage operations
+    suspend fun insertStage(stage: StageEntity)
+    fun getStagesForProject(projectId: Int): Flow<List<StageEntity>>
+    fun getTotalAllocatedBudget(projectId: Int): Flow<Double?>
+    suspend fun deleteStage(stage: StageEntity)
+}

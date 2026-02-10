@@ -15,7 +15,7 @@ import java.util.Locale
 
 class BackupHelper(private val context: Context) {
 
-    val backupFolder = "Daily Expense/Backup"
+    val backupFolder = "Dream House/Backup"
 
     fun createBackup(backupData: AppBackupData): Uri? {
         return try {
@@ -27,7 +27,7 @@ class BackupHelper(private val context: Context) {
             if (!root.exists()) root.mkdirs()
 
             val timeStamp = SimpleDateFormat("yyyy_MM_dd", Locale.US).format(Date())
-            val fileName = "DailyExpense_Backup_$timeStamp.json"
+            val fileName = "DreamHouse_Backup_$timeStamp.json"
             val file = File(root, fileName)
 
             file.writeText(jsonData)

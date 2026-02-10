@@ -13,6 +13,8 @@
     <string name="menu_note">नोट लिखें</string>
     <string name="menu_all_transactions">सभी लेनदेन</string>
     <string name="menu_category_chart">कैटेगरी चार्ट</string>
+    <string name="menu_construction_plan">निर्माण योजना</string>
+    <string name="label_stages">निर्माण के चरण</string>
 
     <!--Home Screen-->
     <string name="home_title">होम</string>
@@ -259,5 +261,76 @@
     <string name="desc_legal">प्लान पास और परमिट के लिए सरकारी या कानूनी शुल्क।</string>
     <string name="desc_security">साइट गार्ड का वेतन या सुरक्षा घेरे की लागत।</string>
     <string name="desc_others_expense">कोई भी छोटा खर्च जो ऊपर सूचीबद्ध नहीं है।</string>
+
+    <!--Budget, Estimation, Construction Stage-->
+    <string name="label_add_stage">नया चरण जोड़ें</string>
+    <string name="select_work_stage">कार्य चरण चुनें</string>
+    <string name="stage_name">चरण का नाम</string>
+    <string name="estimated_budget">इस चरण के लिए अनुमानित बजट</string>
+    <string name="budget_taka">बजट (राशि)</string>
+    <string name="select_timeframe">समय सीमा चुनें</string>
+    <string name="start_date">शुरू होने की तारीख</string>
+    <string name="end_date">समाप्ति की तारीख</string>
+    <string name="save_stage">चरण सहेजें</string>
+    <string name="total_days_needed">%s दिन</string>
+    <string name="label_total_days_needed">कुल आवश्यक समय: %d दिन</string>
+
+    <string name="stage_foundation">फाउंडेशन (नींव)</string>
+    <string name="stage_short_column">शॉर्ट कॉलम और सेफ्टी टैंक</string>
+    <string name="stage_grade_beam">ग्रेड बीम और फर्श</string>
+    <string name="stage_column">कॉलम (खंभा)</string>
+    <string name="stage_slab">बीम और छत की ढलाई</string>
+    <string name="stage_brick_plaster">ईंटों की चिनाई और प्लास्टर</string>
+    <string name="stage_finishing">फिनिशिंग का काम</string>
+    <string name="stage_others">अन्य</string>
+
+    <string name="desc_foundation">खुदाई और बेस ढलाई का कार्य</string>
+    <string name="desc_short_column">ग्रेड बीम और सेप्टिक टैंक तक कॉलम</string>
+    <string name="desc_grade_beam">ग्रेड बीम ढलाई और ग्राउंड फ्लोर का काम</string>
+    <string name="desc_column">छत के स्तर तक कॉलम उठाना</string>
+    <string name="desc_slab">रूफ स्लैब और बीम ढलाई का कार्य</string>
+    <string name="desc_brick_plaster">दीवार बनाना और प्लास्टर करना</string>
+    <string name="desc_finishing">टाइल्स, पेंट, बिजली और प्लंबिंग</string>
+    <string name="desc_others">विविध निर्माण कार्य</string>
+
+    <string name="err_fill_all">कृपया एक चरण चुनें और सही बजट दर्ज करें।</string>
+
+    <string name="total_allocated_budget">कुल आवंटित बजट</string>
+    <string name="total_duration">कुल अवधि</string>
+    <string name="no_stages_added">अभी तक कोई चरण नहीं जोड़ा गया है।\nशुरू करने के लिए + दबाएं।</string>
+    <string name="title_project_setup">प्रोजेक्ट सेटअप</string>
+    <string name="hint_project_info">अपने सपनों के घर की जानकारी दें</string>
+    <string name="label_house_name">घर का नाम (जैसे: सपनों का घर)</string>
+    <string name="label_total_budget_taka">कुल बजट (राशि)</string>
+    <string name="label_project_timeline">अनुमानित प्रोजेक्ट समयरेखा</string>
+    <string name="label_start_date">शुरू होने की तारीख</string>
+    <string name="label_end_date">संभावित समाप्ति तिथि</string>
+    <string name="btn_start">शुरू करें</string>
+    <string name="err_invalid_input">कृपया सही जानकारी दें</string>
+
+    <string name="year">वर्ष</string>
+    <string name="month">महीना</string>
+    <string name="day">दिन</string>
+    <string name="days">दिन</string>
+
+    <string name="label_default_project_name">मेरा घर</string>
+    <string name="label_address">पता</string>
+    <string name="label_stages_title">निर्माण के चरण</string>
+    <string name="label_stages_subtitle">चरण के अनुसार बजट और समय देखें</string>
+    <string name="label_total_budget">कुल बजट</string>
+    <string name="label_allocated_amount">आवंटিত राशि</string>
+    <string name="label_duration">अवधि</string>
+
+    <string name="label_master_budget">मास्टर बजट</string>
+    <string name="label_total_duration">कुल अवधि</string>
+    <string name="label_allocated_cost">आवंटित लागत: %s</string>
+    <string name="label_allocated_time">आवंटित समय: %s</string>
+
+    <string name="msg_warning_both">⚠️ बजट और समय सीमा पार हो गई है!</string>
+    <string name="msg_warning_budget">⚠️ बजट पार हो गया है!</string>
+    <string name="msg_warning_time">⚠️ समय सीमा पार हो गई है!</string>
+
+    <string name="status_completed">पूरा हुआ</string>
+    <string name="status_pending">लंबित</string>
 
 </resources>

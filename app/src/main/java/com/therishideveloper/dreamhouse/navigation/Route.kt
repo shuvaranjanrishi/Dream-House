@@ -3,12 +3,14 @@ package com.therishideveloper.dreamhouse.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ContactSupport
 import androidx.compose.material.icons.automirrored.outlined.ContactSupport
+import androidx.compose.material.icons.filled.Architecture
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.Architecture
 import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.ContactSupport
@@ -16,6 +18,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Share
+import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.model.NavItem
 
 enum class Screens(val route: String) {
@@ -31,29 +34,43 @@ enum class Screens(val route: String) {
     AddExpenseScreen("add_expense_screen"),
     ShareAppScreen("share_app"),
     AboutScreen("about_screen"),
-    CategoryManualScreen("cat_manual_screen")
+    CategoryManualScreen("cat_manual_screen"),
+    ProjectSetupScreen("project_setup_screen"),
+    ConstructionStageScreen("construction_stage_screen"),
+    AddStageScreen("add_stage_screen"),
+    ProjectOverviewScreen("project_overview_screen")
 }
 
 val listOfNavItems = listOf(
     // Main Section
     NavItem(
-        "Home",
+        1,
+        R.string.menu_home,
         "Main",
         Icons.Filled.Home,
         Icons.Outlined.Home,
         Screens.HomeScreen.route
     ),
-
+    NavItem(
+        2,
+        R.string.menu_construction_plan,
+        "Main",
+        Icons.Filled.Architecture,
+        Icons.Outlined.Architecture,
+        Screens.ProjectOverviewScreen.route
+    ),
     // Settings Section
     NavItem(
-        "Language",
+        3,
+        R.string.menu_language,
         "Settings",
         Icons.Filled.Language,
         Icons.Outlined.Language,
         Screens.LanguageScreen.route
     ),
     NavItem(
-        "Backup",
+        4,
+        R.string.menu_backup,
         "Settings",
         Icons.Filled.Backup,
         Icons.Outlined.Backup,
@@ -61,7 +78,8 @@ val listOfNavItems = listOf(
     ),
     // Help Section
     NavItem(
-        "Category Guide",
+        5,
+        R.string.cat_guide,
         "Help",
         Icons.Filled.Category,
         Icons.Outlined.Category,
@@ -69,14 +87,16 @@ val listOfNavItems = listOf(
     ),
     // More Section
     NavItem(
-        "Share App",
+        6,
+        R.string.menu_share,
         "More",
         Icons.Filled.Share,
         Icons.Outlined.Share,
         Screens.ShareAppScreen.route
     ),
     NavItem(
-        "About",
+        7,
+        R.string.menu_about,
         "More",
         Icons.Filled.Info,
         Icons.Outlined.Info,

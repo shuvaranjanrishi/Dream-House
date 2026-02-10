@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.component.ActionButton
 import com.therishideveloper.dreamhouse.component.CalculatorDialog
+import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.CurrentBalance
 import com.therishideveloper.dreamhouse.component.SolidPieChart
 import com.therishideveloper.dreamhouse.component.SummaryClickableRow
@@ -86,16 +87,7 @@ fun HomeScreen(
                 actions = { CurrentBalance(currentBalance.toString()) }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { showCalculator = true },
-                containerColor = tealColor,
-                contentColor = Color.White,
-                modifier = Modifier.padding(bottom = 16.dp, end = 8.dp)
-            ) {
-                Icon(Icons.Default.Calculate, null, modifier = Modifier.size(30.dp))
-            }
-        }
+        floatingActionButton = { CalculatorFab() }
 
     ) { padding ->
         Column(

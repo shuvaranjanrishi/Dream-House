@@ -5,11 +5,15 @@ import android.content.Context
 import androidx.room.Room
 import com.therishideveloper.dreamhouse.data.database.AppDatabase
 import com.therishideveloper.dreamhouse.data.dao.NoteDao // Dao import করুন
+import com.therishideveloper.dreamhouse.data.dao.ProjectDao
+import com.therishideveloper.dreamhouse.data.dao.StageDao
 import com.therishideveloper.dreamhouse.data.dao.TransactionDao
 import com.therishideveloper.dreamhouse.domain.repository.NoteRepository
 import com.therishideveloper.dreamhouse.domain.repository.NoteRepositoryImpl
 import com.therishideveloper.dreamhouse.domain.repository.TransactionRepository
 import com.therishideveloper.dreamhouse.domain.repository.TransactionRepositoryImpl
+import com.therishideveloper.dreamhouse.repository.ProjectRepository
+import com.therishideveloper.dreamhouse.repository.ProjectRepositoryImpl
 import com.therishideveloper.dreamhouse.util.BackupHelper
 import dagger.Module
 import dagger.Provides
@@ -29,7 +33,8 @@ object AppModule {
             app,
             AppDatabase::class.java,
             "daily_expense_db"
-        ).build()
+        )
+            .build()
     }
 
     @Provides
@@ -50,6 +55,21 @@ object AppModule {
     @Singleton
     fun provideNoteRepository(dao: NoteDao): NoteRepository {
         return NoteRepositoryImpl(dao)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideProjectDao(db: AppDatabase): ProjectDao = db.projectDao()
+
+    @Provides
+    @Singleton
+    fun provideStageDao(db: AppDatabase): StageDao = db.stageDao()
+
+    @Provides
+    @Singleton
+    fun provideProjectRepository(dao: ProjectDao, stageDao: StageDao): ProjectRepository {
+        return ProjectRepositoryImpl(dao, stageDao)
     }
 
     @Provides

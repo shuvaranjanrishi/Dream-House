@@ -16,27 +16,74 @@ import com.therishideveloper.dreamhouse.data.model.TransactionType
 import com.therishideveloper.dreamhouse.screen.AboutScreen
 import com.therishideveloper.dreamhouse.screen.AddEditExpenseScreen
 import com.therishideveloper.dreamhouse.screen.AddEditIncomeScreen
+import com.therishideveloper.dreamhouse.screen.AddStageScreen
 import com.therishideveloper.dreamhouse.screen.AllTransactionScreen
 import com.therishideveloper.dreamhouse.screen.LanguageScreen
 import com.therishideveloper.dreamhouse.screen.BackupScreen
 import com.therishideveloper.dreamhouse.screen.CategoryChartScreen
+import com.therishideveloper.dreamhouse.screen.ConstructionStageScreen
 import com.therishideveloper.dreamhouse.screen.HomeScreen
 import com.therishideveloper.dreamhouse.screen.TransactionListScreen
 import com.therishideveloper.dreamhouse.screen.NoteScreen
 import com.therishideveloper.dreamhouse.screen.IncomeExpenseScreen
+import com.therishideveloper.dreamhouse.screen.ProjectOverviewScreen
+import com.therishideveloper.dreamhouse.screen.ProjectSetupScreen
 import com.therishideveloper.dreamhouse.screen.manual.CategoryManualScreen
 import com.therishideveloper.dreamhouse.viewmodel.DownloadViewModel
 import com.therishideveloper.dreamhouse.viewmodel.NoteViewModel
+import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
 
 @Composable
-fun AppNavigation(navController: NavHostController, onOpenDrawer: () -> Unit) {
+fun AppNavigation(
+    navController: NavHostController,
+    onOpenDrawer: () -> Unit,
+    startDestination: String
+) {
 
     val transactionViewModel: TransactionViewModel = hiltViewModel()
     val noteViewModel: NoteViewModel = hiltViewModel()
     val downloadViewModel: DownloadViewModel = hiltViewModel()
+    val projectViewModel: ProjectViewModel = hiltViewModel()
 
-    NavHost(navController = navController, startDestination = Screens.HomeScreen.route) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(Screens.ProjectSetupScreen.route) {
+            ProjectSetupScreen(
+                viewModel = projectViewModel,
+                onProjectSaved = {
+                    navController.navigate(Screens.HomeScreen.route) {
+                        popUpTo(Screens.ProjectSetupScreen.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+        // ৩. কনস্ট্রাকশন স্টেজ লিস্ট স্ক্রিন
+        composable(Screens.ConstructionStageScreen.route) {
+            // এই স্ক্রিনটি আমরা পরে ডিজাইন করব
+            ConstructionStageScreen(
+                onBack = { navController.popBackStack() },
+                onAddStage = { navController.navigate(Screens.AddStageScreen.route) },
+                viewModel = projectViewModel
+            )
+        }
+
+        // ৪. নতুন স্টেজ অ্যাড করার স্ক্রিন
+        composable(Screens.AddStageScreen.route) {
+            AddStageScreen(
+                onBack = { navController.popBackStack() },
+                viewModel = projectViewModel
+            )
+        }
+        composable(Screens.ProjectOverviewScreen.route) {
+            ProjectOverviewScreen(
+                onMenuClick = onOpenDrawer,
+                navController = navController,
+                viewModel = projectViewModel
+            )
+        }
         composable(Screens.HomeScreen.route) {
             HomeScreen(
                 navController = navController,

@@ -151,37 +151,11 @@ class TransactionViewModel @Inject constructor(
                     transactionRepo.deleteAllTransactions()
                     noteRepo.deleteAllNotes()
                     backupData.transactions.forEach { transactionRepo.insert(it) }
-                    backupData.notes.forEach { noteRepo.insertNote(it) } // আপনার নোট ইনসার্ট ফাংশন
+                    backupData.notes.forEach { noteRepo.insertNote(it) }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-//
-//    fun exportBackup(onResult: (Uri?) -> Unit) {
-//        viewModelScope.launch {
-//            try {
-//                val transactions = repository.getAllTransactionsList()
-//                val uri = backupHelper.createBackup(transactions)
-//                onResult(uri)
-//            } catch (e: Exception) {
-//                onResult(null)
-//            }
-//        }
-//    }
-//
-//    fun importBackup(uri: Uri) {
-//        viewModelScope.launch {
-//            try {
-//                val transactions = backupHelper.restoreBackup(uri)
-//                if (transactions != null) {
-//                    repository.deleteAllTransactions()
-//                    transactions.forEach { repository.insert(it) }
-//                }
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
 }

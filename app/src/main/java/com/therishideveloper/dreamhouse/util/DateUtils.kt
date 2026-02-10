@@ -126,23 +126,29 @@ object DateUtils {
     fun showDatePicker(
         context: Context,
         initialDate: Long = System.currentTimeMillis(),
+        minDate: Long? = null,
         onDateSelected: (Long) -> Unit
     ) {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = initialDate
         }
 
-        DatePickerDialog(
+        val datePicker = DatePickerDialog(
             context,
             { _, year, month, day ->
                 val selectedCal = Calendar.getInstance().apply {
-                    set(year, month, day)
+                    set(year, month, day, 0, 0, 0)
+                    set(Calendar.MILLISECOND, 0)
                 }
                 onDateSelected(selectedCal.timeInMillis)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
+        )
+        minDate?.let {
+            datePicker.datePicker.minDate = it
+        }
+        datePicker.show()
     }
 }

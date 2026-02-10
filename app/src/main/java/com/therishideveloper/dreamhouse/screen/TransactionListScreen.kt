@@ -1,10 +1,5 @@
 package com.therishideveloper.dreamhouse.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,7 +10,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.component.CalculatorDialog
 import com.therishideveloper.dreamhouse.component.CurrentBalance
+import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.TransactionItem
 import com.therishideveloper.dreamhouse.component.TransactionSummaryCard
 import com.therishideveloper.dreamhouse.data.model.TransactionPeriod
@@ -59,9 +53,6 @@ fun TransactionListScreen(
     var selectedYear by remember { mutableIntStateOf(Calendar.getInstance().get(Calendar.YEAR)) }
 
     var showMonthYearPicker by remember { mutableStateOf(false) }
-    var showCalculator by remember { mutableStateOf(false) }
-    var calcExpr by remember { mutableStateOf("") }
-    var calcRes by remember { mutableStateOf("0") }
 
     val transactions by remember(
         transactionPeriod,
@@ -128,33 +119,6 @@ fun TransactionListScreen(
         }
     }
 
-    val isFabVisible by remember(transactions) {
-        derivedStateOf {
-            val layoutInfo = lazyListState.layoutInfo
-            val visibleItems = layoutInfo.visibleItemsInfo
-
-            if (visibleItems.isEmpty()) {
-                true
-            } else {
-                val lastItem = visibleItems.lastOrNull()
-                val totalItemsCount = layoutInfo.totalItemsCount
-
-                if (lastItem != null && lastItem.index == totalItemsCount - 1) {
-                    val viewportEnd = layoutInfo.viewportEndOffset
-                    val fabTopBoundary = viewportEnd - 250 // বাটনের উপরের সীমানা
-                    val fabBottomBoundary = viewportEnd - 50 // বাটনের নিচের সীমানা
-                    val itemTop = lastItem.offset
-                    val itemBottom = lastItem.offset + lastItem.size
-                    val isOverlapping = itemBottom > fabTopBoundary && itemTop < fabBottomBoundary
-
-                    !isOverlapping
-                } else {
-                    true
-                }
-            }
-        }
-    }
-
     if (showMonthYearPicker) {
         MonthYearPickerDialog(
             type = transactionPeriod,
@@ -166,14 +130,6 @@ fun TransactionListScreen(
                 selectedYear = year
                 showMonthYearPicker = false
             }
-        )
-    }
-
-    if (showCalculator) {
-        CalculatorDialog(
-            initialExpression = calcExpr, initialResult = calcRes,
-            onMinimize = { e, r -> calcExpr = e; calcRes = r; showCalculator = false },
-            onClose = { calcExpr = ""; calcRes = "0"; showCalculator = false }
         )
     }
 
@@ -191,20 +147,10 @@ fun TransactionListScreen(
             )
         },
         floatingActionButton = {
-            AnimatedVisibility(
-                visible = isFabVisible,
-                enter = fadeIn() + scaleIn(),
-                exit = fadeOut() + scaleOut()
-            ) {
-                FloatingActionButton(
-                    onClick = { showCalculator = true },
-                    containerColor = tealColor,
-                    contentColor = Color.White,
-                    modifier = Modifier.padding(bottom = 16.dp, end = 8.dp)
-                ) {
-                    Icon(Icons.Default.Calculate, null, modifier = Modifier.size(30.dp))
-                }
-            }
+            CalculatorFab(
+                lazyListState = lazyListState,
+                isListEmpty = transactions.isEmpty()
+            )
         }
     ) { padding ->
         Column(

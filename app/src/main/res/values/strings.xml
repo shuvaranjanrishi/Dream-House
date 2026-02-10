@@ -13,6 +13,8 @@
     <string name="menu_note">Keep Note</string>
     <string name="menu_all_transactions">All Transactions</string>
     <string name="menu_category_chart">Category Chart</string>
+    <string name="menu_construction_plan">Construction Plan</string>
+    <string name="label_stages">Construction Stages</string>
 
     <!--Home Screen-->
     <string name="home_title">Home</string>
@@ -258,4 +260,74 @@
     <string name="desc_security">Salary for site guards or costs for safety fencing.</string>
     <string name="desc_others_expense">Any small or miscellaneous costs not listed above.</string>
 
+    <!--Budget, Estimation, Construction Stage-->
+    <string name="label_add_stage">Add New Stage</string>
+    <string name="select_work_stage">Select Work Stage</string>
+    <string name="stage_name">Stage Name</string>
+    <string name="estimated_budget">Estimated Budget for this Stage</string>
+    <string name="budget_taka">Budget (Amount)</string>
+    <string name="select_timeframe">Select Timeframe</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="save_stage">Save Stage</string>
+    <string name="total_days_needed">%s Days</string>
+    <string name="label_total_days_needed">Total Days Needed: %d Days</string>
+
+    <string name="stage_foundation">Foundation (Base)</string>
+    <string name="stage_short_column">Short Column &amp; Safety Tank</string>
+    <string name="stage_grade_beam">Grade Beam &amp; Floor</string>
+    <string name="stage_column">Column</string>
+    <string name="stage_slab">Beam &amp; Slab Casting</string>
+    <string name="stage_brick_plaster">Brickwork &amp; Plaster</string>
+    <string name="stage_finishing">Finishing Work</string>
+    <string name="stage_others">Others</string>
+
+    <string name="desc_foundation">Excavation and base casting work</string>
+    <string name="desc_short_column">Columns up to grade beam and septic tank</string>
+    <string name="desc_grade_beam">Grade beam casting and ground floor</string>
+    <string name="desc_column">Raising columns up to the roof level</string>
+    <string name="desc_slab">Roof slab and beam reinforcement/casting</string>
+    <string name="desc_brick_plaster">Wall construction and plastering</string>
+    <string name="desc_finishing">Tiles, Paint, Electrical &amp; Plumbing</string>
+    <string name="desc_others">Miscellaneous construction tasks</string>
+
+    <string name="err_fill_all">Please select a stage and enter a valid budget.</string>
+
+    <string name="total_allocated_budget">Total Allocated</string>
+    <string name="total_duration">Total Duration</string>
+    <string name="no_stages_added">No stages added yet.\nTap + to start.</string>
+    <string name="title_project_setup">Project Setup</string>
+    <string name="hint_project_info">Enter your dream house information</string>
+    <string name="label_house_name">House Name (e.g. My Sweet Home)</string>
+    <string name="label_total_budget_taka">Total Budget (Amount)</string>
+    <string name="label_project_timeline">Estimated Project Timeline</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="label_end_date">Estimated Completion Date</string>
+    <string name="btn_start">Get Started</string>
+    <string name="err_invalid_input">Please provide valid information</string>
+
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="days">Days</string>
+
+    <string name="label_default_project_name">My House</string>
+    <string name="label_address">Address</string>
+    <string name="label_stages_title">Construction Stages</string>
+    <string name="label_stages_subtitle">View budget and time by stage</string>
+    <string name="label_total_budget">Total Budget</string>
+    <string name="label_allocated_amount">Allocated Amount</string>
+    <string name="label_duration">Duration</string>
+
+    <string name="label_master_budget">Master Budget</string>
+    <string name="label_total_duration">Total Duration</string>
+    <string name="label_allocated_cost">Allocated Cost: %s</string>
+    <string name="label_allocated_time">Allocated Time: %s</string>
+
+    <string name="msg_warning_both">⚠️ Budget and Deadline exceeded!</string>
+    <string name="msg_warning_budget">⚠️ Budget exceeded!</string>
+    <string name="msg_warning_time">⚠️ Deadline exceeded!</string>
+
+    <string name="status_completed">COMPLETED</string>
+    <string name="status_pending">PENDING</string>
 </resources>

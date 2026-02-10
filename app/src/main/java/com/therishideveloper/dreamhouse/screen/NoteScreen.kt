@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.component.AddNoteForm
 import com.therishideveloper.dreamhouse.component.CalculatorDialog
+import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.CurrentBalance
 import com.therishideveloper.dreamhouse.component.NoteDisclaimerCard
 import com.therishideveloper.dreamhouse.component.NoteItem
@@ -66,33 +67,6 @@ fun NoteScreen(
     val notes by noteViewModel.notes.collectAsState()
     val currentBalance = transactionViewModel.currentBalance.collectAsStateWithLifecycle()
 
-    val isFabVisible by remember(notes) {
-        derivedStateOf {
-            val layoutInfo = lazyListState.layoutInfo
-            val visibleItems = layoutInfo.visibleItemsInfo
-
-            if (visibleItems.isEmpty()) {
-                true
-            } else {
-                val lastItem = visibleItems.lastOrNull()
-                val totalItemsCount = layoutInfo.totalItemsCount
-
-                if (lastItem != null && lastItem.index == totalItemsCount - 1) {
-                    val viewportEnd = layoutInfo.viewportEndOffset
-                    val fabTopBoundary = viewportEnd - 250 // বাটনের উপরের সীমানা
-                    val fabBottomBoundary = viewportEnd - 50 // বাটনের নিচের সীমানা
-                    val itemTop = lastItem.offset
-                    val itemBottom = lastItem.offset + lastItem.size
-                    val isOverlapping = itemBottom > fabTopBoundary && itemTop < fabBottomBoundary
-
-                    !isOverlapping
-                } else {
-                    true
-                }
-            }
-        }
-    }
-
     val filteredList = when (selectedFilter) {
         NoteType.DEBT.dbKey -> notes.filter { it.type == NoteType.DEBT.dbKey }
         NoteType.RECEIVABLE.dbKey -> notes.filter { it.type == NoteType.RECEIVABLE.dbKey }
@@ -125,21 +99,12 @@ fun NoteScreen(
             )
         },
         floatingActionButton = {
-            AnimatedVisibility(
-                visible = isFabVisible,
-                enter = fadeIn() + scaleIn(),
-                exit = fadeOut() + scaleOut()
-            ) {
-                FloatingActionButton(
-                    onClick = { showCalculator = true },
-                    containerColor = tealColor,
-                    contentColor = Color.White,
-                    modifier = Modifier.padding(bottom = 16.dp, end = 8.dp)
-                ) {
-                    Icon(Icons.Default.Calculate, null, modifier = Modifier.size(30.dp))
-                }
-            }
+            CalculatorFab(
+                lazyListState = lazyListState,
+                isListEmpty = notes.isEmpty()
+            )
         }
+
     ) { padding ->
         Column(
             modifier = Modifier
