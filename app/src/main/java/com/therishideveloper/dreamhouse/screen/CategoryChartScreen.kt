@@ -159,7 +159,7 @@ fun CategoryAnalysisContent(isIncome: Boolean, viewModel: TransactionViewModel) 
                             color = Color.Gray
                         )
                         Text(
-                            stringResource(R.string.currency_symbol) + NumberUtils.formatByLocale(
+                            NumberUtils.formatAmountByLocale(
                                 context,
                                 totalAmount.toString()
                             ),
@@ -331,7 +331,7 @@ fun CategoryStatItem(
                         fontSize = 15.sp
                     )
                     Text(
-                        stringResource(R.string.currency_symbol) + NumberUtils.formatByLocale(
+                        NumberUtils.formatAmountByLocale(
                             context,
                             amount.toString()
                         ), fontWeight = FontWeight.Bold, color = Color.DarkGray

@@ -256,7 +256,7 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
                 modifier = Modifier.padding(horizontal = 8.dp)
             ) {
                 Text(
-                    text = NumberUtils.formatByLocale(context, note.amount.toString()),
+                    text = NumberUtils.formatAmountByLocale(context, note.amount.toString()),
                     color = type.color,
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 16.sp

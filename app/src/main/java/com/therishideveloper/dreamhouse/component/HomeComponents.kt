@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.model.DashboardItem
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.util.NumberUtils
 
 @Composable
 fun MenuGridItem(item: DashboardItem, onItemClick: (String) -> Unit) {
@@ -67,6 +69,7 @@ fun MenuGridItem(item: DashboardItem, onItemClick: (String) -> Unit) {
 
 @Composable
 fun SummaryClickableRow(label: String, amount: String, color: Color, onClick: () -> Unit) {
+    val context = LocalContext.current
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
@@ -80,7 +83,7 @@ fun SummaryClickableRow(label: String, amount: String, color: Color, onClick: ()
         ) {
             Text(text = label, fontWeight = FontWeight.Bold, color = color, fontSize = 13.sp)
             Text(
-                text = stringResource(R.string.currency_symbol) + amount,
+                text = NumberUtils.formatAmountByLocale(context,amount),
                 fontWeight = FontWeight.Bold,
                 fontSize = 13.sp
             )

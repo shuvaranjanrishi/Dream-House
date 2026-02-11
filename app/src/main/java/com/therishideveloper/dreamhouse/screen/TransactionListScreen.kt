@@ -143,7 +143,7 @@ fun TransactionListScreen(
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Color.White)
                     }
                 },
-                actions = { CurrentBalance(currentBalance?.toString() ?: "0.0") }
+                actions = { CurrentBalance(currentBalance.toString()) }
             )
         },
         floatingActionButton = {

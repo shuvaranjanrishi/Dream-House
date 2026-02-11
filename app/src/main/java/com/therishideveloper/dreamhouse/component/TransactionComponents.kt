@@ -27,6 +27,7 @@ import com.therishideveloper.dreamhouse.ui.theme.expenseRed
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
+import java.util.Locale
 
 @Composable
 fun DownloadLoaderDialog() {
@@ -128,12 +129,13 @@ fun TransactionItem(transaction: Transaction) {
                     color = Color.Gray
                 )
             }
-            val formattedAmount = String.format(java.util.Locale.US, "%.2f", transaction.amount)
-            Text(
-                text = (if (isIncome) "+ " else "- ") + stringResource(R.string.currency_symbol) + NumberUtils.formatByLocale(
+            val amount =
+                (if (isIncome) "+ " else "- ") + NumberUtils.formatAmountByLocale(
                     context,
-                    formattedAmount
-                ),
+                    transaction.amount.toString()
+                )
+            Text(
+                text = amount,
                 fontWeight = FontWeight.Bold,
                 color = if (isIncome) tealColor else expenseRed,
                 fontSize = 16.sp
@@ -199,11 +201,12 @@ fun TransactionItemWithActions(
             }
 
             Column(horizontalAlignment = Alignment.End) {
+                val amount = (if (isIncome) "+" else "-") + NumberUtils.formatAmountByLocale(
+                    context,
+                    transaction.amount.toString()
+                )
                 Text(
-                    text = (if (isIncome) "+" else "-") + NumberUtils.formatByLocale(
-                        context,
-                        transaction.amount.toString()
-                    ),
+                    text = amount,
                     color = if (isIncome) tealColor else expenseRed,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp

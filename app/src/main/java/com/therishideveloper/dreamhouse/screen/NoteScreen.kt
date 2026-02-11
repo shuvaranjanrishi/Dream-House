@@ -146,9 +146,8 @@ fun NoteScreen(
                             if (balanceAmount >= 0) stringResource(R.string.label_net_receivable) else stringResource(
                                 R.string.label_net_debt
                             ),
-                            NumberUtils.formatByLocale(
-                                context,
-                                kotlin.math.abs(balanceAmount).toString()
+                            NumberUtils.formatAmountByLocale(
+                                context, balanceAmount.toString()
                             ),
                             if (balanceAmount >= 0) tealColor else expenseRed
                         )
