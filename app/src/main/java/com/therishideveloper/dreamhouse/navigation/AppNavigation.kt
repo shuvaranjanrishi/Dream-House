@@ -79,16 +79,30 @@ fun AppNavigation(
         composable(Screens.ConstructionStageScreen.route) {
             ConstructionStageScreen(
                 onBack = { navController.popBackStack() },
-                onAddStage = { navController.navigate(Screens.AddStageScreen.route) },
+                navController = navController,
                 viewModel = projectViewModel
             )
         }
-        composable(Screens.AddStageScreen.route) {
+        composable(
+            route = Screens.AddStageScreen.route,
+            arguments = listOf(navArgument("stageId") {
+                type = NavType.IntType
+                defaultValue = -1
+            })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("stageId") ?: -1
             AddStageScreen(
+                stageId = if (id == -1) null else id,
                 onBack = { navController.popBackStack() },
                 viewModel = projectViewModel
             )
         }
+//        composable(Screens.AddStageScreen.route) {
+//            AddStageScreen(
+//                onBack = { navController.popBackStack() },
+//                viewModel = projectViewModel
+//            )
+//        }
         composable(Screens.ProjectOverviewScreen.route) {
             ProjectOverviewScreen(
                 onMenuClick = onOpenDrawer,

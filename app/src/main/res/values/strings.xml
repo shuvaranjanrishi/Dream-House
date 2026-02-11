@@ -328,8 +328,10 @@
     <string name="msg_warning_budget">⚠️ Budget exceeded!</string>
     <string name="msg_warning_time">⚠️ Deadline exceeded!</string>
 
-    <string name="status_completed">COMPLETED</string>
-    <string name="status_pending">PENDING</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_ongoing">Ongoing</string>
+    <string name="status_completed">Completed</string>
+    <string name="label_update_status">Update Status</string>
 
     <string name="congratulations">Congratulations!</string>
     <string name="dream_journey_start">Your dream journey begins now.</string>

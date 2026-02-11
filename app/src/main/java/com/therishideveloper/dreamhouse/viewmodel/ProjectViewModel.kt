@@ -4,8 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.therishideveloper.dreamhouse.domain.repository.NoteRepository
-import com.therishideveloper.dreamhouse.data.entity.Note
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -61,17 +59,9 @@ class ProjectViewModel @Inject constructor(
         }
     }
 
-    fun addStage(projectId: Int, name: String, cost: Double, start: Long, end: Long) {
+    fun insertOrUpdateStage(stage: StageEntity) {
         viewModelScope.launch {
-            val newStage = StageEntity(
-                projectId = projectId,
-                stageName = name,
-                estimatedCost = cost,
-                startDate = start,
-                endDate = end,
-                status = "PENDING"
-            )
-            repository.insertStage(newStage)
+            repository.insertOrUpdateStage(stage)
         }
     }
 
@@ -79,5 +69,18 @@ class ProjectViewModel @Inject constructor(
 
     fun getTotalAllocated(projectId: Int): Flow<Double> {
         return repository.getTotalAllocatedBudget(projectId).map { it ?: 0.0 }
+    }
+
+    // শুধুমাত্র স্ট্যাটাস পরিবর্তন করার জন্য (পেন্ডিং/কমপ্লিট)
+    fun updateStageStatus(stageId: Int, newStatus: String) {
+        viewModelScope.launch {
+            // আপনি চাইলে রিপোজিটরিতে আলাদা updateStatus ফাংশন লিখে নিতে পারেন
+            // অথবা পুরনো স্টেজটা নিয়ে এসে শুধু স্ট্যাটাস বদলে সেভ করতে পারেন
+        }
+    }
+
+    // নির্দিষ্ট একটি স্টেজ আইডি দিয়ে খুঁজে বের করা (এডিট মোডের জন্য)
+    fun getStageById(stageId: Int): Flow<StageEntity?> {
+        return repository.getStageById(stageId) // রিপোজিটরিতে এই ফাংশনটি থাকতে হবে
     }
 }

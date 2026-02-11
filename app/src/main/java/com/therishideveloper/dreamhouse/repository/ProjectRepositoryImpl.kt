@@ -17,7 +17,7 @@ class ProjectRepositoryImpl(
     override fun getProjectById(projectId: Int): Flow<ProjectEntity?> =
         projectDao.getProjectById(projectId)
 
-    override suspend fun insertStage(stage: StageEntity) =
+    override suspend fun insertOrUpdateStage(stage: StageEntity) =
         stageDao.insertStage(stage)
 
     override fun getStagesForProject(projectId: Int): Flow<List<StageEntity>> =
@@ -28,4 +28,7 @@ class ProjectRepositoryImpl(
 
     override suspend fun deleteStage(stage: StageEntity) =
         stageDao.deleteStage(stage)
+
+    override fun getStageById(stageId: Int): Flow<StageEntity?> = stageDao.getStageById(stageId)
+
 }

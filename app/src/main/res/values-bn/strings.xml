@@ -333,8 +333,10 @@
     <string name="msg_warning_budget">⚠️ বাজেট অতিক্রম করেছে!</string>
     <string name="msg_warning_time">⚠️ নির্ধারিত সময়সীমা অতিক্রম করেছে!</string>
 
+    <string name="status_pending">পেন্ডিং</string>
+    <string name="status_ongoing">চলমান</string>
     <string name="status_completed">সম্পন্ন</string>
-    <string name="status_pending">চলমান</string>
+    <string name="label_update_status">স্ট্যাটাস আপডেট করুন</string>
 
     <string name="congratulations">অভিনন্দন!</string>
     <string name="dream_journey_start">আপনার স্বপ্নের যাত্রা এখন শুরু হলো।</string>

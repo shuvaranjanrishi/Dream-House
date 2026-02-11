@@ -34,7 +34,7 @@ enum class Screens(val route: String) {
     CategoryManualScreen("cat_manual_screen"),
     ProjectSetupScreen("project_setup_screen?projectId={projectId}"),
     ConstructionStageScreen("construction_stage_screen"),
-    AddStageScreen("add_stage_screen"),
+    AddStageScreen("add_stage_screen?stageId={stageId}"),
     ProjectOverviewScreen("project_overview_screen")
 }
 

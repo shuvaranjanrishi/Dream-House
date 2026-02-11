@@ -21,4 +21,8 @@ interface StageDao {
 
     @Delete
     suspend fun deleteStage(stage: StageEntity)
+
+    // ProjectDao.kt
+    @Query("SELECT * FROM stages WHERE id = :stageId")
+    fun getStageById(stageId: Int): Flow<StageEntity?>
 }

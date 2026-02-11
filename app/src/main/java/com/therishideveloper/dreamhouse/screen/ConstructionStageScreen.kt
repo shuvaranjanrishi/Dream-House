@@ -33,10 +33,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.therishideveloper.dreamhouse.component.CalculatorDialog
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.StageCard
 import com.therishideveloper.dreamhouse.component.formatDuration
+import com.therishideveloper.dreamhouse.navigation.Screens
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
@@ -46,7 +48,7 @@ import kotlin.math.acos
 @Composable
 fun ConstructionStageScreen(
     onBack: () -> Unit,
-    onAddStage: () -> Unit,
+    navController: NavController,
     viewModel: ProjectViewModel
 ) {
     val context = LocalContext.current
@@ -69,7 +71,9 @@ fun ConstructionStageScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onAddStage) {
+                    IconButton(onClick = {
+                        navController.navigate(Screens.AddStageScreen.route)
+                    }) {
                         Icon(
                             Icons.Default.Add,
                             null,
@@ -118,10 +122,6 @@ fun ConstructionStageScreen(
                                 color = Color.Gray
                             )
                             Text(
-//                                text = stringResource(R.string.currency_symbol) + NumberUtils.formatByLocale(
-//                                    LocalContext.current,
-//                                    totalAllocated.toString()
-//                                ),
                                 text = NumberUtils.formatAmountByLocale(
                                     context,
                                     totalAllocated.toString()
@@ -180,7 +180,9 @@ fun ConstructionStageScreen(
                         StageCard(
                             index = index + 1,
                             stage = stage,
-                            onClick = { /* Edit logic */ }
+                            onClick = {
+                                navController.navigate("add_stage_screen?stageId=${stage.id}")
+                            }
                         )
                     }
                 }

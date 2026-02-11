@@ -10,8 +10,9 @@ interface ProjectRepository {
     fun getProjectById(projectId: Int): Flow<ProjectEntity?>
 
     // Stage operations
-    suspend fun insertStage(stage: StageEntity)
+    suspend fun insertOrUpdateStage(stage: StageEntity)
     fun getStagesForProject(projectId: Int): Flow<List<StageEntity>>
     fun getTotalAllocatedBudget(projectId: Int): Flow<Double?>
     suspend fun deleteStage(stage: StageEntity)
+    fun getStageById(stageId: Int): Flow<StageEntity?>
 }

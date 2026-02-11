@@ -5,17 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,7 +36,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.DateSelectionRow
 import com.therishideveloper.dreamhouse.component.showToast
+import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import com.therishideveloper.dreamhouse.data.model.ConstructionStage
+import com.therishideveloper.dreamhouse.data.model.StageStatus
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 
@@ -43,6 +46,7 @@ import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 @Composable
 fun AddStageScreen(
     onBack: () -> Unit,
+    stageId: Int? = null,
     viewModel: ProjectViewModel = hiltViewModel()
 ) {
     var selectedStage by remember { mutableStateOf<ConstructionStage?>(null) }
@@ -58,10 +62,36 @@ fun AddStageScreen(
     val diffInMs = endDate - startDate
     val totalDays = (diffInMs / (1000 * 60 * 60 * 24)).coerceAtLeast(0)
 
+    var status by remember { mutableStateOf(StageStatus.PENDING.dbKey) }
+    var statusExpanded by remember { mutableStateOf(false) }
+
+    // --- Load Data for Edit Mode ---
+    LaunchedEffect(stageId) {
+        if (stageId != null) {
+            viewModel.getStageById(stageId).collect { stage ->
+                stage?.let {
+                    estimatedCost = it.estimatedCost.toString()
+                    startDate = it.startDate
+                    endDate = it.endDate
+                    status = it.status
+                    val stageEnum =
+                        ConstructionStage.getAllStages().find { s -> s.dbKey == it.stageName }
+                    selectedStage = stageEnum
+                    stageName = context.getString(stageEnum?.titleRes ?: R.string.stage_name)
+                }
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.label_add_stage), color = Color.White) },
+                title = {
+                    Text(
+                        if (stageId == null) stringResource(R.string.label_add_stage) else "Update Stage",
+                        color = Color.White
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
@@ -75,13 +105,16 @@ fun AddStageScreen(
                     IconButton(onClick = {
                         val cost = estimatedCost.toDoubleOrNull() ?: 0.0
                         if (selectedStage != null && cost > 0) {
-                            viewModel.addStage(
+                            val stage = StageEntity(
+                                id = stageId ?: 0, // আইডি থাকলে আপডেট হবে
                                 projectId = 1,
-                                name = selectedStage!!.dbKey,
-                                cost = cost,
-                                start = startDate,
-                                end = endDate
+                                stageName = selectedStage!!.dbKey,
+                                estimatedCost = cost,
+                                startDate = startDate,
+                                endDate = endDate,
+                                status = status
                             )
+                            viewModel.insertOrUpdateStage(stage)
                             onBack()
                         } else {
                             showToast(
@@ -249,7 +282,83 @@ fun AddStageScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(12.dp))
+
+            if (stageId != null) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.label_update_status),
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Box {
+                    // ১. বর্তমান স্ট্যাটাস অবজেক্টটি বের করে নিন
+                    val currentStatus = StageStatus.fromDbKey(status)
+
+                    OutlinedButton(
+                        onClick = { statusExpanded = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        // স্ট্যাটাস অনুযায়ী বর্ডার কালার দিতে পারেন
+                        border = BorderStroke(1.dp, currentStatus.color.copy(alpha = 0.5f))
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            // ছোট একটি ইন্ডিকেটর ডট
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(currentStatus.color, CircleShape)
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+
+                            Text(
+                                text = stringResource(currentStatus.titleRes),
+                                modifier = Modifier.weight(1f),
+                                color = Color.Black
+                            )
+
+                            Icon(Icons.Default.ArrowDropDown, null, tint = Color.Gray)
+                        }
+                    }
+
+                    DropdownMenu(
+                        expanded = statusExpanded,
+                        onDismissRequest = { statusExpanded = false },
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                    ) {
+                        StageStatus.getAllStatuses().forEach { stageStatus ->
+                            DropdownMenuItem(
+                                text = {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(8.dp)
+                                                .background(stageStatus.color, CircleShape)
+                                        )
+                                        Spacer(modifier = Modifier.width(12.dp))
+                                        Text(text = stringResource(stageStatus.titleRes))
+                                    }
+                                },
+                                onClick = {
+                                    status = stageStatus.dbKey
+                                    statusExpanded = false
+                                }
+                            )
+                            if (stageStatus != StageStatus.entries.last()) {
+                                HorizontalDivider(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    thickness = 0.5.dp
+                                )
+                            }
+                        }
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(24.dp))
         }
     }

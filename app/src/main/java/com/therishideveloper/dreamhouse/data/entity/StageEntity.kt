@@ -22,5 +22,5 @@ data class StageEntity(
     val estimatedCost: Double,
     val startDate: Long,
     val endDate: Long,
-    val status: String = "PENDING" // PENDING, IN_PROGRESS, COMPLETED
+    val status: String = "PENDING"
 )

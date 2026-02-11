@@ -17,9 +17,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -39,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import com.therishideveloper.dreamhouse.data.model.ConstructionStage
+import com.therishideveloper.dreamhouse.data.model.StageStatus
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
@@ -278,8 +281,7 @@ fun StageCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
-            .clickable { onClick() },
+            .padding(vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
         color = Color.White,
         shadowElevation = 1.dp
@@ -326,7 +328,24 @@ fun StageCard(
                 )
             }
 
-            Column(horizontalAlignment = Alignment.End) {
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.Center
+            ) {
+                IconButton(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .padding(0.dp),
+                    onClick = onClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit Stage",
+                        tint = Color.Gray,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+
                 Text(
                     text = NumberUtils.formatAmountByLocale(
                         context,
@@ -337,21 +356,16 @@ fun StageCard(
                     color = tealColor
                 )
 
+                val status = StageStatus.fromDbKey(stage.status)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    val statusLabel = if (stage.status == "COMPLETED")
-                        stringResource(R.string.status_completed)
-                    else
-                        stringResource(R.string.status_pending)
-                    val statusColor =
-                        if (stage.status == "COMPLETED") Color(0xFF4CAF50) else Color(0xFFFF9800)
                     Box(
                         modifier = Modifier
                             .size(6.dp)
-                            .background(statusColor, CircleShape)
+                            .background(status.color, CircleShape)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = statusLabel,
+                        text = stringResource(status.titleRes),
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.Gray,
                         fontSize = 10.sp

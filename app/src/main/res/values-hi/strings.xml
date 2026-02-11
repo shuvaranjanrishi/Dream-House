@@ -330,8 +330,10 @@
     <string name="msg_warning_budget">⚠️ बजट पार हो गया है!</string>
     <string name="msg_warning_time">⚠️ समय सीमा पार हो गई है!</string>
 
+    <string name="status_pending">पेंडिंग</string>
+    <string name="status_ongoing">जारी है</string>
     <string name="status_completed">पूरा हुआ</string>
-    <string name="status_pending">लंबित</string>
+    <string name="label_update_status">स्थिति अपडेट करें</string>
 
     <string name="congratulations">बधाई हो!</string>
     <string name="dream_journey_start">आपके सपनों की यात्रा अब शुरू होती है।</string>
