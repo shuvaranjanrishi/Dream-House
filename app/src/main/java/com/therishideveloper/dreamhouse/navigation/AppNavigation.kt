@@ -50,27 +50,39 @@ fun AppNavigation(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(Screens.ProjectSetupScreen.route) {
+        composable(
+            route = Screens.ProjectSetupScreen.route,
+            arguments = listOf(navArgument("projectId") {
+                type = NavType.IntType
+                defaultValue = -1
+            })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("projectId") ?: -1
+
             ProjectSetupScreen(
                 viewModel = projectViewModel,
+                projectId = if (id == -1) null else id,
                 onProjectSaved = {
-                    navController.navigate(Screens.HomeScreen.route) {
-                        popUpTo(Screens.ProjectSetupScreen.route) { inclusive = true }
+                    if (id == -1) {
+                        navController.navigate(Screens.HomeScreen.route) {
+                            popUpTo(Screens.ProjectSetupScreen.route) { inclusive = true }
+                        }
+                    } else {
+                        navController.popBackStack()
                     }
+                },
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
-        // ৩. কনস্ট্রাকশন স্টেজ লিস্ট স্ক্রিন
         composable(Screens.ConstructionStageScreen.route) {
-            // এই স্ক্রিনটি আমরা পরে ডিজাইন করব
             ConstructionStageScreen(
                 onBack = { navController.popBackStack() },
                 onAddStage = { navController.navigate(Screens.AddStageScreen.route) },
                 viewModel = projectViewModel
             )
         }
-
-        // ৪. নতুন স্টেজ অ্যাড করার স্ক্রিন
         composable(Screens.AddStageScreen.route) {
             AddStageScreen(
                 onBack = { navController.popBackStack() },
@@ -88,7 +100,8 @@ fun AppNavigation(
             HomeScreen(
                 navController = navController,
                 onMenuClick = onOpenDrawer,
-                viewModel = transactionViewModel
+                viewModel = transactionViewModel,
+                projectViewModel = projectViewModel
             )
         }
         composable(Screens.LanguageScreen.route) {

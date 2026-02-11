@@ -32,7 +32,7 @@ object NumberUtils {
 
         val commaFormatter = NumberFormat.getInstance(Locale("en", "IN")).apply {
             maximumFractionDigits = 2
-            minimumFractionDigits = 0
+            minimumFractionDigits = if (amount == 0.0) 1 else 0
         }
 
         val formattedNumber = commaFormatter.format(amount)

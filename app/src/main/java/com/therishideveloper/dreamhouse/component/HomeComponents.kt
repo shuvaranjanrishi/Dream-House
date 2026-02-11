@@ -1,7 +1,9 @@
 package com.therishideveloper.dreamhouse.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,11 +14,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,7 +89,7 @@ fun SummaryClickableRow(label: String, amount: String, color: Color, onClick: ()
         ) {
             Text(text = label, fontWeight = FontWeight.Bold, color = color, fontSize = 13.sp)
             Text(
-                text = NumberUtils.formatAmountByLocale(context,amount),
+                text = NumberUtils.formatAmountByLocale(context, amount),
                 fontWeight = FontWeight.Bold,
                 fontSize = 13.sp
             )
@@ -106,5 +112,53 @@ fun ActionButton(
         elevation = ButtonDefaults.buttonElevation(4.dp)
     ) {
         Text(text = text, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+    }
+}
+
+@Composable
+fun MagicWelcomeOverlay() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(tealColor.copy(alpha = 0.98f))
+            .clickable(enabled = false) { },
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(
+                Icons.Default.AutoAwesome,
+                contentDescription = null,
+                modifier = Modifier.size(120.dp),
+                tint = Color.White
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                stringResource(R.string.congratulations),
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                stringResource(R.string.dream_journey_start),
+                color = Color.White.copy(alpha = 0.8f)
+            )
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth(0.6f)
+                    .height(4.dp),
+                color = Color.White,
+                trackColor = Color.White.copy(alpha = 0.3f)
+            )
+
+            Text(
+                stringResource(R.string.setting_up_project),
+                color = Color.White.copy(alpha = 0.5f),
+                modifier = Modifier.padding(top = 8.dp),
+                fontSize = 12.sp
+            )
+        }
     }
 }

@@ -11,8 +11,8 @@ class ProjectRepositoryImpl(
     private val stageDao: StageDao
 ) : ProjectRepository {
 
-    override suspend fun insertProject(project: ProjectEntity): Long =
-        projectDao.insertProject(project)
+    override suspend fun insertOrUpdateProject(project: ProjectEntity): Long =
+        projectDao.insertOrUpdateProject(project)
 
     override fun getProjectById(projectId: Int): Flow<ProjectEntity?> =
         projectDao.getProjectById(projectId)

@@ -333,4 +333,8 @@
     <string name="status_completed">पूरा हुआ</string>
     <string name="status_pending">लंबित</string>
 
+    <string name="congratulations">बधाई हो!</string>
+    <string name="dream_journey_start">आपके सपनों की यात्रा अब शुरू होती है।</string>
+    <string name="setting_up_project">आपका प्रोजेक्ट सेटअप हो रहा है...</string>
+
 </resources>

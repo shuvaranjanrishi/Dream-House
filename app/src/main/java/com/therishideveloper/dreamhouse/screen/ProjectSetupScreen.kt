@@ -2,13 +2,15 @@ package com.therishideveloper.dreamhouse.screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,39 +33,72 @@ import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
+import kotlinx.coroutines.delay
+import kotlin.text.compareTo
+import kotlin.text.toInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectSetupScreen(
     viewModel: ProjectViewModel = hiltViewModel(),
-    onProjectSaved: () -> Unit
+    projectId: Int? = null,
+    onProjectSaved: () -> Unit,
+    onBack: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
+
+    // UI States
     var projectName by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
     var totalBudget by remember { mutableStateOf("") }
     var startDate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var endDate by remember { mutableLongStateOf(System.currentTimeMillis() + 86400000L * 90) }
+
     val diffInMs = endDate - startDate
     val totalDays = (diffInMs / (1000 * 60 * 60 * 24)).coerceAtLeast(0)
 
+    // Load data for edit mode
+    LaunchedEffect(key1 = projectId) {
+        if (projectId != null) {
+            viewModel.activeProject.collect { project ->
+                project?.let {
+                    projectName = it.projectName
+                    address = it.address
+                    totalBudget = it.totalBudget.toString()
+                    startDate = it.startDate
+                    endDate = it.endDate
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.title_project_setup), color = Color.White) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = tealColor)
-            )
+            // শুধুমাত্র এডিট মোডে টপ বার দেখাবে
+            if (projectId != null) {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.menu_construction_plan), color = Color.White) },
+                    navigationIcon = {
+                        IconButton(onClick = { onBack?.invoke() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back", tint = Color.White)
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = tealColor)
+                )
+            }
         }
-    ) { padding ->
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                // টপ বার থাকলে প্যাডিং নিবে, না থাকলে ০
+                .padding(if (projectId == null) PaddingValues(0.dp) else paddingValues)
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(if (projectId == null) 40.dp else 0.dp))
+
             Image(
                 painter = painterResource(id = R.drawable.app_logo),
                 contentDescription = "App Logo",
@@ -168,35 +203,40 @@ fun ProjectSetupScreen(
             }
 
             Spacer(modifier = Modifier.height(32.dp))
-            val errMsg = stringResource(R.string.err_invalid_input)
 
             Button(
                 onClick = {
                     val budgetValue = totalBudget.toDoubleOrNull() ?: 0.0
-                    if (projectName.isNotEmpty() && budgetValue > 0 && totalDays > 0) {
+                    if (projectName.isNotEmpty() && budgetValue > 0) {
                         val project = ProjectEntity(
+                            id = projectId ?: 0,
                             projectName = projectName,
                             address = address,
                             totalBudget = budgetValue,
                             startDate = startDate,
                             endDate = endDate
                         )
-                        viewModel.saveProject(project)
-                        onProjectSaved()
+                        // ProjectSetupScreen.kt এর বাটন ক্লিকের ভেতরে
+                        if (projectId == null) { // নতুন প্রোজেক্ট
+                            viewModel.saveProject(project)
+                            viewModel.triggerWelcome() // শুধুমাত্র এখানে অভিনন্দন ট্রিগার হবে
+                            onProjectSaved()
+                        } else { // এডিট মোড
+                            viewModel.saveProject(project)
+                            onProjectSaved()
+                        }
                     } else {
-                        showToast(context, errMsg)
+                        showToast(context, context.getString(R.string.err_invalid_input))
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
+                modifier = Modifier.fillMaxWidth().height(56.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = tealColor)
             ) {
                 Text(
-                    stringResource(R.string.btn_start),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    text = if (projectId == null) "Create Dream House" else "Update Project",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
         }

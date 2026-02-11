@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Architecture
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -64,6 +65,15 @@ fun ProjectOverviewScreen(
                             "Menu",
                             tint = Color.White
                         )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        activeProject?.id?.let { id ->
+                            navController.navigate("project_setup_screen?projectId=$id")
+                        }
+                    }) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit", tint = Color.White)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = tealColor)

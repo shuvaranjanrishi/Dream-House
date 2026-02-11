@@ -330,4 +330,9 @@
 
     <string name="status_completed">COMPLETED</string>
     <string name="status_pending">PENDING</string>
+
+    <string name="congratulations">Congratulations!</string>
+    <string name="dream_journey_start">Your dream journey begins now.</string>
+    <string name="setting_up_project">Setting up your project...</string>
+
 </resources>

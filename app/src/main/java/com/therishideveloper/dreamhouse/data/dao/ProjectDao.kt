@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertProject(project: ProjectEntity): Long
+    suspend fun insertOrUpdateProject(project: ProjectEntity): Long
 
     @Query("SELECT * FROM projects WHERE id = :projectId")
     fun getProjectById(projectId: Int): Flow<ProjectEntity?>
 
-    @Query("SELECT * FROM projects LIMIT 1") // আপনার যদি ১টিই প্রজেক্ট থাকে
+    @Query("SELECT * FROM projects LIMIT 1")
     fun getActiveProject(): Flow<ProjectEntity?>
 }

@@ -1,8 +1,6 @@
 package com.therishideveloper.dreamhouse.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ContactSupport
-import androidx.compose.material.icons.automirrored.outlined.ContactSupport
 import androidx.compose.material.icons.filled.Architecture
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Category
@@ -13,7 +11,6 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Architecture
 import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.Category
-import androidx.compose.material.icons.outlined.ContactSupport
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
@@ -35,7 +32,7 @@ enum class Screens(val route: String) {
     ShareAppScreen("share_app"),
     AboutScreen("about_screen"),
     CategoryManualScreen("cat_manual_screen"),
-    ProjectSetupScreen("project_setup_screen"),
+    ProjectSetupScreen("project_setup_screen?projectId={projectId}"),
     ConstructionStageScreen("construction_stage_screen"),
     AddStageScreen("add_stage_screen"),
     ProjectOverviewScreen("project_overview_screen")

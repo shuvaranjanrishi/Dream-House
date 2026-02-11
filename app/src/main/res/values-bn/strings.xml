@@ -336,4 +336,8 @@
     <string name="status_completed">সম্পন্ন</string>
     <string name="status_pending">চলমান</string>
 
+    <string name="congratulations">অভিনন্দন!</string>
+    <string name="dream_journey_start">আপনার স্বপ্নের যাত্রা এখন শুরু হলো।</string>
+    <string name="setting_up_project">আপনার প্রজেক্ট সেটআপ হচ্ছে...</string>
+
 </resources>

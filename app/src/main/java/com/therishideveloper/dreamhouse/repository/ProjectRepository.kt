@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
     // Project operations
-    suspend fun insertProject(project: ProjectEntity): Long
+    suspend fun insertOrUpdateProject(project: ProjectEntity): Long
     fun getProjectById(projectId: Int): Flow<ProjectEntity?>
 
     // Stage operations

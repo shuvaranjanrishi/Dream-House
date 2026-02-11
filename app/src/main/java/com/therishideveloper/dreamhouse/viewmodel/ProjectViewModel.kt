@@ -1,5 +1,8 @@
 package com.therishideveloper.dreamhouse.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.therishideveloper.dreamhouse.domain.repository.NoteRepository
 import com.therishideveloper.dreamhouse.data.entity.Note
@@ -23,6 +26,17 @@ class ProjectViewModel @Inject constructor(
     private val repository: ProjectRepository
 ) : ViewModel() {
 
+    // ProjectViewModel.kt
+    var showWelcomeCelebration by mutableStateOf(false)
+
+    fun triggerWelcome() {
+        showWelcomeCelebration = true
+    }
+
+    fun welcomeShown() {
+        showWelcomeCelebration = false
+    }
+
     val activeProject: StateFlow<ProjectEntity?> = repository.getProjectById(1)
         .stateIn(
             scope = viewModelScope,
@@ -43,7 +57,7 @@ class ProjectViewModel @Inject constructor(
 
     fun saveProject(project: ProjectEntity) {
         viewModelScope.launch {
-            repository.insertProject(project)
+            repository.insertOrUpdateProject(project)
         }
     }
 

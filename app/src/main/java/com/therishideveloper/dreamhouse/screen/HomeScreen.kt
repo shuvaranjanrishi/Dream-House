@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,11 +30,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.component.ActionButton
 import com.therishideveloper.dreamhouse.component.CalculatorDialog
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.CurrentBalance
+import com.therishideveloper.dreamhouse.component.MagicWelcomeOverlay
 import com.therishideveloper.dreamhouse.component.SolidPieChart
 import com.therishideveloper.dreamhouse.component.SummaryClickableRow
 import com.therishideveloper.dreamhouse.data.model.TransactionPeriod
@@ -44,16 +47,21 @@ import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DashboardUtils
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
+import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
     onMenuClick: () -> Unit,
-    viewModel: TransactionViewModel
+    viewModel: TransactionViewModel,
+    projectViewModel: ProjectViewModel = hiltViewModel()
+
 ) {
     val context = LocalContext.current
+
     // --- States ---
     var showCalculator by remember { mutableStateOf(false) }
     var calcExpression by remember { mutableStateOf("") }
@@ -69,6 +77,15 @@ fun HomeScreen(
     val balance = totalIncome - totalExpense
     val incomeProgress =
         if (totalIncome + totalExpense > 0) (totalIncome / (totalIncome + totalExpense)).toFloat() else 0.5f
+
+    val showWelcome = projectViewModel.showWelcomeCelebration
+
+    LaunchedEffect(showWelcome) {
+        if (showWelcome) {
+            delay(5000) // ৫ সেকেন্ড দেখাবে
+            projectViewModel.welcomeShown() // তারপর স্টেটটি রিমেম্বার থেকে মুছে দিবে (False করে দিবে)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -187,6 +204,11 @@ fun HomeScreen(
                 onClose = { calcExpression = ""; calcResult = "0"; showCalculator = false }
             )
         }
+
+
+    }
+    if (showWelcome) {
+        MagicWelcomeOverlay()
     }
 }
 
