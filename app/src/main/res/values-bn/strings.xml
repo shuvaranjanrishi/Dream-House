@@ -68,8 +68,6 @@
     <string name="msg_updated">লেনদেনটি সফলভাবে আপডেট করা হয়েছে</string>
     <string name="msg_deleted">লেনদেনটি সফলভাবে মুছে ফেলা হয়েছে</string>
 
-    <string name="cat_salary">বেতন</string>
-    <string name="cat_business">ব্যবসা</string>
     <string name="cat_freelance">ফ্রিল্যান্সিং</string>
     <string name="cat_bonus">বোনাস</string>
     <string name="cat_investment">বিনিয়োগ</string>
@@ -207,6 +205,8 @@
     <string name="section_finishing">✨ ফিনিশিং বা সাজ-সজ্জা</string>
     <string name="section_miscellaneous">📦 বিবিধ খরচ</string>
 
+    <string name="cat_salary">বেতন</string>
+    <string name="cat_business">ব্যবসা</string>
     <string name="cat_savings">নিজস্ব সঞ্চয়</string>
     <string name="cat_bank_loan">ব্যাংক লোন</string>
     <string name="cat_relative_loan">আত্মীয়র কাছ থেকে ঋণ</string>
@@ -236,6 +236,8 @@
     <string name="cat_security">নিরাপত্তা প্রহরী</string>
     <string name="cat_others_expense">অন্যান্য খরচ</string>
 
+    <string name="desc_salary">চাকরি থেকে প্রাপ্ত মাসিক বেতন</string>
+    <string name="desc_business">ব্যবসা থেকে অর্জিত আয়</string>
     <string name="desc_savings">আপনার জমানো টাকা যা বাড়ি তৈরিতে খরচ হচ্ছে।</string>
     <string name="desc_bank_loan">বাড়ি তৈরির জন্য ব্যাংক থেকে নেওয়া ঋণের টাকা।</string>
     <string name="desc_invest">পার্টনার বা অংশীদারের দেওয়া বিনিয়োগকৃত টাকা।</string>

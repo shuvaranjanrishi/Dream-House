@@ -68,8 +68,6 @@
     <string name="msg_updated">लेनदेन सफलतापूर्वक अपडेट किया गया</string>
     <string name="msg_deleted">लेनदेन सफलतापूर्वक हटा दिया गया</string>
 
-    <string name="cat_salary">वेतन</string>
-    <string name="cat_business">व्यापार</string>
     <string name="cat_freelance">फ्रीलांसिंग</string>
     <string name="cat_bonus">बोनस</string>
     <string name="cat_investment">निवेश</string>
@@ -208,6 +206,8 @@
     <string name="section_finishing">✨ फिनिशिंग कार्य</string>
     <string name="section_miscellaneous">📦 विविध व्यय</string>
 
+    <string name="cat_salary">वेतन</string>
+    <string name="cat_business">व्यवसाय</string>
     <string name="cat_savings">अपनी बचत</string>
     <string name="cat_bank_loan">बैंक ऋण</string>
     <string name="cat_relative_loan">रिश्तेदारों से ऋण</string>
@@ -237,6 +237,8 @@
     <string name="cat_legal">कानूनी और परमिट</string>
     <string name="cat_security">सुरक्षा / गार्ड</string>
 
+    <string name="desc_salary">नौकरी से प्राप्त मासिक आय</string>
+    <string name="desc_business">व्यावसायिक गतिविधियों से अर्जित आय</string>
     <string name="desc_savings">निर्माण के लिए उपयोग की जाने वाली व्यक्तिगत बचत या नकद।</string>
     <string name="desc_bank_loan">बैंक से गृह निर्माण ऋण के रूप में प्राप्त धन।</string>
     <string name="desc_invest">बिजनेस पार्टनर द्वारा दिया गया निवेश या फंड।</string>

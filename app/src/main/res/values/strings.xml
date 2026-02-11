@@ -68,8 +68,6 @@
     <string name="msg_updated">Transaction updated successfully</string>
     <string name="msg_deleted">Transaction deleted successfully</string>
 
-    <string name="cat_salary">Salary</string>
-    <string name="cat_business">Business</string>
     <string name="cat_freelance">Freelance</string>
     <string name="cat_bonus">Bonus</string>
     <string name="cat_investment">Investment</string>
@@ -206,6 +204,8 @@
     <string name="section_finishing">✨ Finishing Work</string>
     <string name="section_miscellaneous">📦 Miscellaneous Expenses</string>
 
+    <string name="cat_salary">Salary</string>
+    <string name="cat_business">Business</string>
     <string name="cat_savings">Own Savings</string>
     <string name="cat_bank_loan">Bank Loan</string>
     <string name="cat_relative_loan">Relative Loan</string>
@@ -235,6 +235,8 @@
     <string name="cat_security">Security / Guard</string>
     <string name="cat_others_expense">Others Expense</string>
 
+    <string name="desc_salary">Regular monthly income from job</string>
+    <string name="desc_business">Income generated from business activities</string>
     <string name="desc_savings">Personal savings or cash on hand used for construction.</string>
     <string name="desc_bank_loan">Money received from a bank as a home construction loan.</string>
     <string name="desc_invest">Investment or funds contributed by a business partner.</string>

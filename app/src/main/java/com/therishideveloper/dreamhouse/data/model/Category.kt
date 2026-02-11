@@ -13,6 +13,8 @@ enum class Category(
     val section: String
 ) {
     // --- INCOME ---
+    SALARY("SALARY", R.string.cat_salary, R.string.desc_salary, Icons.Default.Payments, "INCOME"),
+    BUSINESS("BUSINESS", R.string.cat_business, R.string.desc_business, Icons.Default.Storefront, "INCOME"),
     OWN_SAVINGS("OWN_SAVINGS", R.string.cat_savings, R.string.desc_savings, Icons.Default.AccountBalanceWallet, "INCOME"),
     BANK_LOAN("BANK_LOAN", R.string.cat_bank_loan, R.string.desc_bank_loan, Icons.Default.AccountBalance, "INCOME"),
     PARTNER_INVEST("PARTNER_INVEST", R.string.cat_invest, R.string.desc_invest, Icons.Default.Handshake, "INCOME"),
