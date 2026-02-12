@@ -268,7 +268,6 @@
     <string name="desc_others_expense">তালিকায় নেই এমন যেকোনো ছোটখাটো খরচ।</string>
 
     <!--Budget, Estimation, Construction Stage-->
-    <string name="label_add_stage">নতুন ধাপ যোগ করুন</string>
     <string name="select_work_stage">কাজের ধাপ নির্বাচন করুন</string>
     <string name="stage_name">ধাপের নাম</string>
     <string name="estimated_budget">এই ধাপের আনুমানিক বাজেট</string>
@@ -297,8 +296,6 @@
     <string name="desc_brick_plaster">ইটের দেয়াল গাঁথুনি এবং প্লাস্টার</string>
     <string name="desc_finishing">টাইলস, রঙ, ইলেকট্রিক ও প্লাম্বিং</string>
     <string name="desc_others">নির্মাণ সংশ্লিষ্ট অন্যান্য বিবিধ কাজ</string>
-
-    <string name="err_fill_all">দয়া করে একটি ধাপ নির্বাচন করুন এবং সঠিক বাজেট দিন।</string>
 
     <string name="total_allocated_budget">মোট বরাদ্দ</string>
     <string name="total_duration">মোট সময়সীমা</string>
@@ -343,5 +340,12 @@
     <string name="congratulations">অভিনন্দন!</string>
     <string name="dream_journey_start">আপনার স্বপ্নের যাত্রা এখন শুরু হলো।</string>
     <string name="setting_up_project">আপনার প্রজেক্ট সেটআপ হচ্ছে...</string>
+
+    <string name="label_add_stage">কাজের ধাপ যোগ করুন</string>
+    <string name="label_update_stage">কাজের ধাপ আপডেট করুন</string>
+    <string name="msg_success">সফলভাবে সম্পন্ন হয়েছে!</string>
+    <string name="err_fill_all">অনুগ্রহ করে সব তথ্য প্রদান করুন।</string>
+    <string name="err_duplicate_stage">এই ধাপটি ইতিমধ্যে যোগ করা হয়েছে!</string>
+    <string name="err_edit_lock">এডিট করার সময় ধাপ পরিবর্তন করা সম্ভব নয়।</string>
 
 </resources>

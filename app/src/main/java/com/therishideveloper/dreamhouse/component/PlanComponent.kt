@@ -1,5 +1,6 @@
 package com.therishideveloper.dreamhouse.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -411,6 +412,25 @@ fun DateSelectionRow(
             Box(contentAlignment = Alignment.Center) {
                 Icon(Icons.Default.DateRange, null, tint = tealColor)
             }
+        }
+    }
+}
+
+@Composable
+fun StepNumberBadge(number: Int) {
+    Surface(
+        modifier = Modifier.size(28.dp),
+        shape = RoundedCornerShape(6.dp),
+        color = Color(0xFFF0F0F0),
+        border = BorderStroke(1.dp, Color.LightGray)
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            Text(
+                text = number.toString(),
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
         }
     }
 }

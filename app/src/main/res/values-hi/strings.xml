@@ -265,7 +265,6 @@
     <string name="desc_others_expense">कोई भी छोटा खर्च जो ऊपर सूचीबद्ध नहीं है।</string>
 
     <!--Budget, Estimation, Construction Stage-->
-    <string name="label_add_stage">नया चरण जोड़ें</string>
     <string name="select_work_stage">कार्य चरण चुनें</string>
     <string name="stage_name">चरण का नाम</string>
     <string name="estimated_budget">इस चरण के लिए अनुमानित बजट</string>
@@ -294,8 +293,6 @@
     <string name="desc_brick_plaster">दीवार बनाना और प्लास्टर करना</string>
     <string name="desc_finishing">टाइल्स, पेंट, बिजली और प्लंबिंग</string>
     <string name="desc_others">विविध निर्माण कार्य</string>
-
-    <string name="err_fill_all">कृपया एक चरण चुनें और सही बजट दर्ज करें।</string>
 
     <string name="total_allocated_budget">कुल आवंटित बजट</string>
     <string name="total_duration">कुल अवधि</string>
@@ -340,5 +337,12 @@
     <string name="congratulations">बधाई हो!</string>
     <string name="dream_journey_start">आपके सपनों की यात्रा अब शुरू होती है।</string>
     <string name="setting_up_project">आपका प्रोजेक्ट सेटअप हो रहा है...</string>
+
+    <string name="label_add_stage">निर्माण चरण जोड़ें</string>
+    <string name="label_update_stage">निर्माण चरण अपडेट करें</string>
+    <string name="msg_success">सफलतापूर्वक पूरा हुआ!</string>
+    <string name="err_fill_all">कृपया सभी आवश्यक फ़ील्ड भरें।</string>
+    <string name="err_duplicate_stage">यह चरण पहले ही जोड़ा जा चुका है!</string>
+    <string name="err_edit_lock">संपादन के दौरान चरण का नाम नहीं बदला जा सकता।</string>
 
 </resources>

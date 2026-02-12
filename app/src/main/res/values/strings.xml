@@ -263,7 +263,6 @@
     <string name="desc_others_expense">Any small or miscellaneous costs not listed above.</string>
 
     <!--Budget, Estimation, Construction Stage-->
-    <string name="label_add_stage">Add New Stage</string>
     <string name="select_work_stage">Select Work Stage</string>
     <string name="stage_name">Stage Name</string>
     <string name="estimated_budget">Estimated Budget for this Stage</string>
@@ -292,8 +291,6 @@
     <string name="desc_brick_plaster">Wall construction and plastering</string>
     <string name="desc_finishing">Tiles, Paint, Electrical &amp; Plumbing</string>
     <string name="desc_others">Miscellaneous construction tasks</string>
-
-    <string name="err_fill_all">Please select a stage and enter a valid budget.</string>
 
     <string name="total_allocated_budget">Total Allocated</string>
     <string name="total_duration">Total Duration</string>
@@ -338,5 +335,12 @@
     <string name="congratulations">Congratulations!</string>
     <string name="dream_journey_start">Your dream journey begins now.</string>
     <string name="setting_up_project">Setting up your project...</string>
+
+    <string name="label_add_stage">Add Construction Stage</string>
+    <string name="label_update_stage">Update Construction Stage</string>
+    <string name="msg_success">Action completed successfully!</string>
+    <string name="err_fill_all">Please fill in all required fields.</string>
+    <string name="err_duplicate_stage">This stage has already been added!</string>
+    <string name="err_edit_lock">Stage name cannot be changed during editing.</string>
 
 </resources>
