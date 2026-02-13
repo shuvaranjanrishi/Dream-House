@@ -1,5 +1,6 @@
 package com.therishideveloper.dreamhouse.repository
 
+import com.therishideveloper.dreamhouse.data.entity.EstimationRecord
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import kotlinx.coroutines.flow.Flow
@@ -15,4 +16,10 @@ interface ProjectRepository {
     fun getTotalAllocatedBudget(projectId: Int): Flow<Double?>
     suspend fun deleteStage(stage: StageEntity)
     fun getStageById(stageId: Int): Flow<StageEntity?>
+//    fun getAllHistory(): Flow<List<EstimationRecord>>
+//    suspend fun saveEstimation(record: EstimationRecord)
+
+    fun getAllEstimations(): Flow<List<EstimationRecord>>
+    suspend fun saveEstimation(record: EstimationRecord)
+    suspend fun getEstimationById(id: Int): EstimationRecord?
 }

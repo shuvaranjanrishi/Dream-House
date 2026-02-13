@@ -8,23 +8,26 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
+import com.therishideveloper.dreamhouse.data.entity.EstimationRecord
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
+import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.repository.ProjectRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 @HiltViewModel
 class ProjectViewModel @Inject constructor(
     private val repository: ProjectRepository
 ) : ViewModel() {
 
-    // ProjectViewModel.kt
     var showWelcomeCelebration by mutableStateOf(false)
 
     fun triggerWelcome() {
@@ -71,16 +74,135 @@ class ProjectViewModel @Inject constructor(
         return repository.getTotalAllocatedBudget(projectId).map { it ?: 0.0 }
     }
 
-    // শুধুমাত্র স্ট্যাটাস পরিবর্তন করার জন্য (পেন্ডিং/কমপ্লিট)
-    fun updateStageStatus(stageId: Int, newStatus: String) {
-        viewModelScope.launch {
-            // আপনি চাইলে রিপোজিটরিতে আলাদা updateStatus ফাংশন লিখে নিতে পারেন
-            // অথবা পুরনো স্টেজটা নিয়ে এসে শুধু স্ট্যাটাস বদলে সেভ করতে পারেন
+    fun getStageById(stageId: Int): Flow<StageEntity?> {
+        return repository.getStageById(stageId) // রিপোজিটরিতে এই ফাংশনটি থাকতে হবে
+    }
+
+    val estimationHistory: StateFlow<List<EstimationRecord>> =
+        repository.getAllEstimations()
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    private val _currentCalculation = MutableStateFlow<EstimationRecord?>(null)
+    val currentCalculation = _currentCalculation.asStateFlow()
+
+    fun performCalculation(
+        area: Double,           // মোট জায়গার পরিমাণ (Sq Ft)
+        floorsToBuild: Int,     // কত তলা নির্মাণ হবে
+        foundationFloors: Int,  // কত তলার ফাউন্ডেশন দেওয়া হবে
+        rodRate: Double, cementRate: Double, sandRate: Double,
+        brickRate: Double, stoneRate: Double, laborRate: Double
+    ) {
+        if (area <= 0 || floorsToBuild <= 0) return
+
+        viewModelScope.launch(Dispatchers.Default) {
+            // --- ১. মাটি খনন ও সেফটি ট্যাংক (Septic Tank & Excavation) ---
+            val safetyTankCost = 60000.0 + (area * 15.0)
+            val excavationCost = area * 10.0 * foundationFloors
+
+            // --- ২. ফাউন্ডেশন ফ্যাক্টর ---
+            val foundationFactor = 1.0 + (foundationFloors * 0.18)
+
+            // মাটির নিচের ম্যাটেরিয়াল
+            val fRod = area * 4.0 * foundationFactor
+            val fCement = area * 0.3 * foundationFactor
+            val fSand = area * 0.7 * foundationFactor
+            val fStone = area * 1.2 * foundationFactor
+
+            // --- ৩. সুপার-স্ট্রাকচার (প্রতি তলার জন্য) ---
+            val sRodPerFloor = area * 3.2
+            val sCementPerFloor = area * 0.42
+            val sSandPerFloor = area * 0.85
+            val sStonePerFloor = area * 1.6
+
+            // --- ৪. দেয়াল ও প্লাস্টার ---
+            val bricksPerFloor = area * 12.5
+            val wallCementPerFloor = area * 0.18
+            val wallSandPerFloor = area * 0.5
+
+            // --- ৫. মোট উপকরণের পরিমাণ ---
+            val totalRod = fRod + (sRodPerFloor * floorsToBuild)
+            val totalCement = fCement + ((sCementPerFloor + wallCementPerFloor) * floorsToBuild)
+            val totalSand = fSand + ((sSandPerFloor + wallSandPerFloor) * floorsToBuild)
+            val totalStone = fStone + (sStonePerFloor * floorsToBuild)
+            val totalBricks = bricksPerFloor * floorsToBuild
+
+            // --- ৬. গুনা, লোহা ও পলিথিন হিসাব (আগের লজিক অনুযায়ী আপডেট করা) ---
+            // যেহেতু এখন তলা বেশি, তাই (area * floorsToBuild) দিয়ে গুণ হবে
+            val totalEffectiveArea = area * (floorsToBuild + 0.5) // ফাউন্ডেশনের জন্য ০.৫ এক্সট্রা ধরা হয়েছে
+            val guna = (totalEffectiveArea * 0.007).roundToInt()
+            val loha = (totalEffectiveArea * 0.005).roundToInt()
+            val poly = (totalEffectiveArea * 1.1).roundToInt()
+
+            // --- ৭. লেবার ও বিবিধ খরচ ---
+            val foundationLabor = area * laborRate * 0.9
+            val constructionLabor = (area * floorsToBuild) * laborRate
+            val totalLaborCost = foundationLabor + constructionLabor
+
+            // Others Cost = (গুনা+লোহা+পলি এর দাম) + সেফটি ট্যাংক + মাটি কাটা + সাটারিং কাঠ ভাড়া
+            val shuteringAndMisc = (area * floorsToBuild) * 50.0
+            val othersCost = shuteringAndMisc + safetyTankCost + excavationCost + (guna * 120) + (loha * 100)
+
+            // --- ৮. ফাইনাল হিসাব ---
+            val rCost = totalRod * rodRate
+            val cCost = totalCement * cementRate
+            val sCost = totalSand * sandRate
+            val bCost = totalBricks * brickRate
+            val stCost = totalStone * stoneRate
+            val grandTotal = rCost + cCost + sCost + bCost + stCost + totalLaborCost + othersCost
+
+            // --- ডাটাবেজে সেভ ---
+            _currentCalculation.value = EstimationRecord(
+                date = System.currentTimeMillis(),
+                totalArea = area.toString(),
+                foundationFloors = foundationFloors,
+                floorsToBuild = floorsToBuild,
+
+                rod = Category.ROD.dbKey,
+                cement = Category.CEMENT.dbKey,
+                sand = Category.SAND.dbKey,
+                brick = Category.BRICKS.dbKey,
+                stone = Category.STONE.dbKey,
+                labor = Category.MASON_LABOR.dbKey,
+
+                rodQty = totalRod.roundToInt().toString(),
+                cementQty = totalCement.roundToInt().toString(),
+                sandQty = totalSand.roundToInt().toString(),
+                brickQty = totalBricks.roundToInt().toString(),
+                stoneQty = totalStone.roundToInt().toString(),
+                laborQty = (area * floorsToBuild).roundToInt().toString(),
+
+                rodCost = rCost.roundToInt().toString(),
+                cementCost = cCost.roundToInt().toString(),
+                sandCost = sCost.roundToInt().toString(),
+                brickCost = bCost.roundToInt().toString(),
+                stoneCost = stCost.roundToInt().toString(),
+                laborCost = totalLaborCost.roundToInt().toString(),
+
+                rodRate = rodRate.toInt().toString(),
+                cementRate = cementRate.toInt().toString(),
+                sandRate = sandRate.toInt().toString(),
+                brickRate = brickRate.toInt().toString(),
+                stoneRate = stoneRate.toInt().toString(),
+                laborRate = laborRate.toInt().toString(),
+
+                // এখানে আপনার আগের কলাম ফরম্যাট "guna, loha, poly" ফিরিয়ে আনা হয়েছে
+                othersDetails = "$guna,$loha,$poly",
+                othersCost = othersCost.roundToInt().toString(),
+                totalEstimatedCost = grandTotal.roundToInt().toString()
+            )
         }
     }
 
-    // নির্দিষ্ট একটি স্টেজ আইডি দিয়ে খুঁজে বের করা (এডিট মোডের জন্য)
-    fun getStageById(stageId: Int): Flow<StageEntity?> {
-        return repository.getStageById(stageId) // রিপোজিটরিতে এই ফাংশনটি থাকতে হবে
+    fun saveCurrentEstimation() {
+        _currentCalculation.value?.let { record ->
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.saveEstimation(record)
+                _currentCalculation.value = null
+            }
+        }
+    }
+
+    fun clearCalculation() {
+        _currentCalculation.value = null
     }
 }

@@ -35,7 +35,9 @@ enum class Screens(val route: String) {
     ProjectSetupScreen("project_setup_screen?projectId={projectId}"),
     ConstructionStageScreen("construction_stage_screen"),
     AddStageScreen("add_stage_screen?stageId={stageId}"),
-    ProjectOverviewScreen("project_overview_screen")
+    ProjectOverviewScreen("project_overview_screen"),
+    EstimationScreen("estimation_screen"),
+    EstimationCalculatorScreen("estimation_calculator_screen")
 }
 
 val listOfNavItems = listOf(

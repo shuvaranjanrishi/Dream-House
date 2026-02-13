@@ -235,6 +235,17 @@
     <string name="cat_security">Security / Guard</string>
     <string name="cat_others_expense">Others Expense</string>
 
+    <string name="unit">Unit</string>
+    <string name="unit_kg">Kg</string>
+    <string name="unit_bag">Bag</string>
+    <string name="unit_pcs">Pcs</string>
+    <string name="unit_cft">Cft</string>
+    <string name="unit_sqft">SqFt</string>
+
+    <string name="guna">Guna</string>
+    <string name="loha">Nails</string>
+    <string name="poly">Polythene</string>
+
     <string name="desc_salary">Regular monthly income from job</string>
     <string name="desc_business">Income generated from business activities</string>
     <string name="desc_savings">Personal savings or cash on hand used for construction.</string>
@@ -342,5 +353,50 @@
     <string name="err_fill_all">Please fill in all required fields.</string>
     <string name="err_duplicate_stage">This stage has already been added!</string>
     <string name="err_edit_lock">Stage name cannot be changed during editing.</string>
+
+    <string name="label_area">Area: </string>
+    <string name="label_date">Date: </string>
+    <string name="label_foundation">Foundation (Floor)</string>
+    <string name="label_build_floor">Build (Floor)</string>
+    <string name="unit_floor">Floor</string>
+    <string name="label_estimation_title">Material Estimation</string>
+    <string name="label_estimation_subtitle">Calculate rod, cement, and other costs</string>
+    <string name="title_estimation_calculator">Estimation Calculator</string>
+    <string name="title_estimation_summary">Estimation Summary</string>
+    <string name="label_dimensions">Dimensions &amp; Unit Prices</string>
+    <string name="label_total_area">Total Area (Sq Ft)</string>
+    <string name="label_material">Material</string>
+    <string name="label_qty">Qty</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_grand_total">Grand Total:</string>
+    <string name="area_based">Area Based</string>
+    <string name="btn_calculate">Calculate Estimation</string>
+    <string name="estimation_disclaimer">* This calculation is based on standard engineering ratios and average market rates.</string>
+    <string name="no_estimation_found">No estimation found. Please calculate first.</string>
+    <string name="title_final_estimation">Final Estimation</string>
+    <string name="btn_policy">Policy</string>
+    <string name="label_date_header">Date</string>
+    <string name="label_total_area_header">Total Area</string>
+    <string name="btn_new_calculation">New Calculation</string>
+    <string name="label_total_estimated_cost">Total Estimated Cost</string>
+    <string name="msg_no_estimation">No estimation found. Please calculate first.</string>
+    <string name="label_material_breakdown">Material Breakdown</string>
+    <string name="label_qty_short">Qty</string>
+    <string name="label_rate_short">Rate</string>
+    <string name="label_standard">Standard</string>
+    <string name="error_invalid_input">Please enter valid numeric values</string>
+    <string name="error_empty_fields">All fields are required</string>
+    <string name="error_area_zero">Area must be greater than zero</string>
+    <string name="label_material_rates">Material Unit Rates</string>
+
+    <!--Construction Policy-->
+    <string name="title_policy">Calculation Policy &amp; Logic</string>
+    <string name="disclaimer_text">Disclaimer: For precise construction work, always consult a professional engineer. This estimate is based on standard engineering thumb rules.</string>
+    <string name="policy_step_1">1. Foundation: Includes Base, Short Column, and Grade Beam costs based on the foundation floor level.</string>
+    <string name="policy_step_2">2. Structure: 1:2:4 ratio (Cement:Sand:Stone) for slabs, beams, and columns with ~1.5% steel reinforcement.</string>
+    <string name="policy_step_3">3. Walls &amp; Plaster: Bricks calculated for 5-inch walls. Cement and sand for both brickwork and plastering are included.</string>
+    <string name="policy_step_4">4. Safety Tank: A standard septic tank cost is added based on the total floor area.</string>
+    <string name="policy_step_5">5. Others: Binding wire, nails, polythene, and shuttering timber rent are estimated under other costs.</string>
+    <string name="policy_excluded">NOT INCLUDED: Finishing items (Tiles, Paint, Doors, Windows, Electrical, and Plumbing) are NOT included in this estimation.</string>
 
 </resources>

@@ -236,6 +236,17 @@
     <string name="cat_security">নিরাপত্তা প্রহরী</string>
     <string name="cat_others_expense">অন্যান্য খরচ</string>
 
+    <string name="unit">একক</string>
+    <string name="unit_kg">কেজি</string>
+    <string name="unit_bag">ব্যাগ</string>
+    <string name="unit_pcs">পিস</string>
+    <string name="unit_cft">সিএফটি</string>
+    <string name="unit_sqft">স্কয়ার ফিট</string>
+
+    <string name="guna">গুনা</string>
+    <string name="loha">লোহা</string>
+    <string name="poly">পলিথিন</string>
+
     <string name="desc_salary">চাকরি থেকে প্রাপ্ত মাসিক বেতন</string>
     <string name="desc_business">ব্যবসা থেকে অর্জিত আয়</string>
     <string name="desc_savings">আপনার জমানো টাকা যা বাড়ি তৈরিতে খরচ হচ্ছে।</string>
@@ -347,5 +358,50 @@
     <string name="err_fill_all">অনুগ্রহ করে সব তথ্য প্রদান করুন।</string>
     <string name="err_duplicate_stage">এই ধাপটি ইতিমধ্যে যোগ করা হয়েছে!</string>
     <string name="err_edit_lock">এডিট করার সময় ধাপ পরিবর্তন করা সম্ভব নয়।</string>
+
+    <string name="label_area">এরিয়া: </string>
+    <string name="label_date">তারিখ: </string>
+    <string name="label_foundation">ফাউন্ডেশন (তলা)</string>
+    <string name="label_build_floor">নির্মাণ (তলা)</string>
+    <string name="unit_floor">তলা</string>
+    <string name="label_estimation_title">ম্যাটেরিয়াল এস্টিমেশন</string>
+    <string name="label_estimation_subtitle">রড, সিমেন্ট ও অন্যান্য খরচ বের করুন</string>
+    <string name="title_estimation_calculator">এস্টিমেশন ক্যালকুলেটর</string>
+    <string name="title_estimation_summary">হিসাবের সারসংক্ষেপ</string>
+    <string name="label_dimensions">মাপ ও ইউনিটের দাম</string>
+    <string name="label_total_area">মোট এরিয়া (স্কয়ার ফিট)</string>
+    <string name="label_material">মালামাল</string>
+    <string name="label_qty">পরিমাণ</string>
+    <string name="label_amount">মোট টাকা</string>
+    <string name="label_grand_total">সর্বমোট খরচ:</string>
+    <string name="area_based">এরিয়া ভিত্তিক</string>
+    <string name="btn_calculate">হিসাব করুন</string>
+    <string name="estimation_disclaimer">* এই হিসাবটি সাধারণ স্ট্যান্ডার্ড রেট ও ইঞ্জিনিয়ারিং রেশিও ধরে করা হয়েছে।</string>
+    <string name="no_estimation_found">কোন হিসাব পাওয়া যায়নি। অনুগ্রহ করে আগে হিসাব করুন।</string>
+    <string name="title_final_estimation">চূড়ান্ত হিসাব</string>
+    <string name="btn_policy">নীতিমালা</string>
+    <string name="label_date_header">তারিখ</string>
+    <string name="label_total_area_header">মোট এরিয়া</string>
+    <string name="btn_new_calculation">নতুন হিসাব করুন</string>
+    <string name="label_total_estimated_cost">সর্বমোট আনুমানিক খরচ</string>
+    <string name="msg_no_estimation">কোনো হিসাব পাওয়া যায়নি। অনুগ্রহ করে আগে হিসাব করুন।</string>
+    <string name="label_material_breakdown">মালামালের বিস্তারিত</string>
+    <string name="label_qty_short">পরিমাণ</string>
+    <string name="label_rate_short">রেট</string>
+    <string name="label_standard">নির্ধারিত</string>
+    <string name="error_invalid_input">অনুগ্রহ করে সঠিক সংখ্যা ইনপুট দিন</string>
+    <string name="error_empty_fields">সবগুলো ঘর পূরণ করা আবশ্যক</string>
+    <string name="error_area_zero">এরিয়া অবশ্যই শূন্যর বেশি হতে হবে</string>
+    <string name="label_material_rates">মালামালের একক দর</string>
+
+    <!--Construction Policy-->
+    <string name="title_policy">হিসাবের নিয়ম ও নীতিমালা</string>
+    <string name="disclaimer_text">সতর্কবার্তা: নির্ভুল নির্মাণের জন্য সর্বদা একজন দক্ষ ইঞ্জিনিয়ারের পরামর্শ নিন। এই হিসাবটি স্ট্যান্ডার্ড ইঞ্জিনিয়ারিং থাম্ব-রুলের ওপর ভিত্তি করে তৈরি।</string>
+    <string name="policy_step_1">১. ফাউন্ডেশন: মাটির নিচের বেইস, শর্ট কলাম এবং গ্রেড বিমের খরচ ফাউন্ডেশনের তলা অনুযায়ী ধরা হয়েছে।</string>
+    <string name="policy_step_2">২. স্ট্রাকচার: ছাদ, বিম এবং কলামের জন্য ১:২:৪ অনুপাতে সিমেন্ট-বালি-পাথর এবং আনুমানিক ১.৫% রড ধরা হয়েছে।</string>
+    <string name="policy_step_3">৩. দেয়াল ও প্লাস্টার: ৫ ইঞ্চি দেয়ালের ইটের হিসাব এবং দেয়াল গাঁথুনি ও প্লাস্টারের জন্য প্রয়োজনীয় সিমেন্ট-বালি অন্তর্ভুক্ত করা হয়েছে।</string>
+    <string name="policy_step_4">৪. সেফটি ট্যাংক: বাড়ির আয়তন অনুযায়ী একটি স্ট্যান্ডার্ড সেফটি ট্যাংকের খরচ ধরা হয়েছে।</string>
+    <string name="policy_step_5">৫. বিবিধ: গুনা, লোহা, পলিথিন এবং সাটারিং কাঠ ভাড়া বিবিধ খরচের আওতায় ধরা হয়েছে।</string>
+    <string name="policy_excluded">অন্তর্ভুক্ত নয়: ফিনিশিং আইটেম (টাইলস, রঙ, দরজা, জানালা, ইলেকট্রিক এবং প্লাম্বিং) এই হিসাবের অন্তর্ভুক্ত নয়।</string>
 
 </resources>

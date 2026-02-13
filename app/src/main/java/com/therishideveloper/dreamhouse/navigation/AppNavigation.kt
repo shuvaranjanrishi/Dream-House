@@ -22,6 +22,8 @@ import com.therishideveloper.dreamhouse.screen.LanguageScreen
 import com.therishideveloper.dreamhouse.screen.BackupScreen
 import com.therishideveloper.dreamhouse.screen.CategoryChartScreen
 import com.therishideveloper.dreamhouse.screen.ConstructionStageScreen
+import com.therishideveloper.dreamhouse.screen.EstimationCalculatorScreen
+import com.therishideveloper.dreamhouse.screen.EstimationScreen
 import com.therishideveloper.dreamhouse.screen.HomeScreen
 import com.therishideveloper.dreamhouse.screen.TransactionListScreen
 import com.therishideveloper.dreamhouse.screen.NoteScreen
@@ -97,12 +99,19 @@ fun AppNavigation(
                 viewModel = projectViewModel
             )
         }
-//        composable(Screens.AddStageScreen.route) {
-//            AddStageScreen(
-//                onBack = { navController.popBackStack() },
-//                viewModel = projectViewModel
-//            )
-//        }
+        composable(Screens.EstimationScreen.route) {
+            EstimationScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToCalculator = { navController.navigate(Screens.EstimationCalculatorScreen.route) },
+                viewModel = projectViewModel
+            )
+        }
+        composable(Screens.EstimationCalculatorScreen.route) {
+            EstimationCalculatorScreen(
+                onBack = { navController.popBackStack() },
+                viewModel = projectViewModel
+            )
+        }
         composable(Screens.ProjectOverviewScreen.route) {
             ProjectOverviewScreen(
                 onMenuClick = onOpenDrawer,

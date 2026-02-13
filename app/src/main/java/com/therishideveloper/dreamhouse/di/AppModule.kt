@@ -3,6 +3,7 @@ package com.therishideveloper.dreamhouse.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.therishideveloper.dreamhouse.data.dao.EstimationDao
 import com.therishideveloper.dreamhouse.data.database.AppDatabase
 import com.therishideveloper.dreamhouse.data.dao.NoteDao // Dao import করুন
 import com.therishideveloper.dreamhouse.data.dao.ProjectDao
@@ -68,8 +69,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideProjectRepository(dao: ProjectDao, stageDao: StageDao): ProjectRepository {
-        return ProjectRepositoryImpl(dao, stageDao)
+    fun provideEstimationDao(db: AppDatabase): EstimationDao = db.estimationDao()
+
+    @Provides
+    @Singleton
+    fun provideProjectRepository(dao: ProjectDao, stageDao: StageDao,estimationDao: EstimationDao): ProjectRepository {
+        return ProjectRepositoryImpl(dao, stageDao,estimationDao)
     }
 
     @Provides

@@ -237,6 +237,17 @@
     <string name="cat_legal">कानूनी और परमिट</string>
     <string name="cat_security">सुरक्षा / गार्ड</string>
 
+    <string name="unit">इकाई</string>
+    <string name="unit_kg">किग्रा</string>
+    <string name="unit_bag">बैग</string>
+    <string name="unit_pcs">पीस</string>
+    <string name="unit_cft">सीएफटी</string>
+    <string name="unit_sqft">वर्ग फुट</string>
+
+    <string name="guna">गुना (तार)</string>
+    <string name="loha">लोहा (कील)</string>
+    <string name="poly">पॉलीथीन</string>
+
     <string name="desc_salary">नौकरी से प्राप्त मासिक आय</string>
     <string name="desc_business">व्यावसायिक गतिविधियों से अर्जित आय</string>
     <string name="desc_savings">निर्माण के लिए उपयोग की जाने वाली व्यक्तिगत बचत या नकद।</string>
@@ -344,5 +355,50 @@
     <string name="err_fill_all">कृपया सभी आवश्यक फ़ील्ड भरें।</string>
     <string name="err_duplicate_stage">यह चरण पहले ही जोड़ा जा चुका है!</string>
     <string name="err_edit_lock">संपादन के दौरान चरण का नाम नहीं बदला जा सकता।</string>
+
+    <string name="label_area">क्षेत्रफल: </string>
+    <string name="label_date">दिनांक: </string>
+    <string name="label_foundation">नींव (मंजिल)</string>
+    <string name="label_build_floor">निर्माण (मंजिल)</string>
+    <string name="unit_floor">मंजिल</string>
+    <string name="label_estimation_title">सामग्री अनुमान (Estimation)</string>
+    <string name="label_estimation_subtitle">सरिया, सीमेंट और अन्य लागतों की गणना करें</string>
+    <string name="title_estimation_calculator">अनुमान कैलकुलेटर</string>
+    <string name="title_estimation_summary">अनुमान सारांश</string>
+    <string name="label_dimensions">आयाम और इकाई मूल्य</string>
+    <string name="label_total_area">कुल क्षेत्रफल (वर्ग फुट)</string>
+    <string name="label_material">सामग्री</string>
+    <string name="label_qty">मात्रा</string>
+    <string name="label_amount">रकम</string>
+    <string name="label_grand_total">कुल योग:</string>
+    <string name="area_based">क्षेत्र आधारित</string>
+    <string name="btn_calculate">अनुमान लगाएं</string>
+    <string name="estimation_disclaimer">* यह गणना मानक इंजीनियरिंग अनुपात और औसत बाजार दरों पर आधारित है।</string>
+    <string name="no_estimation_found">कोई अनुमान नहीं मिला। कृपया पहले गणना करें।</string>
+    <string name="title_final_estimation">अंतिम अनुमान</string>
+    <string name="btn_policy">नीति</string>
+    <string name="label_date_header">दिनांक</string>
+    <string name="label_total_area_header">कुल क्षेत्रफल</string>
+    <string name="btn_new_calculation">नई गणना</string>
+    <string name="label_total_estimated_cost">कुल अनुमानित लागत</string>
+    <string name="msg_no_estimation">कोई अनुमान नहीं मिला। कृपया पहले गणना करें।</string>
+    <string name="label_material_breakdown">सामग्री का विवरण</string>
+    <string name="label_qty_short">मात्रा</string>
+    <string name="label_rate_short">दर</string>
+    <string name="label_standard">मानक</string>
+    <string name="error_invalid_input">कृपया मान्य संख्यात्मक मान दर्ज करें</string>
+    <string name="error_empty_fields">सभी फ़ील्ड आवश्यक हैं</string>
+    <string name="error_area_zero">क्षेत्रफल शून्य से अधिक होना चाहिए</string>
+    <string name="label_material_rates">सामग्री की इकाई दर</string>
+
+    <!--Construction Policy-->
+    <string name="title_policy">गणना नीति और तर्क</string>
+    <string name="disclaimer_text">अस्वीकरण: सटीक निर्माण कार्य के लिए हमेशा एक पेशेवर इंजीनियर से परामर्श लें। यह अनुमान मानक इंजीनियरिंग नियमों पर आधारित है।</string>
+    <string name="policy_step_1">1. नींव (Foundation): इसमें नींव की मंजिल के आधार पर बेस, शॉर्ट कॉलम और ग्रेड बीम की लागत शामिल है।</string>
+    <string name="policy_step_2">2. संरचना: स्लैब, बीम और कॉलम के लिए 1:2:4 अनुपात और लगभग 1.5% स्टील रॉड का उपयोग किया गया है।</string>
+    <string name="policy_step_3">3. दीवारें और प्लास्टर: 5 इंच की दीवारों के लिए ईंटें। ईंट बिछाने और प्लास्टर दोनों के लिए सीमेंट और रेत शामिल हैं।</string>
+    <string name="policy_step_4">4. सेफ्टी टैंक: कुल क्षेत्रफल के आधार पर एक मानक सेप्टিক टैंक की लागत जोड़ी गई है।</string>
+    <string name="policy_step_5">5. अन्य: बाइंडिंग वायर (गुना), कील (लोहा), पॉलीथीन और शटरिंग लकड़ी का किराया अन्य लागतों में शामिल है।</string>
+    <string name="policy_excluded">शामिल नहीं है: फिनिशिंग आइटम (टाइल्स, पेंट, दरवाजे, खिड़कियां, बिजली और प्लंबिंग) इस अनुमान में शामिल नहीं हैं।</string>
 
 </resources>

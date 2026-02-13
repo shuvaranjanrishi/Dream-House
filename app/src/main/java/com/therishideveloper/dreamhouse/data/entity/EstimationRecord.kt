@@ -1,0 +1,91 @@
+package com.therishideveloper.dreamhouse.data.entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tbl_estimation")
+data class EstimationRecord(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val date: Long, // এটা Long-ই থাকবে
+    val totalArea: String,
+
+    // নতুন ফিল্ড যা আপনি চাইলেন
+    val foundationFloors: Int,
+    val floorsToBuild: Int,
+
+    // Titles (DB Keys)
+    val rod: String,
+    val cement: String,
+    val sand: String,
+    val brick: String,
+    val stone: String,
+    val labor: String,
+
+    // Quantities
+    val rodQty: String,
+    val cementQty: String,
+    val sandQty: String,
+    val brickQty: String,
+    val stoneQty: String,
+    val laborQty: String,
+
+    // Costs
+    val rodCost: String,
+    val cementCost: String,
+    val sandCost: String,
+    val brickCost: String,
+    val stoneCost: String,
+    val laborCost: String,
+
+    // Rates
+    val rodRate: String,
+    val cementRate: String,
+    val sandRate: String,
+    val brickRate: String,
+    val stoneRate: String,
+    val laborRate: String,
+
+    // Others
+    val othersDetails: String,
+    val othersCost: String,
+    val totalEstimatedCost: String
+)
+
+//@Entity(tableName = "tbl_estimation")
+//data class EstimationRecord(
+//    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+//    val date: Long,
+//    val totalArea: String,
+//    // title
+//    val rod: String,
+//    val cement: String,
+//    val sand: String,
+//    val brick: String,
+//    val stone: String,
+//    val labor: String,
+//    // Quantities
+//    val rodQty: String,
+//    val cementQty: String,
+//    val sandQty: String,
+//    val brickQty: String,
+//    val stoneQty: String,
+//    val laborQty: String,
+//    // Costs
+//    val rodCost: String,
+//    val cementCost: String,
+//    val sandCost: String,
+//    val brickCost: String,
+//    val stoneCost: String,
+//    val laborCost: String,
+//    // Rates (Ei gulo add hobe)
+//    val rodRate: String,
+//    val cementRate: String,
+//    val sandRate: String,
+//    val brickRate: String,
+//    val stoneRate: String,
+//    val laborRate: String,
+//    // Others
+//    val othersDetails: String,
+//    val othersCost: String,
+//    val totalEstimatedCost: String
+//)
