@@ -1,18 +1,14 @@
 package com.therishideveloper.dreamhouse.util
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Environment
-import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.data.model.TransactionType
+import com.therishideveloper.dreamhouse.util.FileHelper.MIME_TYPE_SHEET
+import com.therishideveloper.dreamhouse.util.FileHelper.showDownloadNotification
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
@@ -20,45 +16,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-object ExcelHelper {
+object ExcelGenerator {
 
-    private const val CHANNEL_ID = "download_channel"
     private const val AUTHORITY_SUFFIX = ".fileProvider"
-    private const val FOLDER_NAME = "Daily Expense/Transaction Report"
+    private const val FOLDER_NAME = "/Transaction Report"
 
-    fun showDownloadNotification(context: Context, file: File) {
-        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val channel = NotificationChannel(
-            CHANNEL_ID, "File Downloads", NotificationManager.IMPORTANCE_HIGH
-        )
-        manager.createNotificationChannel(channel)
-
-        val uri =
-            FileProvider.getUriForFile(context, "${context.packageName}$AUTHORITY_SUFFIX", file)
-
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-
-        val pendingIntent = PendingIntent.getActivity(
-            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.app_logo)
-            .setContentTitle("Download Complete")
-            .setContentText("File saved: ${file.name}")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-            .build()
-
-        manager.notify(System.currentTimeMillis().toInt(), notification)
-    }
-
-    fun createTransactionExcel(context: Context, transactions: List<Transaction>): File? {
+    fun generateTransactionExcel(context: Context, transactions: List<Transaction>): File? {
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("Transactions")
 
@@ -85,20 +48,17 @@ object ExcelHelper {
         sheet.setColumnWidth(2, 30 * 256)
 
         return try {
-            val downloadDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val root = File(downloadDir, FOLDER_NAME)
-            if (!root.exists()) root.mkdirs()
-
+            val folder = FileHelper.getSaveDir(context.getString(R.string.app_name) + FOLDER_NAME)
             val timeStamp = SimpleDateFormat("yyyyMMdd_HHmm", Locale.US).format(Date())
-            val baseFileName = "Transaction_Report_$timeStamp"
-
-            val file = getUniqueFile(root, baseFileName, "xlsx")
+            val file = FileHelper.getUniqueFile(folder, "Transaction_Report_$timeStamp", "xlsx")
 
             val out = FileOutputStream(file)
             workbook.write(out)
             out.close()
             workbook.close()
+
+            showDownloadNotification(context, file, 1)
+
             file
         } catch (e: Exception) {
             e.printStackTrace()
@@ -106,23 +66,12 @@ object ExcelHelper {
         }
     }
 
-    private fun getUniqueFile(directory: File, baseName: String, extension: String): File {
-        var file = File(directory, "$baseName.$extension")
-        var counter = 1
-
-        while (file.exists()) {
-            file = File(directory, "${baseName}_($counter).$extension")
-            counter++
-        }
-        return file
-    }
-
     fun shareExcelFile(context: Context, file: File) {
         val uri =
             FileProvider.getUriForFile(context, "${context.packageName}$AUTHORITY_SUFFIX", file)
 
         val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            type = MIME_TYPE_SHEET
             putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_SUBJECT, "Transaction Report")
             putExtra(

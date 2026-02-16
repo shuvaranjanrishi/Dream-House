@@ -6,9 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.Transaction
-import com.therishideveloper.dreamhouse.util.ExcelHelper
+import com.therishideveloper.dreamhouse.util.ExcelGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +42,7 @@ class DownloadViewModel @Inject constructor() : ViewModel() {
             isDownloading = true
             errorMessage = null
 
-            val file = ExcelHelper.createTransactionExcel(context,transactions)
+            val file = ExcelGenerator.generateTransactionExcel(context,transactions)
 
             withContext(Dispatchers.Main) {
                 isDownloading = false
@@ -61,11 +60,11 @@ class DownloadViewModel @Inject constructor() : ViewModel() {
         resetState()
         viewModelScope.launch(Dispatchers.IO) {
             isDownloading = true
-            val file = ExcelHelper.createTransactionExcel(context,transactions)
+            val file = ExcelGenerator.generateTransactionExcel(context,transactions)
             withContext(Dispatchers.Main) {
                 isDownloading = false
                 if (file != null) {
-                    ExcelHelper.shareExcelFile(context, file)
+                    ExcelGenerator.shareExcelFile(context, file)
                 } else {
                     errorMessage = "Failed to create file for sharing..."
                 }

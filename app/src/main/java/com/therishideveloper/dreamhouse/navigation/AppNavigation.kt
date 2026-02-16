@@ -30,10 +30,12 @@ import com.therishideveloper.dreamhouse.screen.NoteScreen
 import com.therishideveloper.dreamhouse.screen.IncomeExpenseScreen
 import com.therishideveloper.dreamhouse.screen.ProjectOverviewScreen
 import com.therishideveloper.dreamhouse.screen.ProjectSetupScreen
+import com.therishideveloper.dreamhouse.screen.SectionChartScreen
 import com.therishideveloper.dreamhouse.screen.manual.CategoryManualScreen
 import com.therishideveloper.dreamhouse.viewmodel.DownloadViewModel
 import com.therishideveloper.dreamhouse.viewmodel.NoteViewModel
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
+import com.therishideveloper.dreamhouse.viewmodel.SectionChartViewModel
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
 
 @Composable
@@ -47,6 +49,7 @@ fun AppNavigation(
     val noteViewModel: NoteViewModel = hiltViewModel()
     val downloadViewModel: DownloadViewModel = hiltViewModel()
     val projectViewModel: ProjectViewModel = hiltViewModel()
+    val sectionChartViewModel: SectionChartViewModel = hiltViewModel()
 
     NavHost(
         navController = navController,
@@ -238,6 +241,14 @@ fun AppNavigation(
             CategoryManualScreen(
                 onMenuClick = onOpenDrawer,
                 viewModel = transactionViewModel
+            )
+        }
+        composable(Screens.SectionChartScreen.route) {
+            SectionChartScreen(
+                onBack = { navController.popBackStack() },
+                projectViewModel = projectViewModel,
+                transactionViewModel = transactionViewModel,
+                viewModel = sectionChartViewModel
             )
         }
     }

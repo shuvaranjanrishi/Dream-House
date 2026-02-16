@@ -37,7 +37,8 @@ enum class Screens(val route: String) {
     AddStageScreen("add_stage_screen?stageId={stageId}"),
     ProjectOverviewScreen("project_overview_screen"),
     EstimationScreen("estimation_screen"),
-    EstimationCalculatorScreen("estimation_calculator_screen")
+    EstimationCalculatorScreen("estimation_calculator_screen"),
+    SectionChartScreen("section_chart_screen")
 }
 
 val listOfNavItems = listOf(
@@ -58,6 +59,7 @@ val listOfNavItems = listOf(
         Icons.Outlined.Architecture,
         Screens.ProjectOverviewScreen.route
     ),
+
     // Settings Section
     NavItem(
         3,
@@ -100,5 +102,5 @@ val listOfNavItems = listOf(
         Icons.Filled.Info,
         Icons.Outlined.Info,
         Screens.AboutScreen.route
-    )
+    ),
 )

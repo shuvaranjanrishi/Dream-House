@@ -13,6 +13,7 @@
     <string name="menu_note">Keep Note</string>
     <string name="menu_all_transactions">All Transactions</string>
     <string name="menu_category_chart">Category Chart</string>
+    <string name="menu_section_chart">Section Chart</string>
     <string name="menu_construction_plan">Construction Plan</string>
     <string name="label_stages">Construction Stages</string>
 
@@ -217,6 +218,10 @@
     <string name="cat_bricks">Bricks / Blocks</string>
     <string name="cat_sand">Sand</string>
     <string name="cat_stone">Stone / Chips</string>
+    <string name="cat_binding_wire">Binding Wire</string>
+    <string name="cat_nails">Nails</string>
+    <string name="cat_poly">Polythene</string>
+    <string name="cat_wood">Wood/Timber</string>
 
     <string name="cat_mason">Mason Labor</string>
     <string name="cat_shuttering">Shuttering</string>
@@ -253,11 +258,17 @@
     <string name="desc_invest">Investment or funds contributed by a business partner.</string>
     <string name="desc_relative_loan">Money borrowed from friends or family members.</string>
     <string name="desc_others_income">Extra funds or income from any other sources.</string>
+
     <string name="desc_rod">Cost of steel rods for foundation, beams, and roof slabs.</string>
     <string name="desc_cement">Cost of cement for casting, bricklaying, and plastering.</string>
     <string name="desc_bricks">Cost of bricks or concrete blocks for walls and flooring.</string>
     <string name="desc_sand">Cost of sand used for filling, plastering, or concrete.</string>
     <string name="desc_stone">Cost of crushed stones or brick chips for casting work.</string>
+    <string name="desc_binding_wire">Used for tying reinforcement bars (Rod).</string>
+    <string name="desc_nails">Used for shuttering and wooden frame works.</string>
+    <string name="desc_poly">Used for damp-proofing and slab casting protection.</string>
+    <string name="desc_wood">Used for shuttering, doors, and window frames.</string>
+
     <string name="desc_mason">Wages for masons, helpers, or payments to contractors.</string>
     <string name="desc_shuttering">Rent or cost of wooden/steel frames for concrete support.</string>
     <string name="desc_excavation">Labor cost for digging earth for foundations or bases.</string>
@@ -388,6 +399,11 @@
     <string name="error_empty_fields">All fields are required</string>
     <string name="error_area_zero">Area must be greater than zero</string>
     <string name="label_material_rates">Material Unit Rates</string>
+    <string name="msg_pdf_saved">PDF saved to Downloads/Daily Expense/Estimation</string>
+    <string name="pdf_doc_title">Section Wise Category Report</string>
+    <string name="pdf_generated_on">Generated on: </string>
+    <string name="pdf_developer">Developer: %s</string>
+    <string name="pdf_copyright">© %s Dream House</string>
 
     <!--Construction Policy-->
     <string name="title_policy">Calculation Policy &amp; Logic</string>

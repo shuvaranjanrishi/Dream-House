@@ -105,6 +105,38 @@ enum class Category(
         "STRUCTURAL",
         R.string.unit_cft
     ),
+    BINDING_WIRE(
+        "BINDING_WIRE",
+        R.string.cat_binding_wire,
+        R.string.desc_binding_wire,
+        Icons.Default.Link,
+        "STRUCTURAL",
+        R.string.unit_kg
+    ),
+    NAILS(
+        "NAILS",
+        R.string.cat_nails,
+        R.string.desc_nails,
+        Icons.Default.PushPin,
+        "STRUCTURAL",
+        R.string.unit_kg
+    ),
+    POLYTHENE(
+        "POLYTHENE",
+        R.string.cat_poly,
+        R.string.desc_poly,
+        Icons.Default.Layers,
+        "STRUCTURAL",
+        R.string.unit_sqft
+    ),
+    WOOD(
+        "WOOD",
+        R.string.cat_wood,
+        R.string.desc_wood,
+        Icons.Default.Chalet,
+        "STRUCTURAL",
+        R.string.unit_cft
+    ),
 
     // --- LABOR ---
     MASON_LABOR(
@@ -218,5 +250,18 @@ enum class Category(
         fun getCategoriesBySection(section: String) = entries.filter { it.section == section }
         fun getAllSections(): List<String> =
             listOf("INCOME", "STRUCTURAL", "LABOR", "FINISHING", "MISCELLANEOUS")
+    }
+}
+
+object SectionMeta {
+    fun getSectionTitleRes(section: String): Int {
+        return when (section) {
+            "INCOME" -> R.string.section_income
+            "STRUCTURAL" -> R.string.section_structural
+            "LABOR" -> R.string.section_labor
+            "FINISHING" -> R.string.section_finishing
+            "MISCELLANEOUS" -> R.string.section_miscellaneous
+            else -> 0
+        }
     }
 }

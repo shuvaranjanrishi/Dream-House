@@ -13,6 +13,7 @@
     <string name="menu_note">নোট রাখুন</string>
     <string name="menu_all_transactions">সব লেনদেন</string>
     <string name="menu_category_chart">ক্যাটেগরি চার্ট</string>
+    <string name="menu_section_chart">সেকশন চার্ট</string>
     <string name="menu_construction_plan">নির্মাণ পরিকল্পনা</string>
     <string name="label_stages">নির্মাণ পর্যায়সমূহ</string>
 
@@ -218,6 +219,10 @@
     <string name="cat_bricks">ইট / ব্লক</string>
     <string name="cat_sand">বালু</string>
     <string name="cat_stone">পাথর / খোয়া</string>
+    <string name="cat_binding_wire">বাইন্ডিং ওয়্যার (গুনা)</string>
+    <string name="cat_nails">পেরেক (লোহা)</string>
+    <string name="cat_poly">পলিথিন</string>
+    <string name="cat_wood">কাঠ</string>
 
     <string name="cat_mason">রাজমিস্ত্রি</string>
     <string name="cat_shuttering">শাটারিং</string>
@@ -260,6 +265,10 @@
     <string name="desc_bricks">দেয়াল তৈরি বা খোয়া বানানোর ইট বা ব্লকের খরচ।</string>
     <string name="desc_sand">ভরাট এবং ঢালাইয়ের কাজে ব্যবহৃত বালুর খরচ।</string>
     <string name="desc_stone">ঢালাইয়ের জন্য কেনা পাথর বা ইটের খোয়ার খরচ।</string>
+    <string name="desc_binding_wire">রড বাঁধার কাজে ব্যবহৃত হয়।</string>
+    <string name="desc_nails">শাটারিং এবং কাঠের ফ্রেম তৈরির কাজে ব্যবহৃত হয়।</string>
+    <string name="desc_poly">ছাদ ঢালাই এবং ড্যাম্প প্রতিরোধে ব্যবহৃত হয়।</string>
+    <string name="desc_wood">শাটারিং, দরজা এবং জানালার ফ্রেমের কাজে ব্যবহৃত হয়।</string>
 
     <string name="desc_mason">রাজমিস্ত্রি ও শ্রমিকদের মজুরি বা কন্টাক্টরের পেমেন্ট।</string>
     <string name="desc_shuttering">ঢালাইয়ের জন্য কাঠ বা বাঁশের ফ্রেম ভাড়ার খরচ।</string>
@@ -393,6 +402,11 @@
     <string name="error_empty_fields">সবগুলো ঘর পূরণ করা আবশ্যক</string>
     <string name="error_area_zero">এরিয়া অবশ্যই শূন্যর বেশি হতে হবে</string>
     <string name="label_material_rates">মালামালের একক দর</string>
+    <string name="msg_pdf_saved">PDF saved to Downloads/Daily Expense/Estimation</string>
+    <string name="pdf_doc_title">সেকশন ভিত্তিক ক্যাটাগরি রিপোর্ট</string>
+    <string name="pdf_generated_on">তৈরির তারিখ: </string>
+    <string name="pdf_developer">ডেভেলপার: %s</string>
+    <string name="pdf_copyright">© %s ড্রিম হাউস</string>
 
     <!--Construction Policy-->
     <string name="title_policy">হিসাবের নিয়ম ও নীতিমালা</string>

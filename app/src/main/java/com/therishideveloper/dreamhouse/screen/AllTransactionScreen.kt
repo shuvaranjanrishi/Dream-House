@@ -43,7 +43,7 @@ import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.data.model.TransactionType
-import com.therishideveloper.dreamhouse.util.ExcelHelper.showDownloadNotification
+import com.therishideveloper.dreamhouse.util.FileHelper.showDownloadNotification
 import com.therishideveloper.dreamhouse.viewmodel.DownloadViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -142,7 +142,7 @@ fun AllTransactionScreen(
                 showDownloadDialog = false
                 downloadViewModel.downloadExcel(context, filteredTransactions) { file ->
                     showToast(context, msgDownloadComplete)
-                    showDownloadNotification(context, file)
+                    showDownloadNotification(context, file, 0)
                 }
             },
             onDismiss = { showDownloadDialog = false }

@@ -41,8 +41,8 @@ fun CategoryChartScreen(
     onBack: () -> Unit,
     viewModel: TransactionViewModel
 ) {
-    var selectedTab by remember { mutableIntStateOf(0) }
     val currentBalance by viewModel.currentBalance.collectAsStateWithLifecycle()
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     val tabs = listOf(
         stringResource(R.string.tab_income),

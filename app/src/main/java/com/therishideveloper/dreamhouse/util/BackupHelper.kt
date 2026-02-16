@@ -6,6 +6,7 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.AppBackupData
 import java.io.File
@@ -15,12 +16,12 @@ import java.util.Locale
 
 class BackupHelper(private val context: Context) {
 
-    val backupFolder = "Dream House/Backup"
+    private val backupFolder = context.getString(R.string.app_name) + "/Backup"
 
     fun createBackup(backupData: AppBackupData): Uri? {
         return try {
             val gson = Gson()
-            val jsonData = gson.toJson(backupData) // পুরো অবজেক্টটি JSON হবে
+            val jsonData = gson.toJson(backupData)
             val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
             val root = File(downloadDir, backupFolder)

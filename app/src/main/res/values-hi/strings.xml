@@ -13,6 +13,7 @@
     <string name="menu_note">नोट लिखें</string>
     <string name="menu_all_transactions">सभी लेनदेन</string>
     <string name="menu_category_chart">कैटेगरी चार्ट</string>
+    <string name="menu_section_chart">अनुभाग चार्ट</string>
     <string name="menu_construction_plan">निर्माण योजना</string>
     <string name="label_stages">निर्माण के चरण</string>
 
@@ -219,6 +220,10 @@
     <string name="cat_bricks">ईंटें / ब्लॉक</string>
     <string name="cat_sand">रेत</string>
     <string name="cat_stone">पत्थर / चिप्स</string>
+    <string name="cat_binding_wire">बाइंडिंग वायर (गुना)</string>
+    <string name="cat_nails">कीलें (लोहा)</string>
+    <string name="cat_poly">पॉलीथीन</string>
+    <string name="cat_wood">लकड़ी</string>
 
     <string name="cat_mason">राजमिस्त्री</string>
     <string name="cat_shuttering">शटरिंग</string>
@@ -255,11 +260,17 @@
     <string name="desc_invest">बिजनेस पार्टनर द्वारा दिया गया निवेश या फंड।</string>
     <string name="desc_relative_loan">दोस्तों या परिवार के सदस्यों से उधार लिया गया पैसा।</string>
     <string name="desc_others_income">किसी अन्य स्रोत से प्राप्त अतिरिक्त धन या आय।</string>
+
     <string name="desc_rod">नींव, बीम और छत की ढलाई के लिए स्टील की छड़ों की लागत।</string>
     <string name="desc_cement">चिनाई और प्लास्टर के काम के लिए सीमेंट की लागत।</string>
     <string name="desc_bricks">दीवारों और फर्श के लिए ईंटों या कंक्रीट ब्लॉकों की लागत।</string>
     <string name="desc_sand">भरने, प्लास्टर या कंक्रीट के लिए उपयोग की जाने वाली रेत की लागत।</string>
     <string name="desc_stone">ढलाई के काम के लिए पत्थर या ईंट के टुकड़ों की लागत।</string>
+    <string name="desc_binding_wire">सरिया (रॉड) बांधने के लिए उपयोग किया जाता है।</string>
+    <string name="desc_nails">शटरिंग और लकड़ी के काम के लिए उपयोग की जाती हैं।</string>
+    <string name="desc_poly">छत ढलाई और नमी रोकने के लिए उपयोग किया जाता है।</string>
+    <string name="desc_wood">शटरिंग, दरवाजे और खिड़की के फ्रेम के लिए उपयोग की जाती है।</string>
+
     <string name="desc_mason">मिस्त्री, सहायकों की मजदूरी या ठेकेदारों को भुगतान।</string>
     <string name="desc_shuttering">कंक्रीट को सहारा देने के लिए लकड़ी/लोहे के फ्रेम का किराया।</string>
     <string name="desc_excavation">नींव की खुदाई के लिए मजदूरों की लागत।</string>
@@ -390,6 +401,11 @@
     <string name="error_empty_fields">सभी फ़ील्ड आवश्यक हैं</string>
     <string name="error_area_zero">क्षेत्रफल शून्य से अधिक होना चाहिए</string>
     <string name="label_material_rates">सामग्री की इकाई दर</string>
+    <string name="msg_pdf_saved">PDF saved to Downloads/Daily Expense/Estimation</string>
+    <string name="pdf_doc_title">अनुभाग वार श्रेणी रिपोर्ट</string>
+    <string name="pdf_generated_on">जनरेट किया गया: </string>
+    <string name="pdf_developer">डेवलपर: %s</string>
+    <string name="pdf_copyright">© %s ड्रीम हाउस</string>
 
     <!--Construction Policy-->
     <string name="title_policy">गणना नीति और तर्क</string>

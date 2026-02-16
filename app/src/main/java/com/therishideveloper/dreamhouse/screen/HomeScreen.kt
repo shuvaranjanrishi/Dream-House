@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,8 +61,6 @@ fun HomeScreen(
     projectViewModel: ProjectViewModel = hiltViewModel()
 
 ) {
-    val context = LocalContext.current
-
     // --- States ---
     var showCalculator by remember { mutableStateOf(false) }
     var calcExpression by remember { mutableStateOf("") }
@@ -155,21 +154,31 @@ fun HomeScreen(
                     }
                 }
             }
-
-            // --- Menu Grid & Actions ---
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 8.dp)
             ) {
-                LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.fillMaxWidth()) {
+                // ২টা রো এবং হরিজন্টাল স্ক্রল
+                LazyHorizontalGrid(
+                    rows = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(240.dp), // ৩ কলামের আইটেম সাইজ ধরে রাখার জন্য এই হাইটটি পারফেক্ট
+                    horizontalArrangement = Arrangement.spacedBy(0.dp), // আগের মতোই গ্যাপ রাখতে
+                    verticalArrangement = Arrangement.spacedBy(0.dp)
+                ) {
                     items(DashboardUtils.getDashboardMenus()) { item ->
-                        MenuGridItem(item = item) { route ->
-                            handleNavigation(navController, route)
+                        // আগের গ্রিডে ৩ কলামে থাকাকালীন উইডথ যেমন ছিল (প্রায় ১২০ডিপি)
+                        Box(modifier = Modifier.width(125.dp)) {
+                            MenuGridItem(item = item) { route ->
+                                handleNavigation(navController, route)
+                            }
                         }
                     }
                 }
 
+                // আপনার একশন বাটনগুলো আগের পজিশনেই থাকবে
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
