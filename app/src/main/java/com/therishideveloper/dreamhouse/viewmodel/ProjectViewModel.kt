@@ -38,11 +38,28 @@ class ProjectViewModel @Inject constructor(
         showWelcomeCelebration = false
     }
 
-    val activeProject: StateFlow<ProjectEntity?> = repository.getProjectById(1)
+    val activeProject: StateFlow<ProjectEntity> = repository.getProjectById(1)
+        .map { project ->
+            project ?: ProjectEntity(
+                id = 1,
+                projectName = "Dream House",
+                address = "Address not set",
+                totalBudget = 0.0,
+                startDate = System.currentTimeMillis(),
+                endDate = System.currentTimeMillis()
+            )
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = null
+            initialValue = ProjectEntity(
+                id = 1,
+                projectName = "Loading...",
+                address = "...",
+                totalBudget = 0.0,
+                startDate = System.currentTimeMillis(),
+                endDate = System.currentTimeMillis()
+            )
         )
 
     private val _isLoading = MutableStateFlow(true)
@@ -75,12 +92,45 @@ class ProjectViewModel @Inject constructor(
     }
 
     fun getStageById(stageId: Int): Flow<StageEntity?> {
-        return repository.getStageById(stageId) // রিপোজিটরিতে এই ফাংশনটি থাকতে হবে
+        return repository.getStageById(stageId)
     }
 
-    val estimationHistory: StateFlow<List<EstimationRecord>> =
-        repository.getAllEstimations()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val estimationHistory: StateFlow<EstimationRecord> = repository.getAllEstimations()
+        .map { list ->
+            list.firstOrNull() ?: EstimationRecord(
+                date = System.currentTimeMillis(),
+                totalArea = "0",
+                foundationFloors = 0,
+                floorsToBuild = 0,
+                rod = Category.ROD.dbKey,
+                cement = Category.CEMENT.dbKey,
+                sand = Category.SAND.dbKey,
+                brick = Category.BRICKS.dbKey,
+                stone = Category.STONE.dbKey,
+                labor = Category.MASON_LABOR.dbKey,
+                rodQty = "0", cementQty = "0", sandQty = "0",
+                brickQty = "0", stoneQty = "0", laborQty = "0",
+                rodCost = "0", cementCost = "0", sandCost = "0",
+                brickCost = "0", stoneCost = "0", laborCost = "0",
+                rodRate = "0", cementRate = "0", sandRate = "0",
+                brickRate = "0", stoneRate = "0", laborRate = "0",
+                othersDetails = "0,0,0",
+                othersCost = "0",
+                totalEstimatedCost = "0"
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = EstimationRecord( // Initial state while loading
+                date = System.currentTimeMillis(),
+                totalArea = "0", foundationFloors = 0, floorsToBuild = 0,
+                rod = "", cement = "", sand = "", brick = "", stone = "", labor = "",
+                rodQty = "0", cementQty = "0", sandQty = "0", brickQty = "0", stoneQty = "0", laborQty = "0",
+                rodCost = "0", cementCost = "0", sandCost = "0", brickCost = "0", stoneCost = "0", laborCost = "0",
+                rodRate = "0", cementRate = "0", sandRate = "0", brickRate = "0", stoneRate = "0", laborRate = "0",
+                othersDetails = "0,0,0", othersCost = "0", totalEstimatedCost = "0"
+            )
+        )
 
     private val _currentCalculation = MutableStateFlow<EstimationRecord?>(null)
     val currentCalculation = _currentCalculation.asStateFlow()

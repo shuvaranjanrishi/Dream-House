@@ -59,8 +59,6 @@ import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
 
-// --- ছোট ছোট রিইউজেবল কম্পোনেন্টসমূহ ---
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorTopBar(title: String, onBack: () -> Unit) {
@@ -142,7 +140,6 @@ fun EstimationDetailsDialog(
     onDismiss: () -> Unit,
     onSave: () -> Unit
 ) {
-    val context = LocalContext.current
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -189,8 +186,6 @@ fun EstimationDetailsDialog(
         }
     )
 }
-
-// --- ডায়ালগের ছোট ছোট সাব-কম্পোনেন্ট ---
 
 @Composable
 fun DialogHeader() {
@@ -467,7 +462,7 @@ fun EstimationTopBar(
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = Color.White)
             }
             Text(
-                stringResource(R.string.title_final_estimation),
+                stringResource(R.string.title_estimation_summary),
                 color = Color.White,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.weight(1f)
@@ -482,15 +477,15 @@ fun EstimationTopBar(
     }
 }
 
-// --- ২. মেইন কন্টেন্ট বডি ---
 @Composable
 fun EstimationContent(
     padding: PaddingValues,
     record: EstimationRecord,
-    onNewCalculation: () -> Unit
+    onNewCalculation: () -> Unit,
+    isEmpty: Boolean = false // নতুন প্যারামিটার
 ) {
     Column(modifier = Modifier.padding(padding).fillMaxSize()) {
-        // স্টিকি হেডার (তারিখ, এরিয়া, ফ্লোর)
+        // স্টিকি হেডার সবসময় দেখা যাবে
         Surface(color = Color(0xFF00796B), modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)) {
                 EstimationHeaderInfo(record)
@@ -499,7 +494,6 @@ fun EstimationContent(
             }
         }
 
-        // মালামালের তালিকা (স্ক্রোলযোগ্য)
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -513,14 +507,26 @@ fun EstimationContent(
                 color = Color.Gray
             )
 
-            MaterialCardsList(record)
+            if (isEmpty) {
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(200.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        stringResource(R.string.msg_no_estimation),
+                        color = Color.Gray,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            } else {
+                MaterialCardsList(record)
+            }
 
-            Spacer(modifier = Modifier.height(80.dp)) // বটম বারের জন্য স্পেস
+            Spacer(modifier = Modifier.height(80.dp))
         }
     }
 }
 
-// --- ৩. হেডার ইনফো (তারিখ, এরিয়া, ফ্লোর) ---
 @Composable
  fun EstimationHeaderInfo(record: EstimationRecord) {
     val context = LocalContext.current
@@ -550,7 +556,6 @@ fun EstimationContent(
     }
 }
 
-// --- ৪. ম্যাটেরিয়াল কার্ড লিস্ট ---
 @Composable
 fun MaterialCardsList(record: EstimationRecord) {
     val context = LocalContext.current
@@ -607,8 +612,6 @@ fun EstimationBottomBar(totalCost: String) {
         }
     }
 }
-
-// --- হেল্পার ফাংশনসমূহ ---
 
 @Composable
 fun NewCalculationButton(onClick: () -> Unit) {

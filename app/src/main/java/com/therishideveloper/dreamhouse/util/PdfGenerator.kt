@@ -135,18 +135,10 @@ class PdfGenerator(private val context: Context) {
 
     fun generateEstimationPdf(record: EstimationRecord, houseName: String, address: String) {
         val pdfDocument = PdfDocument()
-        val page = pdfDocument.finishPageIfOpen(
-            pdfDocument.startPage(
-                PdfDocument.PageInfo.Builder(
-                    pageWidth,
-                    pageHeight,
-                    1
-                ).create()
-            )
-        ) // Safe start
-        val canvas = pdfDocument.startPage(
-            PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create()
-        ).canvas
+        val page =
+            pdfDocument.startPage(PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create())
+        val canvas = page.canvas // ওই পেজের ক্যানভাস নিন
+
         var currentY = 50f
 
         drawAppHeader(canvas, currentY)
