@@ -158,7 +158,6 @@
 
     <!--About Screen-->
     <string name="menu_about">ऐप के बारे में</string>
-    <string name="about_slogan">सही हिसाब, बेहतर बचत।</string>
     <string name="about_description">डेली एक्सपेंस आपको अपने पैसे को आसानी से प्रबंधित करने में मदद करता है। शक्तिशाली चार्ट और रिपोर्ट के साथ आय, व्यय को ट्रैक करें।</string>
     <string name="feature_1">✔ विस्तृत आय/व्यय ट्रैकिंग</string>
     <string name="feature_2">✔ इंटरएक्टिव श्रेणी चार्ट</string>
@@ -397,11 +396,12 @@
     <string name="label_qty_short">मात्रा</string>
     <string name="label_rate_short">दर</string>
     <string name="label_standard">मानक</string>
+    <string name="label_estimated_rate">अनुमानित दर</string>
     <string name="error_invalid_input">कृपया मान्य संख्यात्मक मान दर्ज करें</string>
     <string name="error_empty_fields">सभी फ़ील्ड आवश्यक हैं</string>
     <string name="error_area_zero">क्षेत्रफल शून्य से अधिक होना चाहिए</string>
     <string name="label_material_rates">सामग्री की इकाई दर</string>
-    <string name="msg_pdf_saved">PDF saved to Downloads/Daily Expense/Estimation</string>
+    <string name="msg_pdf_saved">PDF saved to Downloads/</string>
     <string name="pdf_doc_title">अनुभाग वार श्रेणी रिपोर्ट</string>
     <string name="pdf_generated_on">जनरेट किया गया: </string>
     <string name="pdf_developer">डेवलपर: %s</string>
@@ -416,5 +416,10 @@
     <string name="policy_step_4">4. सेफ्टी टैंक: कुल क्षेत्रफल के आधार पर एक मानक सेप्टিক टैंक की लागत जोड़ी गई है।</string>
     <string name="policy_step_5">5. अन्य: बाइंडिंग वायर (गुना), कील (लोहा), पॉलीथीन और शटरिंग लकड़ी का किराया अन्य लागतों में शामिल है।</string>
     <string name="policy_excluded">शामिल नहीं है: फिनिशिंग आइटम (टाइल्स, पेंट, दरवाजे, खिड़कियां, बिजली और प्लंबिंग) इस अनुमान में शामिल नहीं हैं।</string>
+
+    <string name="label_shuttering_misc">शटरिंग</string>
+    <string name="label_septic_tank">सेप्टिक टैंक</string>
+    <string name="label_excavation">मिट्टी खुदाई</string>
+    <string name="label_others_breakdown">विविध व्यय</string>
 
 </resources>

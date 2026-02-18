@@ -395,11 +395,12 @@
     <string name="label_qty_short">Qty</string>
     <string name="label_rate_short">Rate</string>
     <string name="label_standard">Standard</string>
+    <string name="label_estimated_rate">Estimated Rate</string>
     <string name="error_invalid_input">Please enter valid numeric values</string>
     <string name="error_empty_fields">All fields are required</string>
     <string name="error_area_zero">Area must be greater than zero</string>
     <string name="label_material_rates">Material Unit Rates</string>
-    <string name="msg_pdf_saved">PDF saved to Downloads/Daily Expense/Estimation</string>
+    <string name="msg_pdf_saved">PDF saved to Downloads/</string>
     <string name="pdf_doc_title">Section Wise Category Report</string>
     <string name="pdf_generated_on">Generated on: </string>
     <string name="pdf_developer">Developer: %s</string>
@@ -414,5 +415,10 @@
     <string name="policy_step_4">4. Safety Tank: A standard septic tank cost is added based on the total floor area.</string>
     <string name="policy_step_5">5. Others: Binding wire, nails, polythene, and shuttering timber rent are estimated under other costs.</string>
     <string name="policy_excluded">NOT INCLUDED: Finishing items (Tiles, Paint, Doors, Windows, Electrical, and Plumbing) are NOT included in this estimation.</string>
+
+    <string name="label_shuttering_misc">Shuttering</string>
+    <string name="label_septic_tank">Septic Tank</string>
+    <string name="label_excavation">Soil Excavation</string>
+    <string name="label_others_breakdown">Others Breakdown</string>
 
 </resources>

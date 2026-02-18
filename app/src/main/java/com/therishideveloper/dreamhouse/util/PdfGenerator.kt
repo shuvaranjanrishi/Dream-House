@@ -7,7 +7,6 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.EstimationRecord
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.data.model.SectionData
@@ -18,6 +17,9 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.scale
+import com.therishideveloper.dreamhouse.component.showToast
 
 class PdfGenerator(private val context: Context) {
 
@@ -25,13 +27,14 @@ class PdfGenerator(private val context: Context) {
     private val pageWidth = 595
     private val pageHeight = 842
     private val margin = 40f
-    private val tealColor = Color.parseColor("#008080")
-    private val lightTeal = Color.parseColor("#F0F8F8")
-    private val accentTeal = Color.parseColor("#99008080")
+    private val tealColor = "#008080".toColorInt()
+    private val lightTeal = "#F0F8F8".toColorInt()
+    private val accentTeal = "#99008080".toColorInt()
 
     private val estimationReportFolder =
         "${context.getString(R.string.app_name)}/Estimation Reports"
-    private val sectionReportFolder = "${context.getString(R.string.app_name)}/Section Reports"
+    private val sectionReportFolder = context.getString(R.string.app_name)
+    private val msgPdfSaved = context.getString(R.string.msg_pdf_saved)
 
     // --- Main Functions ---
 
@@ -112,7 +115,7 @@ class PdfGenerator(private val context: Context) {
             colWidth,
             incomeState.sectionData,
             incomeState.totalAmount,
-            Color.parseColor("#2E7D32")
+            "#2E7D32".toColorInt()
         )
 
         // Right Column: Expense
@@ -123,7 +126,7 @@ class PdfGenerator(private val context: Context) {
             colWidth,
             expenseState.sectionData,
             expenseState.totalAmount,
-            Color.parseColor("#C62828")
+            "#C62828".toColorInt()
         )
 
         // 4. Footer
@@ -279,7 +282,7 @@ class PdfGenerator(private val context: Context) {
 
         drawFooter(canvas)
 
-        pdfDocument.finishPage(canvas.pdfPage()) // Custom Extension or handled via page object
+        pdfDocument.finishPage(page) // Custom Extension or handled via page object
         savePdf(pdfDocument, estimationReportFolder, "Estimation_Report")
     }
 
@@ -288,7 +291,7 @@ class PdfGenerator(private val context: Context) {
     private fun drawAppHeader(canvas: Canvas, y: Float) {
         try {
             val logo = BitmapFactory.decodeResource(context.resources, R.drawable.app_logo)
-            val scaledLogo = Bitmap.createScaledBitmap(logo, 35, 35, true)
+            val scaledLogo = logo.scale(35, 35)
             canvas.drawBitmap(scaledLogo, margin, y - 20f, null)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -307,7 +310,7 @@ class PdfGenerator(private val context: Context) {
             canvas,
             context.getString(R.string.app_slogan),
             margin + 45f,
-            y + 5f,
+            y-5f,
             80,
             Color.GRAY,
             false,
@@ -319,7 +322,7 @@ class PdfGenerator(private val context: Context) {
         val paint = Paint().apply { style = Paint.Style.FILL; color = lightTeal }
         canvas.drawRoundRect(RectF(margin, y, pageWidth - margin, y + 50f), 10f, 10f, paint)
 
-        paint.color = Color.parseColor("#B2DFDB")
+        paint.color = "#B2DFDB".toColorInt()
         canvas.drawLine(pageWidth / 2f, y + 10f, pageWidth / 2f, y + 40f, paint)
 
         drawText(
@@ -347,7 +350,7 @@ class PdfGenerator(private val context: Context) {
             pageWidth * 0.28f,
             y + 40f,
             size = 13f,
-            color = Color.parseColor("#2E7D32"),
+            color = "#2E7D32".toColorInt(),
             isBold = true,
             align = Paint.Align.CENTER
         )
@@ -357,7 +360,7 @@ class PdfGenerator(private val context: Context) {
             pageWidth * 0.72f,
             y + 40f,
             size = 13f,
-            color = Color.parseColor("#C62828"),
+            color = "#C62828".toColorInt(),
             isBold = true,
             align = Paint.Align.CENTER
         )
@@ -379,7 +382,7 @@ class PdfGenerator(private val context: Context) {
 
             // Box
             paint.apply {
-                style = Paint.Style.STROKE; color = Color.parseColor("#E0E0E0"); strokeWidth = 0.8f
+                style = Paint.Style.STROKE; color = "#E0E0E0".toColorInt(); strokeWidth = 0.8f
             }
             canvas.drawRoundRect(
                 RectF(x - 5f, tempY - 15f, x + width + 5f, tempY + sectionHeight),
@@ -447,7 +450,7 @@ class PdfGenerator(private val context: Context) {
         canvas.drawCircle(x + 10f, y - 3f, 1.5f, paint)
 
         val catName = context.getString(Category.fromDbKey(cat.category).titleRes)
-        drawText(canvas, catName, x + 18f, y, size = 8f, color = Color.parseColor("#424242"))
+        drawText(canvas, catName, x + 18f, y, size = 8f, color = "#424242".toColorInt())
 
         val catPercent = if (sectionTotal > 0) (cat.totalAmount / sectionTotal * 100).toInt() else 0
         val amountStr = "${
@@ -497,7 +500,7 @@ class PdfGenerator(private val context: Context) {
         val footerY = pageHeight - 25f
         drawDivider(canvas, footerY - 10f)
         val dateTimeStr =
-            SimpleDateFormat("dd MMM YYYY hh:mm a", Locale.getDefault()).format(Date())
+            SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault()).format(Date())
         drawText(
             canvas,
             "${context.getString(R.string.pdf_generated_on)} $dateTimeStr",
@@ -561,7 +564,7 @@ class PdfGenerator(private val context: Context) {
         color: Int
     ) {
         val paint = Paint().apply { isAntiAlias = true }
-        paint.color = Color.parseColor("#E8E8E8")
+        paint.color = "#E8E8E8".toColorInt()
         canvas.drawRoundRect(RectF(x, y, x + width, y + height), 2f, 2f, paint)
         paint.color = color
         canvas.drawRoundRect(
@@ -758,35 +761,14 @@ class PdfGenerator(private val context: Context) {
         ),
         listOf(
             context.getString(Category.OTHERS.titleRes),
-            formatOthersQty(record.othersDetails),
-            context.getString(R.string.label_standard),
+            context.getString(R.string.label_shuttering_misc) + "\n"
+                    + context.getString(R.string.label_septic_tank) + "\n"
+                    + context.getString(R.string.label_excavation) + "\n"
+                    + context.getString(R.string.label_others_breakdown) + "\n",
+            context.getString(R.string.label_estimated_rate),
             record.othersCost
         )
     )
-
-    private fun formatOthersQty(details: String): String {
-        val parts = details.split(",")
-        return if (parts.size >= 3) {
-            "${context.getString(R.string.guna)}: ${
-                NumberUtils.formatByLocale(
-                    context,
-                    parts[0]
-                )
-            }${context.getString(R.string.unit_kg)}\n" +
-                    "${context.getString(R.string.loha)}: ${
-                        NumberUtils.formatByLocale(
-                            context,
-                            parts[1]
-                        )
-                    }${context.getString(R.string.unit_kg)}\n" +
-                    "${context.getString(R.string.poly)}: ${
-                        NumberUtils.formatByLocale(
-                            context,
-                            parts[2]
-                        )
-                    }${context.getString(R.string.unit_sqft)}"
-        } else ""
-    }
 
     private fun savePdf(pdfDocument: PdfDocument, folderName: String, fileNamePrefix: String) {
         try {
@@ -798,10 +780,7 @@ class PdfGenerator(private val context: Context) {
             )
             pdfDocument.writeTo(FileOutputStream(file))
             showDownloadNotification(context, file, 1)
-            if (folderName.contains("Estimation")) showToast(
-                context,
-                context.getString(R.string.msg_pdf_saved)
-            )
+            showToast(context, msgPdfSaved + folderName)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -809,9 +788,5 @@ class PdfGenerator(private val context: Context) {
         }
     }
 
-    // Extension to help manage canvas within PdfDocument
-    private fun Canvas.pdfPage(): PdfDocument.Page? = null // Dummy for structure
-    private fun PdfDocument.finishPageIfOpen(page: PdfDocument.Page?): PdfDocument =
-        this // Structure helper
 }
 

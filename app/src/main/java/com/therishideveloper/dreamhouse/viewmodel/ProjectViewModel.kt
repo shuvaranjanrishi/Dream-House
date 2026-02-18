@@ -108,14 +108,19 @@ class ProjectViewModel @Inject constructor(
                 brick = Category.BRICKS.dbKey,
                 stone = Category.STONE.dbKey,
                 labor = Category.MASON_LABOR.dbKey,
+                others = Category.OTHERS.dbKey,
                 rodQty = "0", cementQty = "0", sandQty = "0",
                 brickQty = "0", stoneQty = "0", laborQty = "0",
+                bindingWireQty = "0", nailsQty = "0", polytheneQty = "0",
+                othersQty = "0",
                 rodCost = "0", cementCost = "0", sandCost = "0",
                 brickCost = "0", stoneCost = "0", laborCost = "0",
+                bindingWireCost = "0", nailsCost = "0", polytheneCost = "0",
+                othersCost = "0",
                 rodRate = "0", cementRate = "0", sandRate = "0",
                 brickRate = "0", stoneRate = "0", laborRate = "0",
-                othersDetails = "0,0,0",
-                othersCost = "0",
+                bindingWireRate = "0", nailsRate = "0", polytheneRate = "0",
+                othersRate = "0",
                 totalEstimatedCost = "0"
             )
         }.stateIn(
@@ -123,12 +128,47 @@ class ProjectViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = EstimationRecord( // Initial state while loading
                 date = System.currentTimeMillis(),
-                totalArea = "0", foundationFloors = 0, floorsToBuild = 0,
-                rod = "", cement = "", sand = "", brick = "", stone = "", labor = "",
-                rodQty = "0", cementQty = "0", sandQty = "0", brickQty = "0", stoneQty = "0", laborQty = "0",
-                rodCost = "0", cementCost = "0", sandCost = "0", brickCost = "0", stoneCost = "0", laborCost = "0",
-                rodRate = "0", cementRate = "0", sandRate = "0", brickRate = "0", stoneRate = "0", laborRate = "0",
-                othersDetails = "0,0,0", othersCost = "0", totalEstimatedCost = "0"
+                totalArea = "0",
+                foundationFloors = 0,
+                floorsToBuild = 0,
+                rod = "",
+                cement = "",
+                sand = "",
+                brick = "",
+                stone = "",
+                labor = "",
+                others = "",
+                rodQty = "0",
+                cementQty = "0",
+                sandQty = "0",
+                brickQty = "0",
+                stoneQty = "0",
+                laborQty = "0",
+                bindingWireQty = "0",
+                nailsQty = "0",
+                polytheneQty = "0",
+                othersQty = "0",
+                rodCost = "0",
+                cementCost = "0",
+                sandCost = "0",
+                brickCost = "0",
+                stoneCost = "0",
+                laborCost = "0",
+                bindingWireCost = "0",
+                nailsCost = "0",
+                polytheneCost = "0",
+                othersCost = "0",
+                rodRate = "0",
+                cementRate = "0",
+                sandRate = "0",
+                brickRate = "0",
+                stoneRate = "0",
+                laborRate = "0",
+                bindingWireRate = "0",
+                nailsRate = "0",
+                polytheneRate = "0",
+                othersRate = "0",
+                totalEstimatedCost = "0"
             )
         )
 
@@ -136,18 +176,25 @@ class ProjectViewModel @Inject constructor(
     val currentCalculation = _currentCalculation.asStateFlow()
 
     fun performCalculation(
-        area: Double,           // মোট জায়গার পরিমাণ (Sq Ft)
-        floorsToBuild: Int,     // কত তলা নির্মাণ হবে
-        foundationFloors: Int,  // কত তলার ফাউন্ডেশন দেওয়া হবে
+        area: Double,
+        floorsToBuild: Int,
+        foundationFloors: Int,
         rodRate: Double, cementRate: Double, sandRate: Double,
         brickRate: Double, stoneRate: Double, laborRate: Double
     ) {
         if (area <= 0 || floorsToBuild <= 0) return
 
         viewModelScope.launch(Dispatchers.Default) {
+            //general probable rate
+            val bindingWireRate = 140
+            val nailsRate = 150
+            val polytheneRate = 2.50
+            val safetyTankRate = 15.0
+            val excavationRate = 10.0
+
             // --- ১. মাটি খনন ও সেফটি ট্যাংক (Septic Tank & Excavation) ---
-            val safetyTankCost = 60000.0 + (area * 15.0)
-            val excavationCost = area * 10.0 * foundationFloors
+            val safetyTankCost = 60000.0 + (area * safetyTankRate)
+            val excavationCost = area * excavationRate * foundationFloors
 
             // --- ২. ফাউন্ডেশন ফ্যাক্টর ---
             val foundationFactor = 1.0 + (foundationFloors * 0.18)
@@ -178,19 +225,20 @@ class ProjectViewModel @Inject constructor(
 
             // --- ৬. গুনা, লোহা ও পলিথিন হিসাব (আগের লজিক অনুযায়ী আপডেট করা) ---
             // যেহেতু এখন তলা বেশি, তাই (area * floorsToBuild) দিয়ে গুণ হবে
-            val totalEffectiveArea = area * (floorsToBuild + 0.5) // ফাউন্ডেশনের জন্য ০.৫ এক্সট্রা ধরা হয়েছে
-            val guna = (totalEffectiveArea * 0.007).roundToInt()
-            val loha = (totalEffectiveArea * 0.005).roundToInt()
-            val poly = (totalEffectiveArea * 1.1).roundToInt()
+            val totalEffectiveArea =
+                area * (floorsToBuild + 0.5) // ফাউন্ডেশনের জন্য ০.৫ এক্সট্রা ধরা হয়েছে
+            val totalBindingWire = (totalEffectiveArea * 0.007)
+            val totalNails = (totalEffectiveArea * 0.005)
+            val totalPolythene = (totalEffectiveArea * 1.1)
 
             // --- ৭. লেবার ও বিবিধ খরচ ---
             val foundationLabor = area * laborRate * 0.9
             val constructionLabor = (area * floorsToBuild) * laborRate
             val totalLaborCost = foundationLabor + constructionLabor
 
-            // Others Cost = (গুনা+লোহা+পলি এর দাম) + সেফটি ট্যাংক + মাটি কাটা + সাটারিং কাঠ ভাড়া
-            val shuteringAndMisc = (area * floorsToBuild) * 50.0
-            val othersCost = shuteringAndMisc + safetyTankCost + excavationCost + (guna * 120) + (loha * 100)
+            //others cost
+            val shutteringAndMisc = (area * floorsToBuild) * 50.0
+            val othersCost = shutteringAndMisc + safetyTankCost + excavationCost
 
             // --- ৮. ফাইনাল হিসাব ---
             val rCost = totalRod * rodRate
@@ -198,7 +246,11 @@ class ProjectViewModel @Inject constructor(
             val sCost = totalSand * sandRate
             val bCost = totalBricks * brickRate
             val stCost = totalStone * stoneRate
-            val grandTotal = rCost + cCost + sCost + bCost + stCost + totalLaborCost + othersCost
+            val bwCost = totalBindingWire * bindingWireRate
+            val nCost = totalNails * nailsRate
+            val pCost = totalPolythene * polytheneRate
+            val grandTotal =
+                rCost + cCost + sCost + bCost + stCost + totalLaborCost + bwCost + nCost + pCost + othersCost
 
             // --- ডাটাবেজে সেভ ---
             _currentCalculation.value = EstimationRecord(
@@ -213,6 +265,7 @@ class ProjectViewModel @Inject constructor(
                 brick = Category.BRICKS.dbKey,
                 stone = Category.STONE.dbKey,
                 labor = Category.MASON_LABOR.dbKey,
+                others = Category.OTHERS.dbKey,
 
                 rodQty = totalRod.roundToInt().toString(),
                 cementQty = totalCement.roundToInt().toString(),
@@ -220,6 +273,10 @@ class ProjectViewModel @Inject constructor(
                 brickQty = totalBricks.roundToInt().toString(),
                 stoneQty = totalStone.roundToInt().toString(),
                 laborQty = (area * floorsToBuild).roundToInt().toString(),
+                bindingWireQty = totalBindingWire.roundToInt().toString(),
+                nailsQty = totalNails.roundToInt().toString(),
+                polytheneQty = totalPolythene.roundToInt().toString(),
+                othersQty = "-",
 
                 rodCost = rCost.roundToInt().toString(),
                 cementCost = cCost.roundToInt().toString(),
@@ -227,6 +284,10 @@ class ProjectViewModel @Inject constructor(
                 brickCost = bCost.roundToInt().toString(),
                 stoneCost = stCost.roundToInt().toString(),
                 laborCost = totalLaborCost.roundToInt().toString(),
+                bindingWireCost = bwCost.roundToInt().toString(),
+                nailsCost = nCost.roundToInt().toString(),
+                polytheneCost = pCost.roundToInt().toString(),
+                othersCost = othersCost.roundToInt().toString(),
 
                 rodRate = rodRate.toInt().toString(),
                 cementRate = cementRate.toInt().toString(),
@@ -234,10 +295,11 @@ class ProjectViewModel @Inject constructor(
                 brickRate = brickRate.toInt().toString(),
                 stoneRate = stoneRate.toInt().toString(),
                 laborRate = laborRate.toInt().toString(),
+                bindingWireRate = bindingWireRate.toString(),
+                nailsRate = nailsRate.toString(),
+                polytheneRate = polytheneRate.toString(),
+                othersRate = "---",
 
-                // এখানে আপনার আগের কলাম ফরম্যাট "guna, loha, poly" ফিরিয়ে আনা হয়েছে
-                othersDetails = "$guna,$loha,$poly",
-                othersCost = othersCost.roundToInt().toString(),
                 totalEstimatedCost = grandTotal.roundToInt().toString()
             )
         }

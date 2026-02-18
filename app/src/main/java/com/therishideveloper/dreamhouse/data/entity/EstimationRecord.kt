@@ -20,6 +20,7 @@ data class EstimationRecord(
     val brick: String,
     val stone: String,
     val labor: String,
+    val others: String,
 
     // Quantities
     val rodQty: String,
@@ -28,6 +29,10 @@ data class EstimationRecord(
     val brickQty: String,
     val stoneQty: String,
     val laborQty: String,
+    val bindingWireQty: String,
+    val nailsQty: String,
+    val polytheneQty: String,
+    val othersQty: String,
 
     // Costs
     val rodCost: String,
@@ -36,6 +41,10 @@ data class EstimationRecord(
     val brickCost: String,
     val stoneCost: String,
     val laborCost: String,
+    val bindingWireCost: String,
+    val nailsCost: String,
+    val polytheneCost: String,
+    val othersCost: String,
 
     // Rates
     val rodRate: String,
@@ -44,9 +53,11 @@ data class EstimationRecord(
     val brickRate: String,
     val stoneRate: String,
     val laborRate: String,
+    val bindingWireRate: String,
+    val nailsRate: String,
+    val polytheneRate: String,
+    val othersRate: String,
 
-    // Others
-    val othersDetails: String,
-    val othersCost: String,
+    //
     val totalEstimatedCost: String
 )

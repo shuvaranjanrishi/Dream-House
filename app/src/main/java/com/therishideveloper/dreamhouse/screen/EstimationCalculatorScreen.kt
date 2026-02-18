@@ -29,6 +29,7 @@ import com.therishideveloper.dreamhouse.component.CalculatorTopBar
 import com.therishideveloper.dreamhouse.component.EstimationDetailsDialog
 import com.therishideveloper.dreamhouse.component.InputRow
 import com.therishideveloper.dreamhouse.component.SectionTitle
+import com.therishideveloper.dreamhouse.component.showToast
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,11 +92,7 @@ fun EstimationCalculatorScreen(
             isLoading = false
         } catch (e: Exception) {
             isLoading = false
-            android.widget.Toast.makeText(
-                context,
-                context.getString(R.string.error_invalid_input),
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            showToast(context, context.getString(R.string.error_invalid_input))
         }
     }
 

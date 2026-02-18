@@ -351,36 +351,47 @@ fun MaterialList(record: EstimationRecord) {
                 )
             } ${stringResource(Category.MASON_LABOR.unitRes)}",
             record.laborCost
+        ),
+        Triple(
+            stringResource(Category.BINDING_WIRE.titleRes),
+            "${
+                NumberUtils.formatByLocale(
+                    context,
+                    record.bindingWireQty
+                )
+            } ${stringResource(Category.BINDING_WIRE.unitRes)}",
+            record.bindingWireCost
+        ),
+        Triple(
+            stringResource(Category.NAILS.titleRes),
+            "${
+                NumberUtils.formatByLocale(
+                    context,
+                    record.nailsQty
+                )
+            } ${stringResource(Category.NAILS.unitRes)}",
+            record.nailsCost
+        ),
+        Triple(
+            stringResource(Category.POLYTHENE.titleRes),
+            "${
+                NumberUtils.formatByLocale(
+                    context,
+                    record.polytheneQty
+                )
+            } ${stringResource(Category.POLYTHENE.unitRes)}",
+            record.polytheneCost
         )
     )
 
     items.forEach { (label, qty, cost) ->
         DialogRowItem(label, qty, cost)
     }
-
-    // Others (বিবিধ) সেকশন
-    val parts = record.othersDetails.split(",")
-    if (parts.size >= 3) {
-        val othersQty = "${stringResource(R.string.guna)}: ${
-            NumberUtils.formatByLocale(
-                context,
-                parts[0]
-            )
-        }${stringResource(R.string.unit_kg)}\n" +
-                "${stringResource(R.string.loha)}: ${
-                    NumberUtils.formatByLocale(
-                        context,
-                        parts[1]
-                    )
-                }${stringResource(R.string.unit_kg)}\n" +
-                "${stringResource(R.string.poly)}: ${
-                    NumberUtils.formatByLocale(
-                        context,
-                        parts[2]
-                    )
-                }${stringResource(R.string.unit_sqft)}"
-        DialogRowItem(stringResource(Category.OTHERS.titleRes), othersQty, record.othersCost)
-    }
+    val othersQty =
+        stringResource(R.string.label_shuttering_misc) + "\n" + stringResource(R.string.label_septic_tank) + "\n" + stringResource(
+            R.string.label_excavation
+        ) + "\n" + stringResource(R.string.label_others_breakdown) + "\n"
+    DialogRowItem(stringResource(Category.OTHERS.titleRes), othersQty, record.othersCost)
 }
 
 @Composable
@@ -415,7 +426,7 @@ fun DialogRowItem(label: String, qty: String, cost: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 0.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Top
     ) {
@@ -471,7 +482,11 @@ fun EstimationTopBar(
                 Icon(Icons.Default.Download, null, tint = Color.White)
             }
             TextButton(onClick = onShowPolicy) {
-                Text(stringResource(R.string.btn_policy), color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
+                Text(
+                    stringResource(R.string.btn_policy),
+                    color = Color.White.copy(alpha = 0.8f),
+                    fontSize = 12.sp
+                )
             }
         }
     }
@@ -484,7 +499,11 @@ fun EstimationContent(
     onNewCalculation: () -> Unit,
     isEmpty: Boolean = false // নতুন প্যারামিটার
 ) {
-    Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .padding(padding)
+            .fillMaxSize()
+    ) {
         // স্টিকি হেডার সবসময় দেখা যাবে
         Surface(color = Color(0xFF00796B), modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)) {
@@ -509,7 +528,9 @@ fun EstimationContent(
 
             if (isEmpty) {
                 Box(
-                    modifier = Modifier.fillMaxWidth().height(200.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -528,7 +549,7 @@ fun EstimationContent(
 }
 
 @Composable
- fun EstimationHeaderInfo(record: EstimationRecord) {
+fun EstimationHeaderInfo(record: EstimationRecord) {
     val context = LocalContext.current
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -545,11 +566,17 @@ fun EstimationContent(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             HeaderItem(
                 label = stringResource(R.string.label_foundation),
-                value = NumberUtils.formatByLocale(context, record.foundationFloors.toString()) + " " + stringResource(R.string.unit_floor)
+                value = NumberUtils.formatByLocale(
+                    context,
+                    record.foundationFloors.toString()
+                ) + " " + stringResource(R.string.unit_floor)
             )
             HeaderItem(
                 label = stringResource(R.string.label_build_floor),
-                value = NumberUtils.formatByLocale(context, record.floorsToBuild.toString()) + " " + stringResource(R.string.unit_floor),
+                value = NumberUtils.formatByLocale(
+                    context,
+                    record.floorsToBuild.toString()
+                ) + " " + stringResource(R.string.unit_floor),
                 alignment = Alignment.End
             )
         }
@@ -566,7 +593,10 @@ fun MaterialCardsList(record: EstimationRecord) {
         Category.SAND to (record.sandQty to record.sandCost),
         Category.BRICKS to (record.brickQty to record.brickCost),
         Category.STONE to (record.stoneQty to record.stoneCost),
-        Category.MASON_LABOR to (record.laborQty to record.laborCost)
+        Category.MASON_LABOR to (record.laborQty to record.laborCost),
+        Category.BINDING_WIRE to (record.bindingWireQty to record.bindingWireCost),
+        Category.NAILS to (record.nailsQty to record.nailsCost),
+        Category.POLYTHENE to (record.polytheneQty to record.polytheneCost)
     )
 
     materialItems.forEach { (category, data) ->
@@ -580,12 +610,17 @@ fun MaterialCardsList(record: EstimationRecord) {
     }
 
     // Others Section
-    val othersQty = formatOthersQty(context, record.othersDetails)
+    val othersQty =
+        "---\n" + stringResource(R.string.label_shuttering_misc
+        ) + "\n" + stringResource(R.string.label_septic_tank
+        ) + "\n" + stringResource(R.string.label_excavation
+        ) + "\n" + stringResource(R.string.label_others_breakdown)
+
     MaterialDetailCard(
         icon = Category.OTHERS.icon,
         name = stringResource(Category.OTHERS.titleRes),
         qty = othersQty,
-        rate = stringResource(R.string.label_standard),
+        rate = stringResource(R.string.label_estimated_rate),
         cost = record.othersCost
     )
 }
@@ -604,7 +639,12 @@ fun EstimationBottomBar(totalCost: String) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(stringResource(R.string.label_total_estimated_cost), color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Text(
+                stringResource(R.string.label_total_estimated_cost),
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            )
             Text(
                 text = NumberUtils.formatAmountByLocale(context, totalCost),
                 color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold
@@ -629,12 +669,16 @@ fun NewCalculationButton(onClick: () -> Unit) {
 
 @Composable
 fun EmptyState(padding: PaddingValues) {
-    Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(padding), contentAlignment = Alignment.Center
+    ) {
         Text(stringResource(R.string.msg_no_estimation), color = Color.Gray)
     }
 }
 
-fun getRateByCategory(category: Category, record: EstimationRecord): String = when(category) {
+fun getRateByCategory(category: Category, record: EstimationRecord): String = when (category) {
     Category.ROD -> record.rodRate
     Category.CEMENT -> record.cementRate
     Category.SAND -> record.sandRate
