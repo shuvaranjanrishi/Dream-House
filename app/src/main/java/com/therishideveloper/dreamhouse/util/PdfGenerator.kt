@@ -33,7 +33,7 @@ class PdfGenerator(private val context: Context) {
 
     private val estimationReportFolder =
         "${context.getString(R.string.app_name)}/Estimation Reports"
-    private val sectionReportFolder = context.getString(R.string.app_name)
+    private val sectionReportFolder = "${context.getString(R.string.app_name)}/Section Reports"
     private val msgPdfSaved = context.getString(R.string.msg_pdf_saved)
 
     // --- Main Functions ---
@@ -310,7 +310,7 @@ class PdfGenerator(private val context: Context) {
             canvas,
             context.getString(R.string.app_slogan),
             margin + 45f,
-            y-5f,
+            y - 5f,
             80,
             Color.GRAY,
             false,
