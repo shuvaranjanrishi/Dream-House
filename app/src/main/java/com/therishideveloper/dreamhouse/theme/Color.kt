@@ -12,3 +12,14 @@ val Pink40 = Color(0xFF7D5260)
 
 val tealColor = Color(0xFF009688)
 val expenseRed = Color(0xFFEF5350)
+
+val stageColors = listOf(
+    Color(0xFFF44336), // Stage 1: Red
+    Color(0xFFE91E63), // Stage 2: Pink
+    Color(0xFF9C27B0), // Stage 3: Purple
+    Color(0xFF2196F3), // Stage 4: Blue
+    Color(0xFF00BCD4), // Stage 5: Cyan
+    Color(0xFFFF9800),  // Stage 8: Orange
+    Color(0xFF4CAF50), // Stage 7: Green
+    Color(0xFF009688) // Stage 6: Teal
+)

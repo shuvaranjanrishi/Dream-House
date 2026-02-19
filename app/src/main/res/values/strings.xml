@@ -407,6 +407,9 @@
     <string name="pdf_copyright">© %s Dream House</string>
 
     <!--Construction Policy-->
+    <string name="label_project_progress">Project Progress</string>
+    <string name="label_progress_percentage">%1$s%% Complete</string>
+
     <string name="title_policy">Calculation Policy &amp; Logic</string>
     <string name="disclaimer_text">Disclaimer: For precise construction work, always consult a professional engineer. This estimate is based on standard engineering thumb rules.</string>
     <string name="policy_step_1">1. Foundation: Includes Base, Short Column, and Grade Beam costs based on the foundation floor level.</string>

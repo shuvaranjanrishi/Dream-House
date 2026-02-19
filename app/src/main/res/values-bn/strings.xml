@@ -410,6 +410,9 @@
     <string name="pdf_copyright">© %s ড্রিম হাউস</string>
 
     <!--Construction Policy-->
+    <string name="label_project_progress">প্রকল্পের অগ্রগতি</string>
+    <string name="label_progress_percentage">%1$s%% সম্পন্ন</string>
+
     <string name="title_policy">হিসাবের নিয়ম ও নীতিমালা</string>
     <string name="disclaimer_text">সতর্কবার্তা: নির্ভুল নির্মাণের জন্য সর্বদা একজন দক্ষ ইঞ্জিনিয়ারের পরামর্শ নিন। এই হিসাবটি স্ট্যান্ডার্ড ইঞ্জিনিয়ারিং থাম্ব-রুলের ওপর ভিত্তি করে তৈরি।</string>
     <string name="policy_step_1">১. ফাউন্ডেশন: মাটির নিচের বেইস, শর্ট কলাম এবং গ্রেড বিমের খরচ ফাউন্ডেশনের তলা অনুযায়ী ধরা হয়েছে।</string>

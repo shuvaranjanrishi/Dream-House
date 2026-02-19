@@ -408,6 +408,9 @@
     <string name="pdf_copyright">© %s ड्रीम हाउस</string>
 
     <!--Construction Policy-->
+    <string name="label_project_progress">परियोजना की प्रगति</string>
+    <string name="label_progress_percentage">%1$s%% पूर्ण</string>
+
     <string name="title_policy">गणना नीति और तर्क</string>
     <string name="disclaimer_text">अस्वीकरण: सटीक निर्माण कार्य के लिए हमेशा एक पेशेवर इंजीनियर से परामर्श लें। यह अनुमान मानक इंजीनियरिंग नियमों पर आधारित है।</string>
     <string name="policy_step_1">1. नींव (Foundation): इसमें नींव की मंजिल के आधार पर बेस, शॉर्ट कॉलम और ग्रेड बीम की लागत शामिल है।</string>
