@@ -158,13 +158,18 @@
 
     <!--About Screen-->
     <string name="menu_about">ऐप के बारे में</string>
-    <string name="about_description">डेली एक्सपेंस आपको अपने पैसे को आसानी से प्रबंधित करने में मदद करता है। शक्तिशाली चार्ट और रिपोर्ट के साथ आय, व्यय को ट्रैक करें।</string>
-    <string name="feature_1">✔ विस्तृत आय/व्यय ट्रैकिंग</string>
-    <string name="feature_2">✔ इंटरएक्टिव श्रेणी चार्ट</string>
-    <string name="feature_3">✔ कैलकुलेटर टूल्स</string>
-    <string name="feature_4">✔ बहुभाषी समर्थन (बंगाली, अंग्रेजी, हिंदी)</string>
-    <string name="feature_5">✔ दूसरों के साथ खर्च रिपोर्ट साझा करने की सुविधा</string>
-    <string name="feature_6">✔ डेटा को एक्सेल (Excel) शीट में डाउनलोड करें</string>
+    <string name="desc_project">घर निर्माण की योजना, अनुमान और प्रगति को ट्रैक करने के लिए एक स्मार्ट समाधान।</string>
+    <string name="feat_1">सटीक विवरण के साथ अपनी निर्माण परियोजनाओं की योजना बनाएं और बनाएं।</string>
+    <string name="feat_2">अपना कुल बजट निर्धारित करें और धन का प्रभावी ढंग से प्रबंधन करें।</string>
+    <string name="feat_3">हर चरण के लिए निर्माण सामग्री और लागत का सटीक अनुमान लगाएं।</string>
+    <string name="feat_4">समय पर काम पूरा करने के लिए हर चरण की प्रगति की निगरानी करें।</string>
+    <string name="feat_5">विस्तृत पीडीएफ रिपोर्ट डाउनलोड करें और चार्ट के माध्यम से डेटा देखें।</string>
+    <string name="feat_6">✔ विस्तृत आय/व्यय ट्रैकिंग</string>
+    <string name="feat_7">✔ इंटरएक्टिव श्रेणी चार्ट</string>
+    <string name="feat_8">✔ कैलकुलेटर टूल्स</string>
+    <string name="feat_9">✔ बहुभाषी समर्थन (बंगाली, अंग्रेजी, हिंदी)</string>
+    <string name="feat_10">✔ दूसरों के साथ खर्च रिपोर्ट साझा करने की सुविधा</string>
+    <string name="feat_11">✔ डेटा को एक्सेल (Excel) शीट में डाउनलोड करें</string>
     <string name="label_app_version">ऐप संस्करण: </string>
     <string name="label_developer">डेवलपर</string>
     <string name="dev_name">शुभ रंजन ऋषि</string>
@@ -424,5 +429,12 @@
     <string name="label_septic_tank">सेप्टिक टैंक</string>
     <string name="label_excavation">मिट्टी खुदाई</string>
     <string name="label_others_breakdown">विविध व्यय</string>
+
+    <string name="err_date_conflict">शुरू होने की तारीख पिछले चरण की समाप्ति तिथि से पहले नहीं हो सकती।</string>
+    <string name="err_no_active_project">कोई सक्रिय परियोजना नहीं मिली! कृपया पहले एक परियोजना बनाएं।</string>
+    <string name="err_invalid_duration">अवधि कम से कम 1 दिन होनी चाहिए!</string>
+    <string name="label_create_project">सपनों का घर बनाएं</string>
+    <string name="label_update_project">प्रोजेक्ट अपडेट करें</string>
+    <string name="err_previous_stage_missing">कृपया पहले पिछला चरण जोड़ें!</string>
 
 </resources>

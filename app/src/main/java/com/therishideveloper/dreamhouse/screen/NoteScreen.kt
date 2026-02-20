@@ -1,10 +1,5 @@
 package com.therishideveloper.dreamhouse.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,7 +30,7 @@ import com.therishideveloper.dreamhouse.component.SolidPieChart
 import com.therishideveloper.dreamhouse.component.TransactionSummaryRow
 import com.therishideveloper.dreamhouse.data.entity.Note
 import com.therishideveloper.dreamhouse.data.model.NoteType
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
@@ -127,14 +122,14 @@ fun NoteScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(modifier = Modifier.size(90.dp)) {
-                        SolidPieChart(incomeProgress, tealColor, expenseRed)
+                        SolidPieChart(incomeProgress, tealColor, softRedColor)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         TransactionSummaryRow(
                             stringResource(R.string.label_total_debt),
                             "$totalDebt",
-                            expenseRed
+                            softRedColor
                         )
                         TransactionSummaryRow(
                             stringResource(R.string.label_total_receivable),
@@ -149,7 +144,7 @@ fun NoteScreen(
                             NumberUtils.formatAmountByLocale(
                                 context, balanceAmount.toString()
                             ),
-                            if (balanceAmount >= 0) tealColor else expenseRed
+                            if (balanceAmount >= 0) tealColor else softRedColor
                         )
                     }
                 }

@@ -30,10 +30,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.NumberUtils
-import java.util.Locale
 
 @Composable
 fun CurrentBalance(currentBalance: String) {
@@ -181,7 +180,7 @@ fun TransactionSummaryCard(
                 SolidPieChart(
                     incomeProgress = incomeProgress,
                     incomeColor = tealColor,
-                    expenseColor = expenseRed
+                    expenseColor = softRedColor
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -194,13 +193,13 @@ fun TransactionSummaryCard(
                 TransactionSummaryRow(
                     stringResource(R.string.expense),
                     totalExpense.toString(),
-                    expenseRed
+                    softRedColor
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
                 TransactionSummaryRow(
                     stringResource(R.string.balance),
                     balance.toString(),
-                    if (balance >= 0) tealColor else expenseRed
+                    if (balance >= 0) tealColor else softRedColor
                 )
             }
         }

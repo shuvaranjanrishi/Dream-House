@@ -6,11 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
@@ -43,11 +41,10 @@ import com.therishideveloper.dreamhouse.component.SummaryClickableRow
 import com.therishideveloper.dreamhouse.data.model.TransactionPeriod
 import com.therishideveloper.dreamhouse.data.model.TransactionType
 import com.therishideveloper.dreamhouse.navigation.Screens
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DashboardUtils
 import com.therishideveloper.dreamhouse.util.DateUtils
-import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
 import kotlinx.coroutines.delay
@@ -126,7 +123,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(modifier = Modifier.size(100.dp)) {
-                        SolidPieChart(incomeProgress, tealColor, expenseRed)
+                        SolidPieChart(incomeProgress, tealColor, softRedColor)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(modifier = Modifier.weight(1f)) {
@@ -141,7 +138,7 @@ fun HomeScreen(
                         SummaryClickableRow(
                             stringResource(R.string.expense),
                             totalExpense.toString(),
-                            expenseRed
+                            softRedColor
                         ) {
                             navController.navigate("income_expense_screen/" + TransactionType.EXPENSE.dbKey)
                         }
@@ -194,7 +191,7 @@ fun HomeScreen(
                     }
                     ActionButton(
                         stringResource(R.string.add_expense),
-                        expenseRed,
+                        softRedColor,
                         Modifier.weight(1f)
                     ) {
                         navController.navigate(Screens.AddExpenseScreen.route)

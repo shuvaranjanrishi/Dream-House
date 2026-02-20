@@ -24,6 +24,7 @@ import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.component.CalculateButton
+import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.CalculatorTextField
 import com.therishideveloper.dreamhouse.component.CalculatorTopBar
 import com.therishideveloper.dreamhouse.component.EstimationDetailsDialog
@@ -53,26 +54,22 @@ fun EstimationCalculatorScreen(
     var isLoading by remember { mutableStateOf(false) }
     val calculationResult by viewModel.currentCalculation.collectAsState()
 
+    val errEmptyFields = stringResource(R.string.error_empty_fields)
+    val errAreaZero = stringResource(R.string.error_area_zero)
+    val errInvalidInput = stringResource(R.string.error_invalid_input)
+
     // ভ্যালিডেশন লজিক
     fun validateAndCalculate() {
         if (areaInput.isEmpty() || rodUnitPrice.isEmpty() || cementUnitPrice.isEmpty() ||
             sandUnitPrice.isEmpty() || brickUnitPrice.isEmpty() || stoneUnitPrice.isEmpty() || laborRate.isEmpty()
         ) {
-            android.widget.Toast.makeText(
-                context,
-                context.getString(R.string.error_empty_fields),
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            showToast(context, errEmptyFields)
             return
         }
 
         val area = areaInput.toDoubleOrNull() ?: 0.0
         if (area <= 0) {
-            android.widget.Toast.makeText(
-                context,
-                context.getString(R.string.error_area_zero),
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
+            showToast(context, errAreaZero)
             return
         }
 
@@ -91,8 +88,9 @@ fun EstimationCalculatorScreen(
             )
             isLoading = false
         } catch (e: Exception) {
+            e.printStackTrace()
             isLoading = false
-            showToast(context, context.getString(R.string.error_invalid_input))
+            showToast(context, errInvalidInput)
         }
     }
 
@@ -102,7 +100,8 @@ fun EstimationCalculatorScreen(
                 title = stringResource(R.string.title_estimation_calculator),
                 onBack = onBack
             )
-        }
+        },
+        floatingActionButton = { CalculatorFab() }
     ) { padding ->
         Column(
             modifier = Modifier

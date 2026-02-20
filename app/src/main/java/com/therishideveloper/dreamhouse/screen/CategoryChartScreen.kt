@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.therishideveloper.dailyexpense.ui.theme.expenseRed
-import com.therishideveloper.dailyexpense.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
+import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import android.graphics.Paint
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -32,7 +32,6 @@ import kotlin.math.sin
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.data.model.CategorySum
-import com.therishideveloper.dreamhouse.data.model.TransactionType
 import com.therishideveloper.dreamhouse.util.NumberUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,7 +86,7 @@ fun CategoryChartScreen(
                 indicator = { tabPositions ->
                     TabRowDefaults.SecondaryIndicator(
                         Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
-                        color = if (selectedTab == 0) tealColor else expenseRed
+                        color = if (selectedTab == 0) tealColor else softRedColor
                     )
                 }
             ) {
@@ -99,7 +98,7 @@ fun CategoryChartScreen(
                             Text(
                                 text = title,
                                 fontWeight = FontWeight.Bold,
-                                color = if (selectedTab == index) (if (index == 0) tealColor else expenseRed) else Color.Gray
+                                color = if (selectedTab == index) (if (index == 0) tealColor else softRedColor) else Color.Gray
                             )
                         }
                     )
@@ -118,7 +117,7 @@ fun CategoryAnalysisContent(isIncome: Boolean, viewModel: TransactionViewModel) 
     val categoryData by (if (isIncome) viewModel.incomeCategorySums else viewModel.expenseCategorySums)
         .collectAsStateWithLifecycle()
 
-    val themeColor = if (isIncome) tealColor else expenseRed
+    val themeColor = if (isIncome) tealColor else softRedColor
 
     // 2. Chart colors list (Kept the same as your UI)
     val chartColors = listOf(
@@ -314,7 +313,7 @@ fun CategoryStatItem(
                     imageVector = category.icon,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
-                    tint = if (isIncome) tealColor else expenseRed
+                    tint = if (isIncome) tealColor else softRedColor
                 )
             }
 

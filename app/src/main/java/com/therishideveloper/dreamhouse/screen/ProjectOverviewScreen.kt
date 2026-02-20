@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.therishideveloper.dreamhouse.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.therishideveloper.dailyexpense.ui.theme.stageColors
+import com.therishideveloper.dreamhouse.ui.theme.stageColors
 import com.therishideveloper.dreamhouse.component.ProjectBudgetCard
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import com.therishideveloper.dreamhouse.data.model.StageStatus

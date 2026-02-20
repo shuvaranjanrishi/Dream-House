@@ -23,11 +23,10 @@ import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.data.model.TransactionType
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
-import java.util.Locale
 
 @Composable
 fun DownloadLoaderDialog() {
@@ -96,7 +95,7 @@ fun TransactionItem(transaction: Transaction) {
                 modifier = Modifier
                     .size(40.dp)
                     .background(
-                        if (isIncome) tealColor.copy(alpha = 0.1f) else expenseRed.copy(alpha = 0.1f),
+                        if (isIncome) tealColor.copy(alpha = 0.1f) else softRedColor.copy(alpha = 0.1f),
                         RoundedCornerShape(8.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -106,7 +105,7 @@ fun TransactionItem(transaction: Transaction) {
                     imageVector = category.icon,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
-                    tint = if (isIncome) tealColor else expenseRed
+                    tint = if (isIncome) tealColor else softRedColor
                 )
             }
 
@@ -137,7 +136,7 @@ fun TransactionItem(transaction: Transaction) {
             Text(
                 text = amount,
                 fontWeight = FontWeight.Bold,
-                color = if (isIncome) tealColor else expenseRed,
+                color = if (isIncome) tealColor else softRedColor,
                 fontSize = 16.sp
             )
         }
@@ -170,7 +169,7 @@ fun TransactionItemWithActions(
                 modifier = Modifier
                     .size(40.dp)
                     .background(
-                        if (isIncome) tealColor.copy(alpha = 0.1f) else expenseRed.copy(alpha = 0.1f),
+                        if (isIncome) tealColor.copy(alpha = 0.1f) else softRedColor.copy(alpha = 0.1f),
                         RoundedCornerShape(8.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -180,7 +179,7 @@ fun TransactionItemWithActions(
                     imageVector = category.icon,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
-                    tint = if (isIncome) tealColor else expenseRed
+                    tint = if (isIncome) tealColor else softRedColor
                 )
             }
 
@@ -207,7 +206,7 @@ fun TransactionItemWithActions(
                 )
                 Text(
                     text = amount,
-                    color = if (isIncome) tealColor else expenseRed,
+                    color = if (isIncome) tealColor else softRedColor,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
@@ -250,14 +249,14 @@ fun TransactionDetailSheet(
         ) {
             Surface(
                 shape = RoundedCornerShape(12.dp),
-                color = if (isIncome) tealColor.copy(0.1f) else expenseRed.copy(0.1f),
+                color = if (isIncome) tealColor.copy(0.1f) else softRedColor.copy(0.1f),
                 modifier = Modifier.size(48.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = category.icon,
                         contentDescription = null,
-                        tint = if (isIncome) tealColor else expenseRed,
+                        tint = if (isIncome) tealColor else softRedColor,
                         modifier = Modifier.size(26.dp)
                     )
                 }
@@ -274,7 +273,7 @@ fun TransactionDetailSheet(
                 text = (if (isIncome) "+ " + stringResource(R.string.currency_symbol) else "- " + stringResource(
                     R.string.currency_symbol
                 )) + NumberUtils.formatByLocale(context, transaction.amount.toString()),
-                color = if (isIncome) tealColor else expenseRed,
+                color = if (isIncome) tealColor else softRedColor,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold
             )

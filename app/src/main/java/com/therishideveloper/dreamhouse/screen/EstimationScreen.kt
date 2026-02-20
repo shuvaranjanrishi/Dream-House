@@ -29,6 +29,10 @@ fun EstimationScreen(
     val context = LocalContext.current
     val pdfHelper = remember { PdfGenerator(context) }
 
+    if(showPolicy){
+        PolicyDialog(onDismiss = { showPolicy = false })
+    }
+
     Scaffold(
         topBar = {
             EstimationTopBar(
@@ -38,8 +42,8 @@ fun EstimationScreen(
                     if (!isEmpty) {
                         pdfHelper.generateEstimationPdf(
                             lastRecord,
-                            project.projectName,
-                            project.address
+                            project?.projectName ?: "",
+                            project?.address ?: ""
                         )
                     }
                 }

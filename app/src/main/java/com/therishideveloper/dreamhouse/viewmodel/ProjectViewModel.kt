@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import com.therishideveloper.dreamhouse.data.entity.EstimationRecord
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
+import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.repository.ProjectRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,28 +39,12 @@ class ProjectViewModel @Inject constructor(
         showWelcomeCelebration = false
     }
 
-    val activeProject: StateFlow<ProjectEntity> = repository.getProjectById(1)
-        .map { project ->
-            project ?: ProjectEntity(
-                id = 1,
-                projectName = "Dream House",
-                address = "Address not set",
-                totalBudget = 0.0,
-                startDate = System.currentTimeMillis(),
-                endDate = System.currentTimeMillis()
-            )
-        }
+    // ViewModel-এ এইভাবে লিখুন
+    val activeProject: StateFlow<ProjectEntity?> = repository.getProjectById(1)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = ProjectEntity(
-                id = 1,
-                projectName = "Loading...",
-                address = "...",
-                totalBudget = 0.0,
-                startDate = System.currentTimeMillis(),
-                endDate = System.currentTimeMillis()
-            )
+            initialValue = null
         )
 
     private val _isLoading = MutableStateFlow(true)
@@ -276,7 +261,7 @@ class ProjectViewModel @Inject constructor(
                 bindingWireQty = totalBindingWire.roundToInt().toString(),
                 nailsQty = totalNails.roundToInt().toString(),
                 polytheneQty = totalPolythene.roundToInt().toString(),
-                othersQty = "-",
+                othersQty = "---",
 
                 rodCost = rCost.roundToInt().toString(),
                 cementCost = cCost.roundToInt().toString(),

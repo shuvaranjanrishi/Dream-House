@@ -5,20 +5,15 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
@@ -65,6 +60,7 @@ import com.therishideveloper.dreamhouse.util.shareApp
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.therishideveloper.dreamhouse.component.DrawerHeader
 
 @AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
@@ -231,6 +227,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             }
+                            Spacer(Modifier.height(24.dp))
                         }
                     }
                 },
@@ -254,58 +251,6 @@ class MainActivity : ComponentActivity() {
                     showLanguageDialog = false
                 }
             )
-        }
-    }
-
-    @Composable
-    fun DrawerHeader() {
-        Column {
-            Box(
-                modifier = Modifier
-                    .height(160.dp)
-                    .fillMaxWidth()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(tealColor, Color(0xFF004D40))
-                        )
-                    ),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.app_logo),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(60.dp)
-                            .clip(CircleShape)
-                            .background(Color.White)
-                            .padding(12.dp)
-                    )
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    Column {
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        )
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Text(
-                            text = stringResource(R.string.app_slogan),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = Color.White.copy(alpha = 0.9f)
-                            )
-                        )
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }

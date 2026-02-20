@@ -2,7 +2,7 @@ package com.therishideveloper.dreamhouse.data.model
 
 import androidx.compose.ui.graphics.Color
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 
 enum class TransactionType(
@@ -11,7 +11,7 @@ enum class TransactionType(
     val color: Color      // Global color associated with this type
 ) {
     INCOME("INCOME", R.string.label_income, tealColor),
-    EXPENSE("EXPENSE", R.string.label_expense, expenseRed);
+    EXPENSE("EXPENSE", R.string.label_expense, softRedColor);
 
     companion object {
         fun fromDbKey(key: String?): TransactionType {

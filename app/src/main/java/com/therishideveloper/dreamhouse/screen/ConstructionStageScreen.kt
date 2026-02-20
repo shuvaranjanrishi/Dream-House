@@ -1,25 +1,14 @@
 package com.therishideveloper.dreamhouse.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Calculate
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,14 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.therishideveloper.dreamhouse.R
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.therishideveloper.dreamhouse.component.CalculatorDialog
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.StageCard
 import com.therishideveloper.dreamhouse.component.formatDuration
@@ -42,7 +27,6 @@ import com.therishideveloper.dreamhouse.navigation.Screens
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
-import kotlin.math.acos
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,7 +69,6 @@ fun ConstructionStageScreen(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = tealColor)
             )
         },
-
         floatingActionButton = {
             CalculatorFab(
                 lazyListState = lazyListState,
@@ -170,15 +153,15 @@ fun ConstructionStageScreen(
                 }
             } else {
                 LazyColumn(
+                    state = lazyListState,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
                     itemsIndexed(
-                        items = stages.sortedBy { it.startDate },
+                        items = stages.sortedBy { it.serial },
                         key = { _, stage -> stage.id }
-                    ) { index, stage ->
+                    ) { _, stage ->
                         StageCard(
-                            index = index + 1,
                             stage = stage,
                             onClick = {
                                 navController.navigate("add_stage_screen?stageId=${stage.id}")

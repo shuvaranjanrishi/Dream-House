@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.therishideveloper.dreamhouse.data.model.DreamHouseStrings
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.NumberUtils
 
@@ -30,12 +31,13 @@ import com.therishideveloper.dreamhouse.util.NumberUtils
 @Composable
 fun AboutScreen(onMenuClick: () -> Unit) {
     val context = LocalContext.current
+    val strings = DreamHouseStrings.current
     val appVersion = getAppVersion(context)
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.menu_about), color = Color.White) },
+                title = { Text(strings.menuAbout, color = Color.White) },
                 navigationIcon = {
                     IconButton(onClick = onMenuClick) {
                         Icon(
@@ -76,13 +78,13 @@ fun AboutScreen(onMenuClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = stringResource(R.string.app_name),
+                text = strings.appName,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = tealColor
             )
             Text(
-                text = stringResource(R.string.app_slogan),
+                text = strings.appSlogan,
                 fontSize = 14.sp,
                 color = Color.Gray,
                 fontStyle = FontStyle.Italic
@@ -98,7 +100,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Text(
-                        text = stringResource(R.string.about_description),
+                        text = stringResource(R.string.desc_project),
                         fontSize = 14.sp,
                         lineHeight = 20.sp,
                         color = Color.DarkGray
@@ -106,13 +108,21 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     val features = listOf(
-                        R.string.feature_1, R.string.feature_2,
-                        R.string.feature_3, R.string.feature_4,
-                        R.string.feature_5, R.string.feature_6
+                        strings.feat1,
+                        strings.feat2,
+                        strings.feat3,
+                        strings.feat4,
+                        strings.feat5,
+                        strings.feat6,
+                        strings.feat7,
+                        strings.feat8,
+                        strings.feat9,
+                        strings.feat10,
+                        strings.feat11
                     )
                     features.forEach { feature ->
                         Text(
-                            text = stringResource(feature),
+                            text = feature,
                             fontSize = 13.sp,
                             color = tealColor,
                             modifier = Modifier.padding(vertical = 4.dp),
@@ -143,22 +153,22 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
                         Text(
-                            stringResource(R.string.label_developer),
+                            strings.labelDeveloper,
                             fontSize = 12.sp,
                             color = Color.Gray
                         )
                         Text(
-                            stringResource(R.string.dev_name),
+                            strings.labelDevName,
                             fontWeight = FontWeight.Bold,
                             fontSize = 16.sp
                         )
                         Text(
-                            stringResource(R.string.dev_brand),
+                            strings.devBrand,
                             fontSize = 13.sp,
                             color = tealColor
                         )
                         Text(
-                            stringResource(R.string.dev_email),
+                            strings.devEmail,
                             fontSize = 12.sp,
                             color = Color.Gray
                         )
@@ -170,7 +180,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
 
             // 4. Version
             Text(
-                text = stringResource(R.string.label_app_version) + NumberUtils.formatByLocale(
+                text = strings.labelAppVersion + NumberUtils.formatByLocale(
                     context,
                     appVersion
                 ),
@@ -188,6 +198,7 @@ fun getAppVersion(context: Context): String {
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
         packageInfo.versionName ?: "1.0.0"
     } catch (e: Exception) {
+        e.printStackTrace()
         "1.0.0"
     }
 }

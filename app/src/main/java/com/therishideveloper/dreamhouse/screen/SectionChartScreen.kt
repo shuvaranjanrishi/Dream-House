@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.therishideveloper.dailyexpense.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.component.CurrentBalance
 import com.therishideveloper.dreamhouse.data.model.Category

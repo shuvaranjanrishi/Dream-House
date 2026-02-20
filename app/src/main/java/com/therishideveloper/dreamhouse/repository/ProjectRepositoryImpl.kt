@@ -34,14 +34,6 @@ class ProjectRepositoryImpl(
 
     override fun getStageById(stageId: Int): Flow<StageEntity?> = stageDao.getStageById(stageId)
 
-//    override fun getAllHistory(): Flow<List<EstimationRecord>> {
-//        return estimationDao.getAllRecords()
-//    }
-//
-//    override suspend fun saveEstimation(record: EstimationRecord) {
-//        estimationDao.insert(record)
-//    }
-
     override fun getAllEstimations(): Flow<List<EstimationRecord>> =
         estimationDao.getAllEstimations()
 

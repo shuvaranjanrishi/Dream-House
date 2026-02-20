@@ -13,16 +13,16 @@ interface StageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStage(stage: StageEntity)
 
-    @Query("SELECT * FROM stages WHERE projectId = :projectId ORDER BY startDate ASC")
+    @Query("SELECT * FROM tbl_stages WHERE projectId = :projectId ORDER BY startDate ASC")
     fun getStagesForProject(projectId: Int): Flow<List<StageEntity>>
 
-    @Query("SELECT SUM(estimatedCost) FROM stages WHERE projectId = :projectId")
+    @Query("SELECT SUM(estimatedCost) FROM tbl_stages WHERE projectId = :projectId")
     fun getTotalAllocatedBudget(projectId: Int): Flow<Double?>
 
     @Delete
     suspend fun deleteStage(stage: StageEntity)
 
     // ProjectDao.kt
-    @Query("SELECT * FROM stages WHERE id = :stageId")
+    @Query("SELECT * FROM tbl_stages WHERE id = :stageId")
     fun getStageById(stageId: Int): Flow<StageEntity?>
 }

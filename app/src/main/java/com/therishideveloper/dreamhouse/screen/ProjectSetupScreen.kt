@@ -2,8 +2,6 @@ package com.therishideveloper.dreamhouse.screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,11 +29,9 @@ import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.component.DateSelectionRow
 import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
+import com.therishideveloper.dreamhouse.data.model.DreamHouseStrings
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
-import kotlinx.coroutines.delay
-import kotlin.text.compareTo
-import kotlin.text.toInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,6 +42,7 @@ fun ProjectSetupScreen(
     onBack: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
+    val strings = DreamHouseStrings.current
 
     // UI States
     var projectName by remember { mutableStateOf("") }
@@ -77,7 +74,7 @@ fun ProjectSetupScreen(
             // শুধুমাত্র এডিট মোডে টপ বার দেখাবে
             if (projectId != null) {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.menu_construction_plan), color = Color.White) },
+                    title = { Text(strings.menuConstructionPlan, color = Color.White) },
                     navigationIcon = {
                         IconButton(onClick = { onBack?.invoke() }) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back", tint = Color.White)
@@ -107,9 +104,9 @@ fun ProjectSetupScreen(
                     .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Fit
             )
-
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = stringResource(R.string.hint_project_info),
+                text = strings.hintProjectInfo,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -119,7 +116,7 @@ fun ProjectSetupScreen(
             OutlinedTextField(
                 value = projectName,
                 onValueChange = { projectName = it },
-                label = { Text(stringResource(R.string.label_house_name)) },
+                label = { Text(strings.labelHouseName) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
             )
@@ -129,7 +126,7 @@ fun ProjectSetupScreen(
             OutlinedTextField(
                 value = address,
                 onValueChange = { address = it },
-                label = { Text(stringResource(R.string.label_address)) },
+                label = { Text(strings.labelAddress) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
             )
@@ -139,7 +136,7 @@ fun ProjectSetupScreen(
             OutlinedTextField(
                 value = totalBudget,
                 onValueChange = { totalBudget = it },
-                label = { Text(stringResource(R.string.label_total_budget_taka)) },
+                label = { Text(strings.labelTotalBudgetTaka) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 shape = RoundedCornerShape(12.dp)
@@ -148,7 +145,7 @@ fun ProjectSetupScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                stringResource(R.string.label_project_timeline),
+                strings.labelProjectTimeline,
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray
@@ -157,7 +154,7 @@ fun ProjectSetupScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             DateSelectionRow(
-                label = stringResource(R.string.label_start_date),
+                label = strings.labelStartDate,
                 date = startDate,
                 onDateSelected = {
                     startDate = it
@@ -168,7 +165,7 @@ fun ProjectSetupScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             DateSelectionRow(
-                label = stringResource(R.string.label_end_date),
+                label = strings.labelEndDate,
                 date = endDate,
                 minDate = startDate,
                 onDateSelected = { endDate = it }
@@ -226,15 +223,17 @@ fun ProjectSetupScreen(
                             onProjectSaved()
                         }
                     } else {
-                        showToast(context, context.getString(R.string.err_invalid_input))
+                        showToast(context, strings.errInvalidInputs)
                     }
                 },
-                modifier = Modifier.fillMaxWidth().height(56.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = tealColor)
             ) {
                 Text(
-                    text = if (projectId == null) "Create Dream House" else "Update Project",
+                    text = if (projectId == null) strings.labelCreateProject else strings.labelUpdateProject,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )

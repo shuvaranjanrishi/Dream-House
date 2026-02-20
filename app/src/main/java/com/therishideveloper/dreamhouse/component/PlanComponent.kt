@@ -2,7 +2,6 @@ package com.therishideveloper.dreamhouse.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +42,7 @@ import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import com.therishideveloper.dreamhouse.data.model.ConstructionStage
 import com.therishideveloper.dreamhouse.data.model.StageStatus
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
@@ -59,7 +59,6 @@ fun ProjectBudgetCard(
     endDate: Long
 ) {
     val context = LocalContext.current
-    val softRed = Color(0xFFD32F2F)
 
     val budgetProgress = if (totalBudget > 0) (allocatedAmount / totalBudget).toFloat() else 0f
     val isBudgetOverflow = allocatedAmount > totalBudget
@@ -115,7 +114,7 @@ fun ProjectBudgetCard(
             if (isBudgetOverflow || isTimeOverflow) {
                 Text(
                     text = warningMsg,
-                    color = softRed,
+                    color = softRedColor,
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -188,7 +187,7 @@ fun ProjectBudgetCard(
                     (budgetProgress * 100).toInt().toString()
                 ) + "%",
                 progress = budgetProgress.coerceIn(0f, 1f),
-                accentColor = if (isBudgetOverflow) softRed else tealColor
+                accentColor = if (isBudgetOverflow) softRedColor else tealColor
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -203,7 +202,7 @@ fun ProjectBudgetCard(
                     (timeProgress * 100).toInt().toString()
                 ) + "%",
                 progress = timeProgress.coerceIn(0f, 1f),
-                accentColor = if (isTimeOverflow) softRed else tealColor
+                accentColor = if (isTimeOverflow) softRedColor else tealColor
             )
         }
     }
@@ -272,7 +271,6 @@ fun formatDuration(days: Long): String {
 
 @Composable
 fun StageCard(
-    index: Int,
     stage: StageEntity,
     onClick: () -> Unit
 ) {
@@ -297,7 +295,11 @@ fun StageCard(
                 color = tealColor.copy(alpha = 0.1f)
             ) {
                 Box(contentAlignment = Alignment.Center) {
-                    Text(text = index.toString(), color = tealColor, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = NumberUtils.formatByLocale(context, stage.serial.toString()),
+                        color = tealColor,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
 
@@ -418,6 +420,7 @@ fun DateSelectionRow(
 
 @Composable
 fun StepNumberBadge(number: Int) {
+    val context = LocalContext.current
     Surface(
         modifier = Modifier.size(28.dp),
         shape = RoundedCornerShape(6.dp),
@@ -426,7 +429,7 @@ fun StepNumberBadge(number: Int) {
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(
-                text = number.toString(),
+                text = NumberUtils.formatByLocale(context, number.toString()),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black

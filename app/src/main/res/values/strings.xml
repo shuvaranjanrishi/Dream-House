@@ -158,13 +158,18 @@
 
     <!--About Screen-->
     <string name="menu_about">About App</string>
-    <string name="about_description">Daily Expense helps you manage your money easily. Track income, expenses, and analyze your financial habits with powerful charts and reports.</string>
-    <string name="feature_1">✔ Detailed Income/Expense Tracking</string>
-    <string name="feature_2">✔ Interactive Category Charts</string>
-    <string name="feature_3">✔ Calculator Tools</string>
-    <string name="feature_4">✔ Multi-language Support (English, Bangla, Hindi)</string>
-    <string name="feature_5">✔ Easily Share Expense Reports with Others</string>
-    <string name="feature_6">✔ Download Data to Excel Sheet</string>
+    <string name="desc_project">A smart construction companion to plan, estimate, and track your building progress efficiently.</string>
+    <string name="feat_1">✔ Plan and create your construction projects with precise details.</string>
+    <string name="feat_2">✔ Set your total budget and manage funds effectively.</string>
+    <string name="feat_3">✔ Accurate material and cost estimation for every stage.</string>
+    <string name="feat_4">✔ Monitor stage-wise progress to stay on schedule.</string>
+    <string name="feat_5">✔ Download detailed PDF reports and visualize data with charts.</string>
+    <string name="feat_6">✔ Detailed Income/Expense Tracking</string>
+    <string name="feat_7">✔ Interactive Category Charts</string>
+    <string name="feat_8">✔ Calculator Tools</string>
+    <string name="feat_9">✔ Multi-language Support (English, Bangla, Hindi)</string>
+    <string name="feat_10">✔ Easily Share Expense Reports with Others</string>
+    <string name="feat_11">✔ Download Data to Excel Sheet</string>
     <string name="label_app_version">App Version: </string>
     <string name="label_developer">Developed by</string>
     <string name="dev_name">Shuva Ranjan Rishi</string>
@@ -423,5 +428,12 @@
     <string name="label_septic_tank">Septic Tank</string>
     <string name="label_excavation">Soil Excavation</string>
     <string name="label_others_breakdown">Others Breakdown</string>
+
+    <string name="err_date_conflict">Start date cannot be earlier than the previous stage\'s completion date.</string>
+    <string name="err_no_active_project">No active project found! Please create a project first.</string>
+    <string name="err_invalid_duration">Duration must be at least 1 day!</string>
+    <string name="label_create_project">Create Dream House</string>
+    <string name="label_update_project">Update Project</string>
+    <string name="err_previous_stage_missing">Please add the previous stage first!</string>
 
 </resources>

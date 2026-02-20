@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "stages",
+    tableName = "tbl_stages",
     foreignKeys = [
         ForeignKey(
             entity = ProjectEntity::class,
@@ -17,6 +17,7 @@ import androidx.room.PrimaryKey
 )
 data class StageEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val serial: Int,
     val projectId: Int,
     val stageName: String,
     val estimatedCost: Double,

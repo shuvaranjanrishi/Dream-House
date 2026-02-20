@@ -3,12 +3,10 @@ package com.therishideveloper.dreamhouse.data.model
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.CallMade
 import androidx.compose.material.icons.automirrored.filled.CallReceived
-import androidx.compose.material.icons.filled.CallReceived
-import androidx.compose.material.icons.filled.CallMade
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.ui.theme.expenseRed
+import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 
 enum class NoteType(
@@ -20,7 +18,7 @@ enum class NoteType(
     DEBT(
         dbKey = "DEBT",
         titleRes = R.string.filter_debt,
-        color = expenseRed,
+        color = softRedColor,
         icon = Icons.AutoMirrored.Filled.CallMade
     ),
 

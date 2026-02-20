@@ -6,19 +6,13 @@ import com.therishideveloper.dreamhouse.data.entity.StageEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
-    // Project operations
     suspend fun insertOrUpdateProject(project: ProjectEntity): Long
     fun getProjectById(projectId: Int): Flow<ProjectEntity?>
-
-    // Stage operations
     suspend fun insertOrUpdateStage(stage: StageEntity)
     fun getStagesForProject(projectId: Int): Flow<List<StageEntity>>
     fun getTotalAllocatedBudget(projectId: Int): Flow<Double?>
     suspend fun deleteStage(stage: StageEntity)
     fun getStageById(stageId: Int): Flow<StageEntity?>
-//    fun getAllHistory(): Flow<List<EstimationRecord>>
-//    suspend fun saveEstimation(record: EstimationRecord)
-
     fun getAllEstimations(): Flow<List<EstimationRecord>>
     suspend fun saveEstimation(record: EstimationRecord)
     suspend fun getEstimationById(id: Int): EstimationRecord?

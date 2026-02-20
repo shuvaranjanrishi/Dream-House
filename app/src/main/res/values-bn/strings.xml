@@ -158,13 +158,18 @@
 
     <!--About Screen-->
     <string name="menu_about">অ্যাপ সম্পর্কে</string>
-    <string name="about_description">ডেইলই এক্সপেন্স আপনার অর্থ ব্যবস্থাপনাকে সহজ করে তোলে। শক্তিশালী চার্ট এবং রিপোর্টের মাধ্যমে আপনার আয়-ব্যয় ট্র্যাক করুন এবং অর্থনৈতিক অভ্যাস বিশ্লেষণ করুন।</string>
-    <string name="feature_1">✔ আয় ও ব্যয়ের বিস্তারিত ট্র্যাকিং</string>
-    <string name="feature_2">✔ আকর্ষণীয় ক্যাটাগরি চার্ট</string>
-    <string name="feature_3">✔ ক্যালকুলেটর টুলস</string>
-    <string name="feature_4">✔ বহুভাষী সাপোর্ট (বাংলা, ইংরেজি, হিন্দি)</string>
-    <string name="feature_5">✔ অন্যদের সাথে আয় ব্যয়ের হিসাব শেয়ার করার সুবিধা</string>
-    <string name="feature_6">✔ এক্সেল (Excel) শীট হিসেবে রিপোর্ট ডাউনলোড</string>
+    <string name="desc_project">বাড়ি নির্মাণের পরিকল্পনা, হিসাব এবং অগ্রগতি ট্র্যাক করার একটি স্মার্ট সমাধান।</string>
+    <string name="feat_1">✔ বিস্তারিত তথ্যসহ আপনার নির্মাণ প্রকল্পের পরিকল্পনা ও প্রোফাইল তৈরি করুন।</string>
+    <string name="feat_2">✔ আপনার মোট বাজেট নির্ধারণ করুন এবং অর্থের সঠিক ব্যবস্থাপনা নিশ্চিত করুন।</string>
+    <string name="feat_3">✔ প্রতিটি ধাপের জন্য নির্মাণ সামগ্রী এবং খরচের নিখুঁত হিসাব করুন।</string>
+    <string name="feat_4">✔ সময়মতো কাজ শেষ করতে প্রতিটি ধাপের বাস্তব অগ্রগতি পর্যবেক্ষণ করুন।</string>
+    <string name="feat_5">✔ বিস্তারিত পিডিএফ রিপোর্ট ডাউনলোড করুন এবং চার্টের মাধ্যমে ডেটা দেখুন।</string>
+    <string name="feat_6">✔ আয় ও ব্যয়ের বিস্তারিত ট্র্যাকিং</string>
+    <string name="feat_7">✔ আকর্ষণীয় ক্যাটাগরি চার্ট</string>
+    <string name="feat_8">✔ ক্যালকুলেটর টুলস</string>
+    <string name="feat_9">✔ বহুভাষী সাপোর্ট (বাংলা, ইংরেজি, হিন্দি)</string>
+    <string name="feat_10">✔ অন্যদের সাথে আয় ব্যয়ের হিসাব শেয়ার করার সুবিধা</string>
+    <string name="feat_11">✔ এক্সেল (Excel) শীট হিসেবে রিপোর্ট ডাউনলোড</string>
     <string name="label_app_version">অ্যাপ ভার্সন: </string>
     <string name="label_developer">ডেভেলপার</string>
     <string name="dev_name">শুভ রঞ্জন ঋষি</string>
@@ -426,5 +431,12 @@
     <string name="label_septic_tank">সেপটিক ট্যাংক</string>
     <string name="label_excavation">মাটি খনন</string>
     <string name="label_others_breakdown">বিবিধ খরচ</string>
+
+    <string name="err_date_conflict">শুরুর তারিখ আগের ধাপের শেষ হওয়ার তারিখের আগে হতে পারবে না।</string>
+    <string name="err_no_active_project">কোনো সক্রিয় প্রজেক্ট পাওয়া যায়নি! অনুগ্রহ করে আগে একটি প্রজেক্ট তৈরি করুন।</string>
+    <string name="err_invalid_duration">সময়সীমা কমপক্ষে ১ দিন হতে হবে!</string>
+    <string name="label_create_project">স্বপ্নের বাড়ি তৈরি করুন</string>
+    <string name="label_update_project">প্রজেক্ট আপডেট করুন</string>
+    <string name="err_previous_stage_missing">আগের ধাপটি আগে যোগ করুন!</string>
 
 </resources>
