@@ -1,15 +1,18 @@
 package com.therishideveloper.dreamhouse.screen
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -27,14 +30,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.component.ActionButton
 import com.therishideveloper.dreamhouse.component.CalculatorDialog
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.CurrentBalance
+import com.therishideveloper.dreamhouse.component.DisplayTodayDate
 import com.therishideveloper.dreamhouse.component.MagicWelcomeOverlay
 import com.therishideveloper.dreamhouse.component.SolidPieChart
 import com.therishideveloper.dreamhouse.component.SummaryClickableRow
@@ -44,7 +46,6 @@ import com.therishideveloper.dreamhouse.navigation.Screens
 import com.therishideveloper.dreamhouse.ui.theme.softRedColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DashboardUtils
-import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
 import kotlinx.coroutines.delay
@@ -75,11 +76,16 @@ fun HomeScreen(
         if (totalIncome + totalExpense > 0) (totalIncome / (totalIncome + totalExpense)).toFloat() else 0.5f
 
     val showWelcome = projectViewModel.showWelcomeCelebration
+    var startFadeIn by remember { mutableStateOf(false) }
 
     LaunchedEffect(showWelcome) {
         if (showWelcome) {
-            delay(5000) // ৫ সেকেন্ড দেখাবে
-            projectViewModel.welcomeShown() // তারপর স্টেটটি রিমেম্বার থেকে মুছে দিবে (False করে দিবে)
+            delay(100)
+            startFadeIn = true
+            delay(5000)
+            startFadeIn = false
+            delay(1500)
+            projectViewModel.welcomeShown()
         }
     }
 
@@ -156,17 +162,15 @@ fun HomeScreen(
                     .weight(1f)
                     .padding(horizontal = 8.dp)
             ) {
-                // ২টা রো এবং হরিজন্টাল স্ক্রল
                 LazyHorizontalGrid(
                     rows = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(240.dp), // ৩ কলামের আইটেম সাইজ ধরে রাখার জন্য এই হাইটটি পারফেক্ট
-                    horizontalArrangement = Arrangement.spacedBy(0.dp), // আগের মতোই গ্যাপ রাখতে
+                        .height(240.dp),
+                    horizontalArrangement = Arrangement.spacedBy(0.dp),
                     verticalArrangement = Arrangement.spacedBy(0.dp)
                 ) {
                     items(DashboardUtils.getDashboardMenus()) { item ->
-                        // আগের গ্রিডে ৩ কলামে থাকাকালীন উইডথ যেমন ছিল (প্রায় ১২০ডিপি)
                         Box(modifier = Modifier.width(125.dp)) {
                             MenuGridItem(item = item) { route ->
                                 handleNavigation(navController, route)
@@ -175,7 +179,6 @@ fun HomeScreen(
                     }
                 }
 
-                // আপনার একশন বাটনগুলো আগের পজিশনেই থাকবে
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -210,66 +213,34 @@ fun HomeScreen(
                 onClose = { calcExpression = ""; calcResult = "0"; showCalculator = false }
             )
         }
-
-
     }
-    if (showWelcome) {
+    AnimatedVisibility(
+        visible = startFadeIn,
+        enter = fadeIn(animationSpec = tween(1500)) +
+                scaleIn(initialScale = 0f, animationSpec = tween(1500)),
+        exit = fadeOut(animationSpec = tween(1500)) +
+                scaleOut(targetScale = 0f, animationSpec = tween(1500)),
+
+        ) {
         MagicWelcomeOverlay()
     }
 }
 
 private fun handleNavigation(navController: NavController, route: String) {
     when (route) {
-        // Handle period-based routes (today, monthly, yearly)
         TransactionPeriod.TODAY.dbKey,
         TransactionPeriod.MONTHLY.dbKey,
         TransactionPeriod.YEARLY.dbKey -> {
             navController.navigate("transaction_list/$route")
         }
 
-        // Handle other static routes (notes, charts, etc.)
         else -> {
             try {
                 navController.navigate(route)
             } catch (e: Exception) {
-                // Prevent crash if route is missing
+                e.printStackTrace()
                 Log.e("NavError", "Destination not found: $route")
             }
-        }
-    }
-}
-
-@Composable
-private fun DisplayTodayDate() {
-    val context = LocalContext.current
-    Card(
-        modifier = Modifier
-            .padding(end = 24.dp, start = 24.dp, top = 8.dp, bottom = 0.dp)
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = tealColor.copy(alpha = 0.05f)),
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                Icons.Default.CalendarToday,
-                contentDescription = null,
-                tint = tealColor,
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = DateUtils.getTodayDateForHomeScreen(context),
-                fontSize = 14.sp,
-                color = Color.DarkGray,
-                lineHeight = 16.sp
-            )
         }
     }
 }

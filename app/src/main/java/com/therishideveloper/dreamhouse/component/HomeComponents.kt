@@ -1,5 +1,6 @@
 package com.therishideveloper.dreamhouse.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,9 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.model.DashboardItem
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.util.DateUtils
 import com.therishideveloper.dreamhouse.util.NumberUtils
 
 @Composable
@@ -158,6 +162,41 @@ fun MagicWelcomeOverlay() {
                 color = Color.White.copy(alpha = 0.5f),
                 modifier = Modifier.padding(top = 8.dp),
                 fontSize = 12.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun DisplayTodayDate() {
+    val context = LocalContext.current
+    Card(
+        modifier = Modifier
+            .padding(end = 24.dp, start = 24.dp, top = 8.dp, bottom = 0.dp)
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = tealColor.copy(alpha = 0.05f)),
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                Icons.Default.CalendarToday,
+                contentDescription = null,
+                tint = tealColor,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = DateUtils.getTodayDateForHomeScreen(context),
+                fontSize = 14.sp,
+                color = Color.DarkGray,
+                lineHeight = 16.sp
             )
         }
     }

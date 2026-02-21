@@ -211,12 +211,11 @@ fun ProjectSetupScreen(
                             startDate = startDate,
                             endDate = endDate
                         )
-                        // ProjectSetupScreen.kt এর বাটন ক্লিকের ভেতরে
-                        if (projectId == null) { // নতুন প্রোজেক্ট
+                        if (projectId == null) {
                             viewModel.saveProject(project)
-                            viewModel.triggerWelcome() // শুধুমাত্র এখানে অভিনন্দন ট্রিগার হবে
+                            viewModel.triggerWelcome()
                             onProjectSaved()
-                        } else { // এডিট মোড
+                        } else {
                             viewModel.saveProject(project)
                             onProjectSaved()
                         }
