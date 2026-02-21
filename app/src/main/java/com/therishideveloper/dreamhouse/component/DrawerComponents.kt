@@ -32,7 +32,7 @@ fun DrawerHeader() {
     Column {
         Box(
             modifier = Modifier
-                .height(160.dp)
+                .height(180.dp)
                 .fillMaxWidth()
                 .background(
                     brush = Brush.verticalGradient(

@@ -42,7 +42,7 @@ fun ProjectSetupScreen(
     onBack: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
-    val strings = DreamHouseStrings.current
+    val strings = DreamHouseStrings.current.setup
 
     // UI States
     var projectName by remember { mutableStateOf("") }
@@ -71,7 +71,6 @@ fun ProjectSetupScreen(
 
     Scaffold(
         topBar = {
-            // শুধুমাত্র এডিট মোডে টপ বার দেখাবে
             if (projectId != null) {
                 TopAppBar(
                     title = { Text(strings.menuConstructionPlan, color = Color.White) },
@@ -88,7 +87,6 @@ fun ProjectSetupScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                // টপ বার থাকলে প্যাডিং নিবে, না থাকলে ০
                 .padding(if (projectId == null) PaddingValues(0.dp) else paddingValues)
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),

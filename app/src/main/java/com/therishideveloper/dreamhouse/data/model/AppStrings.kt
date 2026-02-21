@@ -6,14 +6,29 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.res.stringResource
 import com.therishideveloper.dreamhouse.R
 
-data class AppStrings(
-    // Common
+object DreamHouseStrings {
+    val current: AppStrings
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalStrings.current
+}
+
+val LocalStrings = staticCompositionLocalOf<AppStrings> {
+    error("No Strings provided")
+}
+
+data class CommonStrings(
     val success: String,
     val save: String,
     val cancel: String,
-    val currency: String,
+    val currency: String
+)
 
-    //ProjectSetupScreen
+data class SplashStrings(
+    val poweredBy: String
+)
+
+data class SetupStrings(
     val errInvalidInputs: String,
     val menuConstructionPlan: String,
     val hintProjectInfo: String,
@@ -29,22 +44,12 @@ data class AppStrings(
     val estimatedBudget: String,
     val budgetTaka: String,
     val selectTimeFrame: String,
-    val errPreviousStageMissing: String,
+    val errPreviousStageMissing: String
+)
 
-    // Add Stage Screen
-    val addStageTitle: String,
-    val updateStageTitle: String,
-    val errNoProject: String,
-    val errInvalidDuration: String,
-    val errFillAll: String,
-    val errDuplicate: String,
-    val errEditLock: String,
-    val selectWorkStage: String,
-    val labelUpdateStatus: String,
-
-    //AboutScreen
-    val appName:String,
-    val appSlogan:String,
+data class AboutStrings(
+    val appName: String,
+    val appSlogan: String,
     val menuAbout: String,
     val descProject: String,
     val feat1: String,
@@ -67,89 +72,105 @@ data class AppStrings(
     val labelSettings: String,
     val labelHelp: String,
     val labelMore: String,
-    val shareText: String,
+    val shareText: String
+)
 
-    // Stage List Screen
+data class StageStrings(
+    val addStageTitle: String,
+    val updateStageTitle: String,
+    val errNoProject: String,
+    val errInvalidDuration: String,
+    val errFillAll: String,
+    val errDuplicate: String,
+    val errEditLock: String,
+    val selectWorkStage: String,
+    val labelUpdateStatus: String,
     val stageListTitle: String,
     val noStages: String
 )
+
+data class AppStrings(
+    val common: CommonStrings,
+    val splash: SplashStrings,
+    val setup: SetupStrings,
+    val stage: StageStrings,
+    val about: AboutStrings
+)
+
+@Composable
+@ReadOnlyComposable
+private fun get(id: Int): String = stringResource(id)
 
 @Composable
 @ReadOnlyComposable
 fun provideStrings(): AppStrings {
     return AppStrings(
-        success = stringResource(R.string.msg_success),
-        save = stringResource(R.string.btn_save),
-        cancel = stringResource(R.string.btn_cancel),
-        currency = stringResource(R.string.currency_symbol),
-
-        errInvalidInputs = stringResource(R.string.err_invalid_input),
-        menuConstructionPlan = stringResource(R.string.menu_construction_plan),
-        hintProjectInfo = stringResource(R.string.hint_project_info),
-        labelHouseName = stringResource(R.string.label_house_name),
-        labelAddress = stringResource(R.string.label_address),
-        labelTotalBudgetTaka = stringResource(R.string.label_total_budget_taka),
-        labelProjectTimeline = stringResource(R.string.label_project_timeline),
-        labelStartDate = stringResource(R.string.label_start_date),
-        labelEndDate = stringResource(R.string.label_end_date),
-        labelCreateProject = stringResource(R.string.label_create_project),
-        labelUpdateProject = stringResource(R.string.label_update_project),
-        selectWorkStage = stringResource(R.string.select_work_stage),
-        estimatedBudget = stringResource(R.string.estimated_budget),
-        budgetTaka = stringResource(R.string.budget_taka),
-        selectTimeFrame = stringResource(R.string.select_timeframe),
-        labelUpdateStatus = stringResource(R.string.label_update_status),
-        errPreviousStageMissing = stringResource(R.string.err_previous_stage_missing),
-
-        // Add Stage Screen
-        addStageTitle = stringResource(R.string.label_add_stage),
-        updateStageTitle = stringResource(R.string.label_update_stage),
-        errNoProject = stringResource(R.string.err_no_active_project),
-        errInvalidDuration = stringResource(R.string.err_invalid_duration),
-        errFillAll = stringResource(R.string.err_fill_all),
-        errDuplicate = stringResource(R.string.err_duplicate_stage),
-        stageName = stringResource(R.string.stage_name),
-        errEditLock = stringResource(R.string.err_edit_lock),
-
-        stageListTitle = stringResource(R.string.label_stages),
-        noStages = stringResource(R.string.no_stages_added),
-
-        //AboutScreen
-        appName = stringResource(R.string.app_name),
-        appSlogan = stringResource(R.string.app_slogan),
-        menuAbout = stringResource(R.string.menu_about),
-        descProject = stringResource(R.string.desc_project),
-        feat1 = stringResource(R.string.feat_1),
-        feat2 = stringResource(R.string.feat_2),
-        feat3 = stringResource(R.string.feat_3),
-        feat4 = stringResource(R.string.feat_4),
-        feat5 = stringResource(R.string.feat_5),
-        feat6 = stringResource(R.string.feat_6),
-        feat7 = stringResource(R.string.feat_7),
-        feat8 = stringResource(R.string.feat_8),
-        feat9 = stringResource(R.string.feat_9),
-        feat10 = stringResource(R.string.feat_10),
-        feat11 = stringResource(R.string.feat_11),
-        labelAppVersion = stringResource(R.string.label_app_version),
-        labelDeveloper = stringResource(R.string.label_developer),
-        labelDevName = stringResource(R.string.dev_name),
-        devBrand = stringResource(R.string.dev_brand),
-        devEmail = stringResource(R.string.dev_email),
-        labelMainMenu = stringResource(R.string.label_main_menu),
-        labelSettings = stringResource(R.string.label_settings),
-        labelHelp = stringResource(R.string.label_help),
-        labelMore = stringResource(R.string.label_more),
-        shareText = stringResource(R.string.share_text),
+        common = CommonStrings(
+            success = get(R.string.msg_success),
+            save = get(R.string.btn_save),
+            cancel = get(R.string.btn_cancel),
+            currency = get(R.string.currency_symbol)
+        ),
+        splash = SplashStrings(
+            poweredBy = get(R.string.powered_by)
+        ),
+        setup = SetupStrings(
+            errInvalidInputs = get(R.string.err_invalid_input),
+            menuConstructionPlan = get(R.string.menu_construction_plan),
+            hintProjectInfo = get(R.string.hint_project_info),
+            labelHouseName = get(R.string.label_house_name),
+            labelAddress = get(R.string.label_address),
+            labelTotalBudgetTaka = get(R.string.label_total_budget_taka),
+            labelProjectTimeline = get(R.string.label_project_timeline),
+            labelStartDate = get(R.string.label_start_date),
+            labelEndDate = get(R.string.label_end_date),
+            labelCreateProject = get(R.string.label_create_project),
+            labelUpdateProject = get(R.string.label_update_project),
+            stageName = get(R.string.stage_name),
+            estimatedBudget = get(R.string.estimated_budget),
+            budgetTaka = get(R.string.budget_taka),
+            selectTimeFrame = get(R.string.select_timeframe),
+            errPreviousStageMissing = get(R.string.err_previous_stage_missing)
+        ),
+        stage = StageStrings(
+            addStageTitle = get(R.string.label_add_stage),
+            updateStageTitle = get(R.string.label_update_stage),
+            errNoProject = get(R.string.err_no_active_project),
+            errInvalidDuration = get(R.string.err_invalid_duration),
+            errFillAll = get(R.string.err_fill_all),
+            errDuplicate = get(R.string.err_duplicate_stage),
+            errEditLock = get(R.string.err_edit_lock),
+            selectWorkStage = get(R.string.select_work_stage),
+            labelUpdateStatus = get(R.string.label_update_status),
+            stageListTitle = get(R.string.label_stages),
+            noStages = get(R.string.no_stages_added)
+        ),
+        about = AboutStrings(
+            appName = get(R.string.app_name),
+            appSlogan = get(R.string.app_slogan),
+            menuAbout = get(R.string.menu_about),
+            descProject = get(R.string.desc_project),
+            feat1 = get(R.string.feat_1),
+            feat2 = get(R.string.feat_2),
+            feat3 = get(R.string.feat_3),
+            feat4 = get(R.string.feat_4),
+            feat5 = get(R.string.feat_5),
+            feat6 = get(R.string.feat_6),
+            feat7 = get(R.string.feat_7),
+            feat8 = get(R.string.feat_8),
+            feat9 = get(R.string.feat_9),
+            feat10 = get(R.string.feat_10),
+            feat11 = get(R.string.feat_11),
+            labelAppVersion = get(R.string.label_app_version),
+            labelDeveloper = get(R.string.label_developer),
+            labelDevName = get(R.string.dev_name),
+            devBrand = get(R.string.dev_brand),
+            devEmail = get(R.string.dev_email),
+            labelMainMenu = get(R.string.label_main_menu),
+            labelSettings = get(R.string.label_settings),
+            labelHelp = get(R.string.label_help),
+            labelMore = get(R.string.label_more),
+            shareText = get(R.string.share_text),
+        )
     )
-}
-
-val LocalStrings = staticCompositionLocalOf<AppStrings> {
-    error("No Strings provided")
-}
-
-object DreamHouseStrings {
-    val current: AppStrings
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalStrings.current
 }

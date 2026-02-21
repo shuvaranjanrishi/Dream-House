@@ -62,7 +62,7 @@ fun StageSelector(
     val allStages = ConstructionStage.getAllStages()
     val selectedIndex = selectedStage?.let { allStages.indexOf(it) } ?: -1
 
-    Text(strings.selectWorkStage, fontWeight = FontWeight.Bold)
+    Text(strings.stage.selectWorkStage, fontWeight = FontWeight.Bold)
     Spacer(modifier = Modifier.height(8.dp))
     Box {
         OutlinedTextField(
@@ -75,10 +75,10 @@ fun StageSelector(
                 .clickable {
                     if (stageId == null) onExpandedChange(true) else showToast(
                         context,
-                        strings.errEditLock
+                        strings.stage.errEditLock
                     )
                 },
-            label = { Text(strings.stageName) },
+            label = { Text(strings.setup.stageName) },
             leadingIcon = if (selectedIndex != -1) {
                 { StepNumberBadge(number = selectedStage!!.serial) }
             } else null,
@@ -135,17 +135,17 @@ fun StageSelector(
 @Composable
 fun BudgetInput(value: String, onValueChange: (String) -> Unit) {
     val strings = DreamHouseStrings.current
-    Text(strings.estimatedBudget, fontWeight = FontWeight.Bold)
+    Text(strings.setup.estimatedBudget, fontWeight = FontWeight.Bold)
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(strings.budgetTaka) },
+        label = { Text(strings.setup.budgetTaka) },
         shape = RoundedCornerShape(12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         leadingIcon = {
             Text(
-                strings.currency,
+                strings.common.currency,
                 modifier = Modifier.padding(start = 12.dp),
                 fontWeight = FontWeight.Bold
             )
@@ -161,7 +161,7 @@ fun DateSection(
     onStartDateSelected: (Long) -> Unit,
     onEndDateSelected: (Long) -> Unit
 ) {
-    val strings = DreamHouseStrings.current
+    val strings = DreamHouseStrings.current.setup
 
     Text(strings.selectTimeFrame, fontWeight = FontWeight.Bold)
     DateSelectionRow(
@@ -207,7 +207,7 @@ fun DurationBadge(totalDays: Int) {
 
 @Composable
 fun StatusUpdateSection(currentStatusKey: String, onStatusSelected: (String) -> Unit) {
-    val strings = DreamHouseStrings.current
+    val strings = DreamHouseStrings.current.stage
     var statusExpanded by remember { mutableStateOf(false) }
     val currentStatus = StageStatus.fromDbKey(currentStatusKey)
     val allStatus = StageStatus.getAllStatuses()

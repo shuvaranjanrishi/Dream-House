@@ -31,7 +31,7 @@ import com.therishideveloper.dreamhouse.util.NumberUtils
 @Composable
 fun AboutScreen(onMenuClick: () -> Unit) {
     val context = LocalContext.current
-    val strings = DreamHouseStrings.current
+    val strings = DreamHouseStrings.current.about
     val appVersion = getAppVersion(context)
 
     Scaffold(

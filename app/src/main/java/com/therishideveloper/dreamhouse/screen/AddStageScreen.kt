@@ -104,7 +104,7 @@ fun AddStageScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = if (stageId == null) strings.addStageTitle else strings.updateStageTitle,
+                        text = if (stageId == null) strings.stage.addStageTitle else strings.stage.updateStageTitle,
                         color = Color.White
                     )
                 },
@@ -130,24 +130,24 @@ fun AddStageScreen(
 
                         // Validation Logic
                         when {
-                            currentProjectId == null -> showToast(context, strings.errNoProject)
+                            currentProjectId == null -> showToast(context, strings.stage.errNoProject)
                             selectedStage == null || cost <= 0 -> showToast(
                                 context,
-                                strings.errFillAll
+                                strings.stage.errFillAll
                             )
 
                             isPreviousStageMissing -> showToast(
                                 context,
-                                strings.errPreviousStageMissing
+                                strings.setup.errPreviousStageMissing
                             )
 
                             totalDays <= 0 -> showToast(
                                 context,
-                                strings.errInvalidDuration
+                                strings.stage.errInvalidDuration
                             )
 
                             stageId == null && existingStages.any { it.stageName == selectedStage!!.dbKey } ->
-                                showToast(context, strings.errDuplicate)
+                                showToast(context, strings.stage.errDuplicate)
 
                             else -> {
                                 val stageEntity = StageEntity(
@@ -161,7 +161,7 @@ fun AddStageScreen(
                                     status = status
                                 )
                                 viewModel.insertOrUpdateStage(stageEntity)
-                                showToast(context, strings.success)
+                                showToast(context, strings.common.success)
                                 onBack()
                             }
                         }

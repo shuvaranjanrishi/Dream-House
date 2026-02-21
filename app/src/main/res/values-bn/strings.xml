@@ -170,6 +170,8 @@
     <string name="feat_9">✔ বহুভাষী সাপোর্ট (বাংলা, ইংরেজি, হিন্দি)</string>
     <string name="feat_10">✔ অন্যদের সাথে আয় ব্যয়ের হিসাব শেয়ার করার সুবিধা</string>
     <string name="feat_11">✔ এক্সেল (Excel) শীট হিসেবে রিপোর্ট ডাউনলোড</string>
+
+    <string name="powered_by">Powered By The Rishi Developer</string>
     <string name="label_app_version">অ্যাপ ভার্সন: </string>
     <string name="label_developer">ডেভেলপার</string>
     <string name="dev_name">শুভ রঞ্জন ঋষি</string>

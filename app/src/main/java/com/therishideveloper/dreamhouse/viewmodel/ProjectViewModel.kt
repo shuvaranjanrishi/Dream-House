@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModel
 import com.therishideveloper.dreamhouse.data.entity.EstimationRecord
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.data.entity.StageEntity
-import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.Category
 import com.therishideveloper.dreamhouse.repository.ProjectRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,7 +39,9 @@ class ProjectViewModel @Inject constructor(
         showWelcomeCelebration = false
     }
 
-    // ViewModel-এ এইভাবে লিখুন
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
+
     val activeProject: StateFlow<ProjectEntity?> = repository.getProjectById(1)
         .stateIn(
             scope = viewModelScope,
@@ -47,12 +49,10 @@ class ProjectViewModel @Inject constructor(
             initialValue = null
         )
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading = _isLoading.asStateFlow()
-
     init {
         viewModelScope.launch {
-            activeProject.collect {
+            delay(4000)
+            activeProject.collect { _ ->
                 _isLoading.value = false
             }
         }

@@ -170,6 +170,8 @@
     <string name="feat_9">✔ Multi-language Support (English, Bangla, Hindi)</string>
     <string name="feat_10">✔ Easily Share Expense Reports with Others</string>
     <string name="feat_11">✔ Download Data to Excel Sheet</string>
+
+    <string name="powered_by">Powered By The Rishi Developer</string>
     <string name="label_app_version">App Version: </string>
     <string name="label_developer">Developed by</string>
     <string name="dev_name">Shuva Ranjan Rishi</string>

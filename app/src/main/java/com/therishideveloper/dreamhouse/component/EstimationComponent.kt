@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -462,7 +463,9 @@ fun EstimationTopBar(
     onShowPolicy: () -> Unit,
     onDownload: () -> Unit
 ) {
-    Column(modifier = Modifier.background(Color(0xFF00796B))) {
+    Column(modifier = Modifier
+        .background(Color(0xFF00796B))
+        .statusBarsPadding()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -499,53 +502,49 @@ fun EstimationContent(
     onNewCalculation: () -> Unit,
     isEmpty: Boolean = false // নতুন প্যারামিটার
 ) {
-    Column(
-        modifier = Modifier
-            .padding(padding)
-            .fillMaxSize()
-    ) {
-        // স্টিকি হেডার সবসময় দেখা যাবে
-        Surface(color = Color(0xFF00796B), modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)) {
-                EstimationHeaderInfo(record)
-                Spacer(Modifier.height(12.dp))
-                NewCalculationButton(onNewCalculation)
-            }
-        }
 
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Text(
-                stringResource(R.string.label_material_breakdown),
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                color = Color.Gray
-            )
-
-            if (isEmpty) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        stringResource(R.string.msg_no_estimation),
-                        color = Color.Gray,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            } else {
-                MaterialCardsList(record)
-            }
-
-            Spacer(modifier = Modifier.height(80.dp))
+    // স্টিকি হেডার সবসময় দেখা যাবে
+    Surface(color = Color(0xFF00796B), modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)) {
+            EstimationHeaderInfo(record)
+            Spacer(Modifier.height(12.dp))
+            NewCalculationButton(onNewCalculation)
         }
     }
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Text(
+            stringResource(R.string.label_material_breakdown),
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            color = Color.Gray
+        )
+
+        if (isEmpty) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    stringResource(R.string.msg_no_estimation),
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center
+                )
+            }
+        } else {
+            MaterialCardsList(record)
+        }
+
+        Spacer(modifier = Modifier.height(80.dp))
+    }
+//    }
 }
 
 @Composable
@@ -611,9 +610,12 @@ fun MaterialCardsList(record: EstimationRecord) {
 
     // Others Section
     val othersQty =
-        "---\n" + stringResource(R.string.label_shuttering_misc
-        ) + "\n" + stringResource(R.string.label_septic_tank
-        ) + "\n" + stringResource(R.string.label_excavation
+        "---\n" + stringResource(
+            R.string.label_shuttering_misc
+        ) + "\n" + stringResource(
+            R.string.label_septic_tank
+        ) + "\n" + stringResource(
+            R.string.label_excavation
         ) + "\n" + stringResource(R.string.label_others_breakdown)
 
     MaterialDetailCard(

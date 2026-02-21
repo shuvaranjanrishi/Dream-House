@@ -170,6 +170,8 @@
     <string name="feat_9">✔ बहुभाषी समर्थन (बंगाली, अंग्रेजी, हिंदी)</string>
     <string name="feat_10">✔ दूसरों के साथ खर्च रिपोर्ट साझा करने की सुविधा</string>
     <string name="feat_11">✔ डेटा को एक्सेल (Excel) शीट में डाउनलोड करें</string>
+
+    <string name="powered_by">Powered By The Rishi Developer</string>
     <string name="label_app_version">ऐप संस्करण: </string>
     <string name="label_developer">डेवलपर</string>
     <string name="dev_name">शुभ रंजन ऋषि</string>
