@@ -1,10 +1,12 @@
 package com.therishideveloper.dreamhouse.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -62,18 +64,25 @@ fun NoteScreen(
     val notes by noteViewModel.notes.collectAsState()
     val currentBalance = transactionViewModel.currentBalance.collectAsStateWithLifecycle()
 
-    val filteredList = when (selectedFilter) {
-        NoteType.DEBT.dbKey -> notes.filter { it.type == NoteType.DEBT.dbKey }
-        NoteType.RECEIVABLE.dbKey -> notes.filter { it.type == NoteType.RECEIVABLE.dbKey }
-        else -> notes
+    val filteredList = remember(notes, selectedFilter) {
+        when (selectedFilter) {
+            NoteType.DEBT.dbKey -> notes.filter { it.type == NoteType.DEBT.dbKey }
+            NoteType.RECEIVABLE.dbKey -> notes.filter { it.type == NoteType.RECEIVABLE.dbKey }
+            else -> notes
+        }
     }
 
-    val totalDebt = filteredList.filter { it.type == NoteType.DEBT.dbKey }.sumOf { it.amount }
-    val totalReceivable =
+    val totalDebt = remember(filteredList) {
+        filteredList.filter { it.type == NoteType.DEBT.dbKey }.sumOf { it.amount }
+    }
+    val totalReceivable = remember(filteredList) {
         filteredList.filter { it.type == NoteType.RECEIVABLE.dbKey }.sumOf { it.amount }
+    }
     val balanceAmount = totalReceivable - totalDebt
-    val totalSum = totalDebt + totalReceivable
-    val incomeProgress = if (totalSum > 0) (totalReceivable / totalSum).toFloat() else 0.5f
+    val incomeProgress = remember(totalDebt, totalReceivable) {
+        val totalSum = totalDebt + totalReceivable
+        if (totalSum > 0) (totalReceivable / totalSum).toFloat() else 0.5f
+    }
 
     Scaffold(
         topBar = {
@@ -101,113 +110,130 @@ fun NoteScreen(
         }
 
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.TopCenter
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
-            NoteDisclaimerCard()
-
-            Card(
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(4.dp)
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
             ) {
+                Spacer(modifier = Modifier.height(8.dp))
+                NoteDisclaimerCard()
+
+                Card(
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                        val isCompact = maxWidth < 340.dp
+                        val pieSize = if (isCompact) 76.dp else 90.dp
+                        val cardPadding = if (isCompact) 12.dp else 16.dp
+                        val gap = if (isCompact) 12.dp else 16.dp
+
+                        Row(
+                            modifier = Modifier.padding(cardPadding),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(modifier = Modifier.size(pieSize)) {
+                                SolidPieChart(incomeProgress, tealColor, softRedColor)
+                            }
+                            Spacer(modifier = Modifier.width(gap))
+                            Column(modifier = Modifier.weight(1f)) {
+                                TransactionSummaryRow(
+                                    stringResource(R.string.label_total_debt),
+                                    "$totalDebt",
+                                    softRedColor
+                                )
+                                TransactionSummaryRow(
+                                    stringResource(R.string.label_total_receivable),
+                                    "$totalReceivable",
+                                    MaterialTheme.colorScheme.primary
+                                )
+                                HorizontalDivider(
+                                    modifier = Modifier.padding(vertical = 6.dp),
+                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                                )
+                                TransactionSummaryRow(
+                                    if (balanceAmount >= 0) stringResource(R.string.label_net_receivable) else stringResource(
+                                        R.string.label_net_debt
+                                    ),
+                                    balanceAmount.toString(),
+                                    if (balanceAmount >= 0) MaterialTheme.colorScheme.primary else softRedColor
+                                )
+                            }
+                        }
+                    }
+                }
+
                 Row(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(modifier = Modifier.size(90.dp)) {
-                        SolidPieChart(incomeProgress, tealColor, softRedColor)
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        TransactionSummaryRow(
-                            stringResource(R.string.label_total_debt),
-                            "$totalDebt",
-                            softRedColor
-                        )
-                        TransactionSummaryRow(
-                            stringResource(R.string.label_total_receivable),
-                            "$totalReceivable",
-                            MaterialTheme.colorScheme.primary
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier.padding(vertical = 6.dp),
-                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
-                        )
-                        TransactionSummaryRow(
-                            if (balanceAmount >= 0) stringResource(R.string.label_net_receivable) else stringResource(
-                                R.string.label_net_debt
-                            ),
-                            balanceAmount.toString(),
-                            if (balanceAmount >= 0) MaterialTheme.colorScheme.primary else softRedColor
-                        )
-                    }
-                }
-            }
+                    Row(
+                        modifier = Modifier
+                            .weight(1f)
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        val filterOptions = listOf("All") + NoteType.entries.map { it.dbKey }
+                        filterOptions.forEach { filterKey ->
+                            val label = if (filterKey == "All") stringResource(R.string.filter_all)
+                            else stringResource(NoteType.fromDbKey(filterKey).titleRes)
 
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    modifier = Modifier.weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    val filterOptions = listOf("All") + NoteType.entries.map { it.dbKey }
-                    filterOptions.forEach { filterKey ->
-                        val label = if (filterKey == "All") stringResource(R.string.filter_all)
-                        else stringResource(NoteType.fromDbKey(filterKey).titleRes)
-
-                        FilterChip(
-                            selected = selectedFilter == filterKey,
-                            onClick = { selectedFilter = filterKey },
-                            label = { Text(label, fontSize = 12.sp) },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = tealColor,
-                                selectedLabelColor = Color.White
+                            FilterChip(
+                                selected = selectedFilter == filterKey,
+                                onClick = { selectedFilter = filterKey },
+                                label = { Text(label, fontSize = 12.sp, maxLines = 1) },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = tealColor,
+                                    selectedLabelColor = Color.White
+                                )
                             )
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    IconButton(
+                        onClick = { showSheet = true },
+                        modifier = Modifier
+                            .background(tealColor, CircleShape)
+                            .size(40.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Add,
+                            null,
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
                         )
                     }
                 }
-                IconButton(
-                    onClick = { showSheet = true },
-                    modifier = Modifier
-                        .background(tealColor, CircleShape)
-                        .size(36.dp)
-                ) {
-                    Icon(
-                        Icons.Default.Add,
-                        null,
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
 
-            LazyColumn(
-                state = lazyListState,
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    end = 8.dp,
-                    top = 4.dp,
-                    bottom = 16.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                items(filteredList, key = { it.id }) { note ->
-                    NoteItem(
-                        note,
-                        onDelete = { noteViewModel.deleteNote(note) },
-                    )
+                LazyColumn(
+                    state = lazyListState,
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(
+                        start = 8.dp,
+                        end = 8.dp,
+                        top = 4.dp,
+                        bottom = 84.dp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    items(filteredList, key = { it.id }) { note ->
+                        NoteItem(
+                            note,
+                            onDelete = { noteViewModel.deleteNote(note) },
+                        )
+                    }
                 }
             }
         }
@@ -237,11 +263,12 @@ fun NoteScreen(
                         }
                     }, { showCalculator = true },
                     onSave = {
-                        if (noteAmount.isNotEmpty() && noteDesc.isNotEmpty()) {
+                        val parsedAmount = noteAmount.trim().toDoubleOrNull()
+                        if (parsedAmount != null && parsedAmount > 0 && noteDesc.isNotBlank()) {
                             noteViewModel.saveNote(
                                 Note(
-                                    amount = noteAmount.toDouble(),
-                                    description = noteDesc,
+                                    amount = parsedAmount,
+                                    description = noteDesc.trim(),
                                     date = noteDate,
                                     type = noteType.dbKey
                                 )

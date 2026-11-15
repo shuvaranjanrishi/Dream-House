@@ -4,10 +4,9 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import androidx.core.content.FileProvider
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.therishideveloper.dreamhouse.R
-import com.therishideveloper.dreamhouse.data.entity.Transaction
 import com.therishideveloper.dreamhouse.data.model.AppBackupData
 import java.io.File
 import java.text.SimpleDateFormat
@@ -20,8 +19,7 @@ class BackupHelper(private val context: Context) {
 
     fun createBackup(backupData: AppBackupData): Uri? {
         return try {
-            val gson = Gson()
-            val jsonData = gson.toJson(backupData)
+            val jsonData = Gson().toJson(backupData)
             val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
             val root = File(downloadDir, backupFolder)
@@ -42,12 +40,13 @@ class BackupHelper(private val context: Context) {
 
     fun restoreBackup(uri: Uri): AppBackupData? {
         return try {
-            val inputStream = context.contentResolver.openInputStream(uri)
-            val reader = inputStream?.bufferedReader()
-            val jsonData = reader?.readText()
+            val jsonData = context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                inputStream.bufferedReader().use { it.readText() }
+            } ?: return null
             val type = object : TypeToken<AppBackupData>() {}.type
             Gson().fromJson(jsonData, type)
         } catch (e: Exception) {
+            e.printStackTrace()
             null
         }
     }

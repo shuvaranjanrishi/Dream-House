@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -149,7 +150,9 @@ class MainActivity : ComponentActivity() {
                 gesturesEnabled = isHome,
                 drawerContent = {
                     ModalDrawerSheet(
-                        modifier = Modifier.fillMaxWidth(0.8f),
+                        modifier = Modifier
+                            .widthIn(max = 320.dp)
+                            .fillMaxWidth(0.82f),
                         windowInsets = WindowInsets(0, 0, 0, 0),
                         drawerContainerColor = MaterialTheme.colorScheme.surface,
                         drawerContentColor = MaterialTheme.colorScheme.onSurface

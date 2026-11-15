@@ -36,6 +36,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.NumberUtils
+import java.util.Locale
 import kotlin.math.roundToInt
 
 private object CalculatorWindowState {
@@ -315,22 +316,43 @@ fun CalculatorDialog(
 
 private fun simpleEvaluate(expr: String): String {
     return try {
-        val tokens = expr.split(Regex("(?<=[-+*/])|(?=[-+*/])"))
-        if (tokens.isEmpty() || tokens[0].isEmpty()) return "0"
-        var total = tokens[0].toDouble()
-        for (i in 1 until tokens.size step 2) {
+        val cleaned = expr.trim()
+        if (cleaned.isEmpty()) return "0"
+
+        val normalized = if (cleaned.startsWith("-")) "0$cleaned" else cleaned
+        val rawTokens = normalized.split(Regex("(?<=[-+*/])|(?=[-+*/])"))
+            .filter { it.isNotEmpty() }
+        if (rawTokens.isEmpty()) return "0"
+
+        // Trim trailing dangling operator if user tapped '=' mid-expression
+        val tokens = if (rawTokens.last() in listOf("+", "-", "*", "/")) {
+            rawTokens.dropLast(1)
+        } else {
+            rawTokens
+        }
+        if (tokens.isEmpty()) return "0"
+
+        var total = tokens[0].toDoubleOrNull() ?: return "0"
+        var i = 1
+        while (i + 1 < tokens.size) {
             val op = tokens[i]
-            val next = tokens[i + 1].toDouble()
+            val next = tokens[i + 1].toDoubleOrNull() ?: break
             when (op) {
                 "+" -> total += next
                 "-" -> total -= next
                 "*" -> total *= next
-                "/" -> if (next != 0.0) total /= next
+                "/" -> if (next != 0.0) total /= next else return "0"
             }
+            i += 2
         }
-        if (total % 1 == 0.0) total.toLong().toString() else "%.2f".format(total)
-    } catch (e: Exception) {
-        "0: ${e.message}"
+        if (total.isNaN() || total.isInfinite()) return "0"
+        if (total % 1.0 == 0.0) {
+            total.toLong().toString()
+        } else {
+            String.format(Locale.US, "%.2f", total).trimEnd('0').trimEnd('.')
+        }
+    } catch (_: Exception) {
+        "0"
     }
 }
 
@@ -370,21 +392,32 @@ private fun handleCalculatorAction(
         }
 
         is CalcAction.Calculate -> {
-            newResult = try {
-                simpleEvaluate(newExpr)
-            } catch (e: Exception) {
-                "Error: " + e.message
-            }
+            newResult = simpleEvaluate(newExpr)
         }
 
         is CalcAction.Decimal -> {
-            if (!newExpr.endsWith(".")) newExpr += "."
+            val lastNumberSegment = newExpr.substringAfterLastAny(charArrayOf('+', '-', '*', '/'))
+            if (!lastNumberSegment.contains('.')) {
+                newExpr += if (lastNumberSegment.isEmpty()) "0." else "."
+            }
         }
 
         is CalcAction.Number -> newExpr += action.value
-        is CalcAction.Operation -> newExpr += action.op
+        is CalcAction.Operation -> {
+            if (newExpr.isEmpty() && action.op != "-") return
+            if (newExpr.lastOrNull() in listOf('+', '-', '*', '/')) {
+                newExpr = newExpr.dropLast(1) + action.op
+            } else {
+                newExpr += action.op
+            }
+        }
     }
     onUpdate(newExpr, newResult)
+}
+
+private fun String.substringAfterLastAny(delimiters: CharArray): String {
+    val idx = lastIndexOfAny(delimiters)
+    return if (idx == -1) this else substring(idx + 1)
 }
 
 @Composable

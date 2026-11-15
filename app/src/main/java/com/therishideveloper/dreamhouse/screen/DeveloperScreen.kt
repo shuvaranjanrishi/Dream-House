@@ -14,6 +14,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -72,7 +73,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.ui.theme.LocalIsDarkTheme
-import com.therishideveloper.dreamhouse.ui.theme.amberAccent
+import com.therishideveloper.dreamhouse.ui.theme.darkTealColor
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 
 private data class DeveloperAppItem(
@@ -113,13 +114,13 @@ fun DeveloperScreen(onMenuClick: () -> Unit) {
     val context = LocalContext.current
     val isDark = LocalIsDarkTheme.current
 
-    val pageBackground = if (isDark) MaterialTheme.colorScheme.background else Color(0xFFFAF6EE)
-    val cardBackground = if (isDark) MaterialTheme.colorScheme.surface else Color.White
-    val nestedCardBg = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFFCF9F2)
-    val cardBorderColor = if (isDark) MaterialTheme.colorScheme.outline.copy(alpha = 0.5f) else Color(0xFFEBDCCB)
-    val accentColor = if (isDark) Color(0xFFFFA726) else amberAccent
-    val softBadgeBg = if (isDark) accentColor.copy(alpha = 0.16f) else Color(0xFFFFF3E0)
-    val softBadgeText = if (isDark) Color(0xFFFFCC80) else Color(0xFF8C4A00)
+    val pageBackground = MaterialTheme.colorScheme.background
+    val cardBackground = MaterialTheme.colorScheme.surface
+    val nestedCardBg = MaterialTheme.colorScheme.surfaceVariant
+    val cardBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = if (isDark) 0.5f else 0.45f)
+    val accentColor = MaterialTheme.colorScheme.primary
+    val softBadgeBg = MaterialTheme.colorScheme.primaryContainer.copy(alpha = if (isDark) 0.35f else 0.45f)
+    val softBadgeText = if (isDark) Color(0xFFB2DFDB) else darkTealColor
     val onCardText = MaterialTheme.colorScheme.onSurface
     val mutedText = MaterialTheme.colorScheme.onSurfaceVariant
 
@@ -212,7 +213,7 @@ fun DeveloperScreen(onMenuClick: () -> Unit) {
                                     .clip(RoundedCornerShape(20.dp))
                                     .background(
                                         Brush.linearGradient(
-                                            colors = listOf(Color(0xFFFF9800), amberAccent)
+                                            colors = listOf(tealColor, darkTealColor)
                                         )
                                     ),
                                 contentAlignment = Alignment.Center
@@ -308,7 +309,7 @@ fun DeveloperScreen(onMenuClick: () -> Unit) {
                                     .testTag("developer_send_email_button"),
                                 shape = RoundedCornerShape(14.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = amberAccent,
+                                    containerColor = tealColor,
                                     contentColor = Color.White
                                 ),
                                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
@@ -560,91 +561,98 @@ private fun DeveloperAppRowCard(
         color = backgroundColor,
         border = BorderStroke(1.dp, borderColor)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Surface(
-                modifier = Modifier.size(54.dp),
-                shape = RoundedCornerShape(14.dp),
-                color = Color.White,
-                border = BorderStroke(1.dp, borderColor),
-                shadowElevation = 1.dp
-            ) {
-                Image(
-                    painter = painterResource(id = item.iconRes),
-                    contentDescription = stringResource(item.titleRes),
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val isCompact = maxWidth < 330.dp
+            val iconSize = if (isCompact) 46.dp else 54.dp
+            val horizontalPad = if (isCompact) 10.dp else 12.dp
 
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPad, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = stringResource(item.titleRes),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = onCardText,
-                    maxLines = 2,
-                    lineHeight = 18.sp,
-                    overflow = TextOverflow.Ellipsis
-                )
                 Surface(
-                    shape = RoundedCornerShape(6.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
+                    modifier = Modifier.size(iconSize),
+                    shape = RoundedCornerShape(14.dp),
+                    color = Color.White,
+                    border = BorderStroke(1.dp, borderColor),
+                    shadowElevation = 1.dp
                 ) {
-                    Text(
-                        text = stringResource(item.categoryRes),
-                        fontSize = 11.sp,
-                        color = mutedText,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    Image(
+                        painter = painterResource(id = item.iconRes),
+                        contentDescription = stringResource(item.titleRes),
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
-                Text(
-                    text = stringResource(item.descRes),
-                    fontSize = 12.sp,
-                    color = mutedText,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(if (isCompact) 10.dp else 12.dp))
 
-            Surface(
-                onClick = onInstallClick,
-                modifier = Modifier
-                    .height(48.dp)
-                    .testTag(testTag),
-                shape = RoundedCornerShape(12.dp),
-                color = badgeBg
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.dev_btn_install),
-                        color = badgeTextColor,
+                        text = stringResource(item.titleRes),
+                        fontSize = if (isCompact) 13.sp else 14.sp,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp
+                        color = onCardText,
+                        maxLines = 2,
+                        lineHeight = 18.sp,
+                        overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = null,
-                        tint = badgeTextColor,
-                        modifier = Modifier.size(14.dp)
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = MaterialTheme.colorScheme.surface
+                    ) {
+                        Text(
+                            text = stringResource(item.categoryRes),
+                            fontSize = 11.sp,
+                            color = mutedText,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    }
+                    Text(
+                        text = stringResource(item.descRes),
+                        fontSize = 12.sp,
+                        color = mutedText,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
+                }
+
+                Spacer(modifier = Modifier.width(if (isCompact) 6.dp else 8.dp))
+
+                Surface(
+                    onClick = onInstallClick,
+                    modifier = Modifier
+                        .height(48.dp)
+                        .testTag(testTag),
+                    shape = RoundedCornerShape(12.dp),
+                    color = badgeBg
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = if (isCompact) 10.dp else 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.dev_btn_install),
+                            color = badgeTextColor,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = if (isCompact) 11.sp else 12.sp,
+                            maxLines = 1
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                            contentDescription = null,
+                            tint = badgeTextColor,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
                 }
             }
         }

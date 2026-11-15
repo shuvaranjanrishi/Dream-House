@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -197,35 +198,42 @@ fun TransactionSummaryCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
-        Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(modifier = Modifier.size(96.dp)) {
-                SolidPieChart(
-                    incomeProgress = incomeProgress,
-                    incomeColor = tealColor,
-                    expenseColor = softRedColor
-                )
-            }
-            Spacer(modifier = Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                TransactionSummaryRow(
-                    stringResource(R.string.income),
-                    totalIncome.toString(),
-                    MaterialTheme.colorScheme.primary
-                )
-                TransactionSummaryRow(
-                    stringResource(R.string.expense),
-                    totalExpense.toString(),
-                    softRedColor
-                )
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 6.dp),
-                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
-                )
-                TransactionSummaryRow(
-                    stringResource(R.string.balance),
-                    balance.toString(),
-                    if (balance >= 0) MaterialTheme.colorScheme.primary else softRedColor
-                )
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val isCompact = maxWidth < 340.dp
+            val pieSize = if (isCompact) 78.dp else 96.dp
+            val cardPadding = if (isCompact) 10.dp else 12.dp
+            val gap = if (isCompact) 10.dp else 14.dp
+
+            Row(modifier = Modifier.padding(cardPadding), verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.size(pieSize)) {
+                    SolidPieChart(
+                        incomeProgress = incomeProgress,
+                        incomeColor = tealColor,
+                        expenseColor = softRedColor
+                    )
+                }
+                Spacer(modifier = Modifier.width(gap))
+                Column(modifier = Modifier.weight(1f)) {
+                    TransactionSummaryRow(
+                        stringResource(R.string.income),
+                        totalIncome.toString(),
+                        MaterialTheme.colorScheme.primary
+                    )
+                    TransactionSummaryRow(
+                        stringResource(R.string.expense),
+                        totalExpense.toString(),
+                        softRedColor
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(vertical = 6.dp),
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                    )
+                    TransactionSummaryRow(
+                        stringResource(R.string.balance),
+                        balance.toString(),
+                        if (balance >= 0) MaterialTheme.colorScheme.primary else softRedColor
+                    )
+                }
             }
         }
     }

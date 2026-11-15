@@ -1,12 +1,16 @@
 package com.therishideveloper.dreamhouse.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.therishideveloper.dreamhouse.component.EstimationBottomBar
 import com.therishideveloper.dreamhouse.component.EstimationContent
@@ -53,17 +57,24 @@ fun EstimationScreen(
             EstimationBottomBar(totalCost = lastRecord.totalEstimatedCost)
         }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
         ) {
-            EstimationContent(
-                padding = padding,
-                record = lastRecord,
-                onNewCalculation = onNavigateToCalculator,
-                isEmpty = isEmpty
-            )
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+            ) {
+                EstimationContent(
+                    padding = padding,
+                    record = lastRecord,
+                    onNewCalculation = onNavigateToCalculator,
+                    isEmpty = isEmpty
+                )
+            }
         }
     }
 }

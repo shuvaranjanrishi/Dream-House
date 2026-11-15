@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -121,9 +122,10 @@ fun AddStageScreen(
                     IconButton(onClick = {
                         val cost = estimatedCost.toDoubleOrNull() ?: 0.0
                         val currentProjectId = activeProject?.id
+                        val stage = selectedStage
                         val allStages = ConstructionStage.getAllStages()
-                        val isPreviousStageMissing = if (selectedStage!!.serial > 1 && stageId == null) {
-                            val prevSerial = selectedStage!!.serial - 1
+                        val isPreviousStageMissing = if (stage != null && stage.serial > 1 && stageId == null) {
+                            val prevSerial = stage.serial - 1
                             val previousStageKey = allStages.find { it.serial == prevSerial }?.dbKey
                             existingStages.none { it.stageName == previousStageKey }
                         } else false
@@ -131,7 +133,7 @@ fun AddStageScreen(
                         // Validation Logic
                         when {
                             currentProjectId == null -> showToast(context, strings.stage.errNoProject)
-                            selectedStage == null || cost <= 0 -> showToast(
+                            stage == null || cost <= 0 -> showToast(
                                 context,
                                 strings.stage.errFillAll
                             )
@@ -146,15 +148,15 @@ fun AddStageScreen(
                                 strings.stage.errInvalidDuration
                             )
 
-                            stageId == null && existingStages.any { it.stageName == selectedStage!!.dbKey } ->
+                            stageId == null && existingStages.any { it.stageName == stage.dbKey } ->
                                 showToast(context, strings.stage.errDuplicate)
 
                             else -> {
                                 val stageEntity = StageEntity(
                                     id = stageId ?: 0,
-                                    serial = selectedStage!!.serial,
+                                    serial = stage.serial,
                                     projectId = currentProjectId,
-                                    stageName = selectedStage!!.dbKey,
+                                    stageName = stage.dbKey,
                                     estimatedCost = cost,
                                     startDate = startDate,
                                     endDate = endDate,
@@ -172,13 +174,19 @@ fun AddStageScreen(
         },
         floatingActionButton = { CalculatorFab() }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
-                .padding(16.dp)
-                .verticalScroll(scrollState)
+                .padding(padding),
+            contentAlignment = Alignment.TopCenter
         ) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .verticalScroll(scrollState)
+            ) {
 
             StageSelector(
                 selectedStage = selectedStage,
@@ -211,6 +219,8 @@ fun AddStageScreen(
             if (stageId != null) {
                 StatusUpdateSection(currentStatusKey = status, onStatusSelected = { status = it })
             }
+            Spacer(modifier = Modifier.height(72.dp))
+        }
         }
     }
 }

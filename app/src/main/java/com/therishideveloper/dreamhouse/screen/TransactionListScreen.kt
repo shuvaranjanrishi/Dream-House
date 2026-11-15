@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -155,33 +157,40 @@ fun TransactionListScreen(
             )
         }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.TopCenter
         ) {
-            DateFilterHeader(
-                text = displayText,
-                onClick = {
-                    if (transactionPeriod == TransactionPeriod.TODAY.dbKey) {
-                        DateUtils.showDatePicker(context, date) {
-                            date = it
-                        }
-                    } else showMonthYearPicker = true
-                }
-            )
-
-            TransactionSummaryCard(totalIncome, totalExpense, balance, incomeProgress)
-
-            LazyColumn(
-                state = lazyListState,
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
             ) {
-                items(transactions, key = { it.id }) { item ->
-                    TransactionItem(transaction = item)
+                DateFilterHeader(
+                    text = displayText,
+                    onClick = {
+                        if (transactionPeriod == TransactionPeriod.TODAY.dbKey) {
+                            DateUtils.showDatePicker(context, date) {
+                                date = it
+                            }
+                        } else showMonthYearPicker = true
+                    }
+                )
+
+                TransactionSummaryCard(totalIncome, totalExpense, balance, incomeProgress)
+
+                LazyColumn(
+                    state = lazyListState,
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 84.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    items(transactions, key = { it.id }) { item ->
+                        TransactionItem(transaction = item)
+                    }
                 }
             }
         }
@@ -248,13 +257,13 @@ fun MonthYearPickerDialog(
             Text(stringResource(if (isMonthly) R.string.title_select_month_year else R.string.title_select_year))
         },
         text = {
-            Column {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Text(stringResource(R.string.label_year), fontWeight = FontWeight.Bold)
 
                 LazyRow(
                     state = listState,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp) // সাইড প্যাডিং যাতে দেখতে ভালো লাগে
+                    contentPadding = PaddingValues(horizontal = 8.dp)
                 ) {
                     items(years) { year ->
                         FilterChip(
@@ -272,22 +281,29 @@ fun MonthYearPickerDialog(
                 if (isMonthly) {
                     Spacer(Modifier.height(16.dp))
                     Text(stringResource(R.string.label_month), fontWeight = FontWeight.Bold)
-                    FlowRow(
-                        maxItemsInEachRow = 4,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        (0..11).forEach { index ->
-                            FilterChip(
-                                colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = tealColor,
-                                    selectedLabelColor = Color.White,
-                                ),
-                                selected = tempMonth == index + 1,
-                                onClick = { tempMonth = index + 1 },
-                                label = {
-                                    Text(DateUtils.getLocalizedMonthName(context, index))
-                                }
-                            )
+                    Spacer(Modifier.height(4.dp))
+                    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                        val cols = if (maxWidth < 300.dp) 3 else 4
+                        FlowRow(
+                            maxItemsInEachRow = cols,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            (0..11).forEach { index ->
+                                FilterChip(
+                                    colors = FilterChipDefaults.filterChipColors(
+                                        selectedContainerColor = tealColor,
+                                        selectedLabelColor = Color.White,
+                                    ),
+                                    selected = tempMonth == index + 1,
+                                    onClick = { tempMonth = index + 1 },
+                                    label = {
+                                        Text(
+                                            text = DateUtils.getLocalizedMonthName(context, index),
+                                            maxLines = 1
+                                        )
+                                    }
+                                )
+                            }
                         }
                     }
                 }

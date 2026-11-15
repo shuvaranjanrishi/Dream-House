@@ -48,6 +48,7 @@ import com.therishideveloper.dreamhouse.data.model.ConstructionStage
 import com.therishideveloper.dreamhouse.data.model.DreamHouseStrings
 import com.therishideveloper.dreamhouse.data.model.StageStatus
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.util.NumberUtils
 
 @Composable
 fun StageSelector(
@@ -185,25 +186,27 @@ fun DateSection(
 
 @Composable
 fun DurationBadge(totalDays: Int) {
+    val context = LocalContext.current
+    val formattedDays = NumberUtils.formatByLocale(context, totalDays.toString())
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        color = tealColor.copy(alpha = 0.05f),
-        border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f))
     ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 Icons.Default.CalendarToday,
                 null,
-                tint = tealColor,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = stringResource(R.string.label_total_days_needed, totalDays),
+                text = stringResource(R.string.label_total_days_needed, formattedDays),
                 fontWeight = FontWeight.Bold,
-                color = tealColor,
-                fontSize = 16.sp
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp
             )
         }
     }

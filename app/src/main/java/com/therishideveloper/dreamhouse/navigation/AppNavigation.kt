@@ -156,21 +156,12 @@ fun AppNavigation(
             val displayTransactions =
                 if (type == TransactionType.INCOME.dbKey) incomeList else expenseList
 
-            if (type == TransactionType.INCOME.dbKey) {
-                IncomeExpenseScreen(
-                    onBack = { navController.popBackStack() },
-                    title = displayTitle,
-                    transactions = displayTransactions,
-                    viewModel = transactionViewModel
-                )
-            } else {
-                IncomeExpenseScreen(
-                    onBack = { navController.popBackStack() },
-                    title = displayTitle,
-                    transactions = displayTransactions,
-                    viewModel = transactionViewModel
-                )
-            }
+            IncomeExpenseScreen(
+                onBack = { navController.popBackStack() },
+                title = displayTitle,
+                transactions = displayTransactions,
+                viewModel = transactionViewModel
+            )
         }
         composable(
             route = Screens.TransactionListScreen.route,

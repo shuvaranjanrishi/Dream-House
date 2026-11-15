@@ -70,14 +70,18 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
             )
         }
     ) { paddingValues ->
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentAlignment = Alignment.TopCenter
+        ) {
             Column(
                 modifier = Modifier
+                    .widthIn(max = 600.dp)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 20.dp), // Fixed overall horizontal padding
+                    .padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
@@ -136,7 +140,10 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
                         .fillMaxWidth()
                         .height(54.dp),
                     shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = tealColor)
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = tealColor,
+                        contentColor = Color.White
+                    )
                 ) {
                     Icon(Icons.Default.Share, null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(10.dp))
@@ -195,12 +202,19 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD32F2F)),
                     onClick = {
                         showRestoreDialog = false
-                        isLoading = true
-                        selectedUri?.let { uri ->
-                            viewModel.importBackup(uri)
-                            showToast(context, context.getString(R.string.msg_restore_success))
+                        val uri = selectedUri
+                        if (uri != null) {
+                            isLoading = true
+                            viewModel.importBackup(uri) { success ->
+                                isLoading = false
+                                showToast(
+                                    context,
+                                    context.getString(
+                                        if (success) R.string.msg_restore_success else R.string.msg_error
+                                    )
+                                )
+                            }
                         }
-                        isLoading = false
                     }
                 ) { Text(stringResource(R.string.btn_yes_restore), color = Color.White) }
             },

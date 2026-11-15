@@ -9,17 +9,20 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import com.therishideveloper.dreamhouse.R
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.component.CalculatorFab
 import com.therishideveloper.dreamhouse.component.StageCard
 import com.therishideveloper.dreamhouse.component.formatDuration
@@ -36,12 +39,16 @@ fun ConstructionStageScreen(
     viewModel: ProjectViewModel
 ) {
     val context = LocalContext.current
-    val stages by viewModel.getStages(1).collectAsStateWithLifecycle(initialValue = emptyList())
-    val totalAllocated by viewModel.getTotalAllocated(1)
+    val activeProject by viewModel.activeProject.collectAsStateWithLifecycle()
+    val projectId = activeProject?.id ?: 1
+    val stages by viewModel.getStages(projectId).collectAsStateWithLifecycle(initialValue = emptyList())
+    val totalAllocated by viewModel.getTotalAllocated(projectId)
         .collectAsStateWithLifecycle(initialValue = 0.0)
 
-    val totalTime =
+    val sortedStages = remember(stages) { stages.sortedBy { it.serial } }
+    val totalTime = remember(stages) {
         stages.sumOf { ((it.endDate - it.startDate) / (1000 * 60 * 60 * 24)).coerceAtLeast(0) }
+    }
 
     val lazyListState = rememberLazyListState()
 
@@ -65,7 +72,6 @@ fun ConstructionStageScreen(
                         )
                     }
                 },
-
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = tealColor)
             )
         },
@@ -77,32 +83,45 @@ fun ConstructionStageScreen(
         },
         containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-
-            // --- Summary Header Section (With Vertical Divider) ---
-            Surface(
-                color = MaterialTheme.colorScheme.surface,
+        Box(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                shadowElevation = 1.dp
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
             ) {
-                IntrinsicSize.Min.let { height ->
+                // --- Summary Header Section (With Vertical Divider) ---
+                Surface(
+                    color = MaterialTheme.colorScheme.surface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    shadowElevation = 1.dp
+                ) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(IntrinsicSize.Min)
-                            .padding(vertical = 16.dp),
+                            .padding(vertical = 16.dp, horizontal = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(horizontal = 6.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                stringResource(R.string.total_allocated_budget),
+                                text = stringResource(R.string.total_allocated_budget),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
                             )
                             Text(
                                 text = NumberUtils.formatAmountByLocale(
@@ -111,7 +130,11 @@ fun ConstructionStageScreen(
                                 ),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.Center,
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
 
@@ -122,54 +145,62 @@ fun ConstructionStageScreen(
                         )
 
                         Column(
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(horizontal = 6.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                stringResource(R.string.total_duration),
+                                text = stringResource(R.string.total_duration),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
                             )
                             Text(
                                 text = formatDuration(totalTime),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.Center,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }
                 }
-            }
 
-            // --- Stages List ---
-            if (stages.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .padding(all = 16.dp)
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        stringResource(R.string.no_stages_added),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            } else {
-                LazyColumn(
-                    state = lazyListState,
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    itemsIndexed(
-                        items = stages.sortedBy { it.serial },
-                        key = { _, stage -> stage.id }
-                    ) { _, stage ->
-                        StageCard(
-                            stage = stage,
-                            onClick = {
-                                navController.navigate("add_stage_screen?stageId=${stage.id}")
-                            }
+                // --- Stages List ---
+                if (sortedStages.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .padding(all = 16.dp)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            stringResource(R.string.no_stages_added),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
+                    }
+                } else {
+                    LazyColumn(
+                        state = lazyListState,
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        itemsIndexed(
+                            items = sortedStages,
+                            key = { _, stage -> stage.id }
+                        ) { _, stage ->
+                            StageCard(
+                                stage = stage,
+                                onClick = {
+                                    navController.navigate("add_stage_screen?stageId=${stage.id}")
+                                }
+                            )
+                        }
                     }
                 }
             }

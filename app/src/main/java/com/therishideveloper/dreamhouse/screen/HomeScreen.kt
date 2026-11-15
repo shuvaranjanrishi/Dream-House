@@ -62,20 +62,17 @@ fun HomeScreen(
 
 ) {
     // --- States ---
-    var showCalculator by remember { mutableStateOf(false) }
-    var calcExpression by remember { mutableStateOf("") }
-    var calcResult by remember { mutableStateOf("0") }
-
     val currentBalance by viewModel.currentBalance.collectAsStateWithLifecycle()
     val incomeList by viewModel.allIncomeTransactions.collectAsStateWithLifecycle()
     val expenseList by viewModel.allExpenseTransactions.collectAsStateWithLifecycle()
 
     // --- Calculation Logic ---
-    val totalIncome = incomeList.sumOf { it.amount }
-    val totalExpense = expenseList.sumOf { it.amount }
+    val totalIncome = remember(incomeList) { incomeList.sumOf { it.amount } }
+    val totalExpense = remember(expenseList) { expenseList.sumOf { it.amount } }
     val balance = totalIncome - totalExpense
-    val incomeProgress =
+    val incomeProgress = remember(totalIncome, totalExpense) {
         if (totalIncome + totalExpense > 0) (totalIncome / (totalIncome + totalExpense)).toFloat() else 0.5f
+    }
 
     val showWelcome = projectViewModel.showWelcomeCelebration
     var startFadeIn by remember { mutableStateOf(false) }
@@ -111,119 +108,128 @@ fun HomeScreen(
         floatingActionButton = { CalculatorFab() }
 
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .verticalScroll(rememberScrollState())
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.TopCenter
         ) {
-            DisplayTodayDate()
-            // --- Summary Card ---
-            Card(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(4.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(modifier = Modifier.size(96.dp)) {
-                        SolidPieChart(incomeProgress, tealColor, softRedColor)
-                    }
-                    Spacer(modifier = Modifier.width(14.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        SummaryClickableRow(
-                            stringResource(R.string.income),
-                            totalIncome.toString(),
-                            MaterialTheme.colorScheme.primary
-                        ) {
-                            navController.navigate("income_expense_screen/" + TransactionType.INCOME.dbKey)
-                        }
-                        Spacer(modifier = Modifier.height(6.dp))
-                        SummaryClickableRow(
-                            stringResource(R.string.expense),
-                            totalExpense.toString(),
-                            softRedColor
-                        ) {
-                            navController.navigate("income_expense_screen/" + TransactionType.EXPENSE.dbKey)
-                        }
-                        HorizontalDivider(
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
-                        )
-                        TransactionSummaryRow(
-                            stringResource(R.string.balance),
-                            balance.toString(),
-                            if (balance >= 0) MaterialTheme.colorScheme.primary else softRedColor
-                        )
-                    }
-                }
-            }
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
+                    .widthIn(max = 600.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
-                LazyHorizontalGrid(
-                    rows = GridCells.Fixed(2),
+                DisplayTodayDate()
+                // --- Summary Card ---
+                Card(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(248.dp),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp),
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.cardElevation(4.dp)
                 ) {
-                    items(DashboardUtils.getDashboardMenus()) { item ->
-                        Box(
-                            modifier = Modifier
-                                .width(124.dp)
-                                .fillMaxHeight()
+                    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                        val isCompact = maxWidth < 340.dp
+                        val pieSize = if (isCompact) 78.dp else 96.dp
+                        val cardPadding = if (isCompact) 10.dp else 14.dp
+                        val gap = if (isCompact) 10.dp else 14.dp
+
+                        Row(
+                            modifier = Modifier.padding(cardPadding),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            MenuGridItem(item = item) { route ->
-                                handleNavigation(navController, route)
+                            Box(modifier = Modifier.size(pieSize)) {
+                                SolidPieChart(incomeProgress, tealColor, softRedColor)
+                            }
+                            Spacer(modifier = Modifier.width(gap))
+                            Column(modifier = Modifier.weight(1f)) {
+                                SummaryClickableRow(
+                                    stringResource(R.string.income),
+                                    totalIncome.toString(),
+                                    MaterialTheme.colorScheme.primary
+                                ) {
+                                    navController.navigate("income_expense_screen/" + TransactionType.INCOME.dbKey)
+                                }
+                                Spacer(modifier = Modifier.height(6.dp))
+                                SummaryClickableRow(
+                                    stringResource(R.string.expense),
+                                    totalExpense.toString(),
+                                    softRedColor
+                                ) {
+                                    navController.navigate("income_expense_screen/" + TransactionType.EXPENSE.dbKey)
+                                }
+                                HorizontalDivider(
+                                    modifier = Modifier.padding(vertical = 8.dp),
+                                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                                )
+                                TransactionSummaryRow(
+                                    stringResource(R.string.balance),
+                                    balance.toString(),
+                                    if (balance >= 0) MaterialTheme.colorScheme.primary else softRedColor
+                                )
                             }
                         }
                     }
                 }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(horizontal = 8.dp)
                 ) {
-                    ActionButton(
-                        stringResource(R.string.add_income),
-                        tealColor,
-                        Modifier.weight(1f)
-                    ) {
-                        navController.navigate(Screens.AddIncomeScreen.route)
-                    }
-                    ActionButton(
-                        stringResource(R.string.add_expense),
-                        softRedColor,
-                        Modifier.weight(1f)
-                    ) {
-                        navController.navigate(Screens.AddExpenseScreen.route)
-                    }
-                }
-                Spacer(modifier = Modifier.height(84.dp))
-            }
-        }
+                    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                        val itemWidth = ((maxWidth - 20.dp) / 2.65f).coerceIn(108.dp, 152.dp)
+                        val gridHeight = if (maxWidth < 340.dp) 232.dp else 248.dp
 
-        if (showCalculator) {
-            CalculatorDialog(
-                initialExpression = calcExpression, initialResult = calcResult,
-                onMinimize = { expr, res ->
-                    calcExpression = expr; calcResult = res; showCalculator = false
-                },
-                onClose = { calcExpression = ""; calcResult = "0"; showCalculator = false }
-            )
+                        LazyHorizontalGrid(
+                            rows = GridCells.Fixed(2),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(gridHeight),
+                            horizontalArrangement = Arrangement.spacedBy(2.dp),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            items(DashboardUtils.getDashboardMenus()) { item ->
+                                Box(
+                                    modifier = Modifier
+                                        .width(itemWidth)
+                                        .fillMaxHeight()
+                                ) {
+                                    MenuGridItem(item = item) { route ->
+                                        handleNavigation(navController, route)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        ActionButton(
+                            stringResource(R.string.add_income),
+                            tealColor,
+                            Modifier.weight(1f)
+                        ) {
+                            navController.navigate(Screens.AddIncomeScreen.route)
+                        }
+                        ActionButton(
+                            stringResource(R.string.add_expense),
+                            softRedColor,
+                            Modifier.weight(1f)
+                        ) {
+                            navController.navigate(Screens.AddExpenseScreen.route)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(84.dp))
+                }
+            }
         }
     }
     AnimatedVisibility(

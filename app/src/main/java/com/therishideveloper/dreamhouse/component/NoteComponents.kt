@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.therishideveloper.dreamhouse.R
@@ -125,7 +126,7 @@ fun AddNoteForm(
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = tealColor,
-                    unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f)
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
                 )
             )
 
@@ -163,7 +164,10 @@ fun AddNoteForm(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = tealColor)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = tealColor,
+                contentColor = Color.White
+            )
         ) {
             Text(
                 stringResource(R.string.btn_save_note),
@@ -247,12 +251,16 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
                     note.description,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     DateUtils.formatToDisplay(context, note.date),
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 
@@ -264,7 +272,9 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
                     text = NumberUtils.formatAmountByLocale(context, note.amount.toString()),
                     color = type.color,
                     fontWeight = FontWeight.ExtraBold,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    maxLines = 1,
+                    softWrap = false
                 )
                 Text(
                     text = stringResource(type.titleRes).uppercase(),

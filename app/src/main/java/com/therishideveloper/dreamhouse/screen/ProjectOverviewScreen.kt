@@ -44,8 +44,9 @@ fun ProjectOverviewScreen(
     viewModel: ProjectViewModel
 ) {
     val activeProject by viewModel.activeProject.collectAsStateWithLifecycle()
-    val stages by viewModel.getStages(1).collectAsStateWithLifecycle(initialValue = emptyList())
-    val totalAllocatedValue by viewModel.getTotalAllocated(1)
+    val projectId = activeProject?.id ?: 1
+    val stages by viewModel.getStages(projectId).collectAsStateWithLifecycle(initialValue = emptyList())
+    val totalAllocatedValue by viewModel.getTotalAllocated(projectId)
         .collectAsStateWithLifecycle(initialValue = 0.0)
 
     // Data Calculations
@@ -53,8 +54,10 @@ fun ProjectOverviewScreen(
         ((it.endDate - it.startDate) / (1000 * 60 * 60 * 24)).coerceAtLeast(0)
     } ?: 0L
 
-    val allocatedDays = stages.sumOf {
-        ((it.endDate - it.startDate) / (1000 * 60 * 60 * 24)).coerceAtLeast(0)
+    val allocatedDays = remember(stages) {
+        stages.sumOf {
+            ((it.endDate - it.startDate) / (1000 * 60 * 60 * 24)).coerceAtLeast(0)
+        }
     }
 
     Scaffold(
@@ -84,45 +87,52 @@ fun ProjectOverviewScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(innerPadding),
+            contentAlignment = Alignment.TopCenter
         ) {
-            // 1. Budget Summary Card
-            ProjectBudgetCard(
-                projectName = activeProject?.projectName
-                    ?: stringResource(R.string.label_default_project_name),
-                address = activeProject?.address ?: stringResource(R.string.label_address),
-                totalBudget = activeProject?.totalBudget ?: 0.0,
-                allocatedAmount = totalAllocatedValue,
-                totalDurationDays = masterDuration,
-                allocatedDays = allocatedDays,
-                startDate = activeProject?.startDate ?: System.currentTimeMillis(),
-                endDate = activeProject?.endDate ?: System.currentTimeMillis()
-            )
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // 1. Budget Summary Card
+                ProjectBudgetCard(
+                    projectName = activeProject?.projectName
+                        ?: stringResource(R.string.label_default_project_name),
+                    address = activeProject?.address ?: stringResource(R.string.label_address),
+                    totalBudget = activeProject?.totalBudget ?: 0.0,
+                    allocatedAmount = totalAllocatedValue,
+                    totalDurationDays = masterDuration,
+                    allocatedDays = allocatedDays,
+                    startDate = activeProject?.startDate ?: System.currentTimeMillis(),
+                    endDate = activeProject?.endDate ?: System.currentTimeMillis()
+                )
 
-            // 2. Construction Stages Card with Progress Bar
-            ActionCardWithProgress(
-                title = stringResource(R.string.label_stages_title),
-                subtitle = stringResource(R.string.label_stages_subtitle),
-                icon = Icons.Default.Architecture,
-                stages = stages,
-                onClick = { navController.navigate(Screens.ConstructionStageScreen.route) }
-            )
+                // 2. Construction Stages Card with Progress Bar
+                ActionCardWithProgress(
+                    title = stringResource(R.string.label_stages_title),
+                    subtitle = stringResource(R.string.label_stages_subtitle),
+                    icon = Icons.Default.Architecture,
+                    stages = stages,
+                    onClick = { navController.navigate(Screens.ConstructionStageScreen.route) }
+                )
 
-            // 3. Material Estimation Card
-            SimpleActionCard(
-                title = stringResource(R.string.label_estimation_title),
-                subtitle = stringResource(R.string.label_estimation_subtitle),
-                icon = Icons.Default.Calculate,
-                onClick = { navController.navigate(Screens.EstimationScreen.route) }
-            )
+                // 3. Material Estimation Card
+                SimpleActionCard(
+                    title = stringResource(R.string.label_estimation_title),
+                    subtitle = stringResource(R.string.label_estimation_subtitle),
+                    icon = Icons.Default.Calculate,
+                    onClick = { navController.navigate(Screens.EstimationScreen.route) }
+                )
 
-            Spacer(modifier = Modifier.height(80.dp))
+                Spacer(modifier = Modifier.height(80.dp))
+            }
         }
     }
 }

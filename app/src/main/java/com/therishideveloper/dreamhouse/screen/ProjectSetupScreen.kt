@@ -85,15 +85,21 @@ fun ProjectSetupScreen(
             }
         }
     ) { paddingValues ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(if (projectId == null) PaddingValues(0.dp) else paddingValues)
-                .padding(20.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(paddingValues),
+            contentAlignment = Alignment.TopCenter
         ) {
-            Spacer(modifier = Modifier.height(if (projectId == null) 40.dp else 0.dp))
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 600.dp)
+                    .fillMaxSize()
+                    .padding(20.dp)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(if (projectId == null) 24.dp else 0.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.app_logo),
@@ -241,6 +247,7 @@ fun ProjectSetupScreen(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
+            }
             }
         }
     }

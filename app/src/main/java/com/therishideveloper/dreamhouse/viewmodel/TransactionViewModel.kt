@@ -143,7 +143,7 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
-    fun importBackup(uri: Uri) {
+    fun importBackup(uri: Uri, onResult: (Boolean) -> Unit = {}) {
         viewModelScope.launch {
             try {
                 val backupData = backupHelper.restoreBackup(uri)
@@ -152,9 +152,13 @@ class TransactionViewModel @Inject constructor(
                     noteRepo.deleteAllNotes()
                     backupData.transactions.forEach { transactionRepo.insert(it) }
                     backupData.notes.forEach { noteRepo.insertNote(it) }
+                    onResult(true)
+                } else {
+                    onResult(false)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                onResult(false)
             }
         }
     }

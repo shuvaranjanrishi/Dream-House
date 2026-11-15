@@ -1,11 +1,13 @@
 package com.therishideveloper.dreamhouse.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -103,103 +106,112 @@ fun EstimationCalculatorScreen(
         },
         floatingActionButton = { CalculatorFab() }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
         ) {
-            SectionTitle(stringResource(R.string.label_dimensions))
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                SectionTitle(stringResource(R.string.label_dimensions))
 
-            // ফ্লোর ইনপুট রো
-            InputRow {
+                // ফ্লোর ইনপুট রো
+                InputRow {
+                    CalculatorTextField(
+                        value = foundationFloors,
+                        onValueChange = { if (it.all { c -> c.isDigit() }) foundationFloors = it },
+                        label = stringResource(R.string.label_foundation),
+                        modifier = Modifier.weight(1f)
+                    )
+                    CalculatorTextField(
+                        value = floorsToBuild,
+                        onValueChange = { if (it.all { c -> c.isDigit() }) floorsToBuild = it },
+                        label = stringResource(R.string.label_build_floor),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
                 CalculatorTextField(
-                    value = foundationFloors,
-                    onValueChange = { if (it.all { c -> c.isDigit() }) foundationFloors = it },
-                    label = stringResource(R.string.label_foundation),
-                    modifier = Modifier.weight(1f)
+                    value = areaInput,
+                    onValueChange = { areaInput = it },
+                    label = stringResource(R.string.label_total_area)
                 )
-                CalculatorTextField(
-                    value = floorsToBuild,
-                    onValueChange = { if (it.all { c -> c.isDigit() }) floorsToBuild = it },
-                    label = stringResource(R.string.label_build_floor),
-                    modifier = Modifier.weight(1f)
-                )
-            }
 
-            CalculatorTextField(
-                value = areaInput,
-                onValueChange = { areaInput = it },
-                label = stringResource(R.string.label_total_area)
-            )
+                SectionTitle(stringResource(R.string.label_material_rates))
 
-            SectionTitle(stringResource(R.string.label_material_rates))
+                // ম্যাটেরিয়াল রেট ইনপুটগুলো
+                InputRow {
+                    CalculatorTextField(
+                        value = rodUnitPrice,
+                        onValueChange = { rodUnitPrice = it },
+                        label = "(${stringResource(Category.ROD.titleRes)})/${stringResource(Category.ROD.unitRes)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                    CalculatorTextField(
+                        value = cementUnitPrice,
+                        onValueChange = { cementUnitPrice = it },
+                        label = "${stringResource(Category.CEMENT.titleRes)}/${stringResource(Category.CEMENT.unitRes)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                }
 
-            // ম্যাটেরিয়াল রেট ইনপুটগুলো
-            InputRow {
-                CalculatorTextField(
-                    value = rodUnitPrice,
-                    onValueChange = { rodUnitPrice = it },
-                    label = "(${stringResource(Category.ROD.titleRes)})/${stringResource(Category.ROD.unitRes)}",
-                    modifier = Modifier.weight(1f)
-                )
-                CalculatorTextField(
-                    value = cementUnitPrice,
-                    onValueChange = { cementUnitPrice = it },
-                    label = "${stringResource(Category.CEMENT.titleRes)}/${stringResource(Category.CEMENT.unitRes)}",
-                    modifier = Modifier.weight(1f)
-                )
-            }
+                InputRow {
+                    CalculatorTextField(
+                        value = sandUnitPrice,
+                        onValueChange = { sandUnitPrice = it },
+                        label = "${stringResource(Category.SAND.titleRes)}/${stringResource(Category.SAND.unitRes)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                    CalculatorTextField(
+                        value = brickUnitPrice,
+                        onValueChange = { brickUnitPrice = it },
+                        label = "(${stringResource(Category.BRICKS.titleRes)})/${stringResource(Category.BRICKS.unitRes)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                }
 
-            InputRow {
-                CalculatorTextField(
-                    value = sandUnitPrice,
-                    onValueChange = { sandUnitPrice = it },
-                    label = "${stringResource(Category.SAND.titleRes)}/${stringResource(Category.SAND.unitRes)}",
-                    modifier = Modifier.weight(1f)
-                )
-                CalculatorTextField(
-                    value = brickUnitPrice,
-                    onValueChange = { brickUnitPrice = it },
-                    label = "(${stringResource(Category.BRICKS.titleRes)})/${stringResource(Category.BRICKS.unitRes)}",
-                    modifier = Modifier.weight(1f)
-                )
-            }
+                InputRow {
+                    CalculatorTextField(
+                        value = stoneUnitPrice,
+                        onValueChange = { stoneUnitPrice = it },
+                        label = "(${stringResource(Category.STONE.titleRes)})/${stringResource(Category.STONE.unitRes)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                    CalculatorTextField(
+                        value = laborRate,
+                        onValueChange = { laborRate = it },
+                        label = "${stringResource(Category.MASON_LABOR.titleRes)}/${
+                            stringResource(Category.MASON_LABOR.unitRes)
+                        }",
+                        modifier = Modifier.weight(1f)
+                    )
+                }
 
-            InputRow {
-                CalculatorTextField(
-                    value = stoneUnitPrice,
-                    onValueChange = { stoneUnitPrice = it },
-                    label = "(${stringResource(Category.STONE.titleRes)})/${stringResource(Category.STONE.unitRes)}",
-                    modifier = Modifier.weight(1f)
-                )
-                CalculatorTextField(
-                    value = laborRate,
-                    onValueChange = { laborRate = it },
-                    label = "${stringResource(Category.MASON_LABOR.titleRes)}/${
-                        stringResource(Category.MASON_LABOR.unitRes)
-                    }",
-                    modifier = Modifier.weight(1f)
-                )
-            }
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
+                // ক্যালকুলেট বাটন
+                CalculateButton(isLoading = isLoading, onClick = { validateAndCalculate() })
 
-            // ক্যালকুলেট বাটন
-            CalculateButton(isLoading = isLoading, onClick = { validateAndCalculate() })
+                Spacer(modifier = Modifier.height(72.dp))
 
-            // রেজাল্ট ডায়ালগ
-            calculationResult?.let { result ->
-                EstimationDetailsDialog(
-                    record = result,
-                    onDismiss = { viewModel.clearCalculation() },
-                    onSave = {
-                        viewModel.saveCurrentEstimation()
-                        onBack()
-                    }
-                )
+                // রেজাল্ট ডায়ালগ
+                calculationResult?.let { result ->
+                    EstimationDetailsDialog(
+                        record = result,
+                        onDismiss = { viewModel.clearCalculation() },
+                        onSave = {
+                            viewModel.saveCurrentEstimation()
+                            onBack()
+                        }
+                    )
+                }
             }
         }
     }

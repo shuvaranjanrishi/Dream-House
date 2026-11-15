@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -99,7 +100,17 @@ fun SectionChartScreen(
             )
         }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
+        Box(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+            ) {
 
             SummaryCard(
                 income = incomeState.totalAmount,
@@ -136,6 +147,7 @@ fun SectionChartScreen(
                     grandTotal = currentState.totalAmount,
                     isIncome = selectedTab == 0
                 )
+            }
             }
         }
     }
@@ -203,7 +215,7 @@ fun SectionItem(
                             .height(8.dp)
                             .clip(RoundedCornerShape(4.dp)),
                         color = if (isIncome) Color(0xFF2E7D32) else Color(0xFFC62828),
-                        trackColor = Color.LightGray.copy(0.4f)
+                        trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)
                     )
                 }
 
@@ -282,13 +294,19 @@ fun CategoryRow(category: Category, catTotal: Double, sectionTotal: Double) {
             Text(
                 stringResource(category.titleRes),
                 fontSize = 14.sp,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
+
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(
                 text = "$catTotal ($percentage%)",
                 fontSize = 13.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                softWrap = false
             )
         }
 
@@ -300,8 +318,8 @@ fun CategoryRow(category: Category, catTotal: Double, sectionTotal: Double) {
                 .fillMaxWidth()
                 .height(6.dp)
                 .clip(RoundedCornerShape(3.dp)),
-            color = Color(0xFF008080).copy(0.6f),
-            trackColor = Color.LightGray.copy(0.2f)
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+            trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.22f)
         )
     }
 }
@@ -319,7 +337,7 @@ fun SummaryCard(income: Double, expense: Double) {
     ) {
         Row(
             modifier = Modifier
-                .padding(20.dp)
+                .padding(16.dp)
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -330,7 +348,9 @@ fun SummaryCard(income: Double, expense: Double) {
                 Text(
                     text = stringResource(R.string.tab_income),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.labelSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = NumberUtils.formatAmountByLocale(
@@ -339,13 +359,16 @@ fun SummaryCard(income: Double, expense: Double) {
                     ),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 
             VerticalDivider(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .padding(horizontal = 12.dp, vertical = 4.dp)
                     .fillMaxHeight(),
                 thickness = 1.dp,
                 color = MaterialTheme.colorScheme.outline.copy(alpha = 0.45f)
@@ -358,7 +381,9 @@ fun SummaryCard(income: Double, expense: Double) {
                 Text(
                     text = stringResource(R.string.tab_expense),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.labelSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = NumberUtils.formatAmountByLocale(
@@ -367,7 +392,10 @@ fun SummaryCard(income: Double, expense: Double) {
                     ),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

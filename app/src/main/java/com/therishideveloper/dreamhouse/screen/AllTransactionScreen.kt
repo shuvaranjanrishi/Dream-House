@@ -95,10 +95,11 @@ fun AllTransactionScreen(
                 val matchesSearch = item.description.contains(searchQuery, ignoreCase = true)
 
                 // Date range filtering
-                val matchesDate = if (selectedDate == null) {
+                val activeDate = selectedDate
+                val matchesDate = if (activeDate == null) {
                     true
                 } else {
-                    val range = DateUtils.getDayRange(selectedDate!!)
+                    val range = DateUtils.getDayRange(activeDate)
                     item.date >= range.first && item.date <= range.second
                 }
 
@@ -106,25 +107,32 @@ fun AllTransactionScreen(
             }
         }
 
-    val totalIncome = filteredTransactions
-        .filter { TransactionType.fromDbKey(it.transactionType) == TransactionType.INCOME }
-        .sumOf { it.amount }
+    val totalIncome = remember(filteredTransactions) {
+        filteredTransactions
+            .filter { TransactionType.fromDbKey(it.transactionType) == TransactionType.INCOME }
+            .sumOf { it.amount }
+    }
 
-    val totalExpense = filteredTransactions
-        .filter { TransactionType.fromDbKey(it.transactionType) == TransactionType.EXPENSE }
-        .sumOf { it.amount }
+    val totalExpense = remember(filteredTransactions) {
+        filteredTransactions
+            .filter { TransactionType.fromDbKey(it.transactionType) == TransactionType.EXPENSE }
+            .sumOf { it.amount }
+    }
 
     val balance = totalIncome - totalExpense
 
-    val incomeProgress = if (totalIncome + totalExpense > 0) {
-        (totalIncome / (totalIncome + totalExpense)).toFloat()
-    } else {
-        0.5f
+    val incomeProgress = remember(totalIncome, totalExpense) {
+        if (totalIncome + totalExpense > 0) {
+            (totalIncome / (totalIncome + totalExpense)).toFloat()
+        } else {
+            0.5f
+        }
     }
 
-    if (showDetailSheet && selectedTransactionForDetail != null) {
+    val detailTransaction = selectedTransactionForDetail
+    if (showDetailSheet && detailTransaction != null) {
         TransactionDetailSheet(
-            transaction = selectedTransactionForDetail!!,
+            transaction = detailTransaction,
             onDismiss = { showDetailSheet = false }
         )
     }
@@ -175,96 +183,102 @@ fun AllTransactionScreen(
             )
         }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.TopCenter
         ) {
-            // 1. Search & Date Selector Row
-            SearchAndDateRow(
-                searchQuery = searchQuery,
-                onSearchChange = { searchQuery = it },
-                selectedDate = selectedDate?.let { DateUtils.formatToDisplay(context, it) } ?: "",
-                onDateClear = { selectedDate = null },
-                onDatePickerClick = {
-                    DateUtils.showDatePicker(context, selectedDate ?: System.currentTimeMillis()) {
-                        selectedDate = it
-                    }
-                }
-            )
-
-            // 2. Tab Filter (All, Income, Expense)
-            TransactionTabRow(
-                selectedTab = selectedTab,
-                onTabSelected = {
-                    selectedTab = it
-                    selectedCategory = "All"
-                }
-            )
-
-            // 3. Category Horizontal List using Enum
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
             ) {
-                items(currentCategories) { categoryKey ->
-                    // Get localized name for the UI chip
-                    val labelText = if (categoryKey == "All") {
-                        stringResource(R.string.filter_all)
-                    } else {
-                        stringResource(id = Category.fromDbKey(categoryKey).titleRes)
-                    }
-
-                    FilterChip(
-                        selected = selectedCategory == categoryKey,
-                        onClick = { selectedCategory = categoryKey },
-                        label = { Text(labelText) },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = tealColor,
-                            selectedLabelColor = Color.White
-                        )
-                    )
-                }
-            }
-
-            // 4. Summary Visualization Card
-            TransactionSummaryCard(
-                totalIncome = totalIncome,
-                totalExpense = totalExpense,
-                balance = balance,
-                incomeProgress = incomeProgress
-            )
-
-            // 5. Transactions List
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    end = 8.dp,
-                    top = 4.dp,
-                    bottom = 16.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                items(filteredTransactions, key = { it.id }) { item ->
-                    TransactionItemWithActions(
-                        transaction = item,
-                        onClick = {
-                            selectedTransactionForDetail = item
-                            showDetailSheet = true
-                        },
-                        onEditClick = {
-                            val type = TransactionType.fromDbKey(item.transactionType)
-                            val route = if (type == TransactionType.INCOME) {
-                                "add_income_screen"
-                            } else {
-                                "add_expense_screen"
-                            }
-
-                            navController.navigate("$route?transactionId=${item.id}")
+                // 1. Search & Date Selector Row
+                SearchAndDateRow(
+                    searchQuery = searchQuery,
+                    onSearchChange = { searchQuery = it },
+                    selectedDate = selectedDate?.let { DateUtils.formatToDisplay(context, it) } ?: "",
+                    onDateClear = { selectedDate = null },
+                    onDatePickerClick = {
+                        DateUtils.showDatePicker(context, selectedDate ?: System.currentTimeMillis()) {
+                            selectedDate = it
                         }
-                    )
+                    }
+                )
+
+                // 2. Tab Filter (All, Income, Expense)
+                TransactionTabRow(
+                    selectedTab = selectedTab,
+                    onTabSelected = {
+                        selectedTab = it
+                        selectedCategory = "All"
+                    }
+                )
+
+                // 3. Category Horizontal List using Enum
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(currentCategories) { categoryKey ->
+                        val labelText = if (categoryKey == "All") {
+                            stringResource(R.string.filter_all)
+                        } else {
+                            stringResource(id = Category.fromDbKey(categoryKey).titleRes)
+                        }
+
+                        FilterChip(
+                            selected = selectedCategory == categoryKey,
+                            onClick = { selectedCategory = categoryKey },
+                            label = { Text(labelText) },
+                            colors = FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = tealColor,
+                                selectedLabelColor = Color.White
+                            )
+                        )
+                    }
+                }
+
+                // 4. Summary Visualization Card
+                TransactionSummaryCard(
+                    totalIncome = totalIncome,
+                    totalExpense = totalExpense,
+                    balance = balance,
+                    incomeProgress = incomeProgress
+                )
+
+                // 5. Transactions List
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(
+                        start = 8.dp,
+                        end = 8.dp,
+                        top = 4.dp,
+                        bottom = 16.dp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    items(filteredTransactions, key = { it.id }) { item ->
+                        TransactionItemWithActions(
+                            transaction = item,
+                            onClick = {
+                                selectedTransactionForDetail = item
+                                showDetailSheet = true
+                            },
+                            onEditClick = {
+                                val type = TransactionType.fromDbKey(item.transactionType)
+                                val route = if (type == TransactionType.INCOME) {
+                                    "add_income_screen"
+                                } else {
+                                    "add_expense_screen"
+                                }
+
+                                navController.navigate("$route?transactionId=${item.id}")
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -400,7 +414,13 @@ fun ReusableConfirmDialog(
         title = { Text(title) },
         text = { Text(message) },
         confirmButton = {
-            Button(onClick = onConfirm) { Text(confirmBtnText) }
+            Button(
+                onClick = onConfirm,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = tealColor,
+                    contentColor = Color.White
+                )
+            ) { Text(confirmBtnText) }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) { Text(stringResource(R.string.btn_cancel)) }

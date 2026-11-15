@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -41,8 +42,9 @@ fun DownloadLoaderDialog() {
         ) {
             Column(
                 modifier = Modifier
-                    .padding(vertical = 32.dp, horizontal = 24.dp)
-                    .fillMaxWidth(0.85f),
+                    .widthIn(max = 320.dp)
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp, horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -115,7 +117,9 @@ fun TransactionItem(transaction: Transaction) {
                     text = transaction.description,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = stringResource(category.titleRes) + " • ${
@@ -125,9 +129,12 @@ fun TransactionItem(transaction: Transaction) {
                         )
                     }",
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
+            Spacer(modifier = Modifier.width(8.dp))
             val amount =
                 (if (isIncome) "+ " else "- ") + NumberUtils.formatAmountByLocale(
                     context,
@@ -137,7 +144,9 @@ fun TransactionItem(transaction: Transaction) {
                 text = amount,
                 fontWeight = FontWeight.Bold,
                 color = if (isIncome) MaterialTheme.colorScheme.primary else softRedColor,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                maxLines = 1,
+                softWrap = false
             )
         }
     }
@@ -189,7 +198,9 @@ fun TransactionItemWithActions(
                     transaction.description,
                     fontWeight = FontWeight.Medium,
                     fontSize = 15.sp,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = stringResource(category.titleRes) + " • ${
@@ -199,9 +210,13 @@ fun TransactionItemWithActions(
                         )
                     }",
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
+
+            Spacer(modifier = Modifier.width(8.dp))
 
             Column(horizontalAlignment = Alignment.End) {
                 val amount = (if (isIncome) "+" else "-") + NumberUtils.formatAmountByLocale(
@@ -212,7 +227,9 @@ fun TransactionItemWithActions(
                     text = amount,
                     color = if (isIncome) MaterialTheme.colorScheme.primary else softRedColor,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                    fontSize = 15.sp,
+                    maxLines = 1,
+                    softWrap = false
                 )
                 IconButton(onClick = onEditClick, modifier = Modifier.size(24.dp)) {
                     Icon(

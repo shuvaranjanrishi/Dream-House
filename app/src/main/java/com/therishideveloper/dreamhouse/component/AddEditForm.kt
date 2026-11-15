@@ -133,12 +133,14 @@ fun AddEditForm(
                 .fillMaxSize()
                 .padding(padding)
                 .consumeWindowInsets(padding)
-                .windowInsetsPadding(WindowInsets.ime) // কিবোর্ডের জন্য ডাইনামিক প্যাডিং
+                .windowInsetsPadding(WindowInsets.ime),
+            contentAlignment = Alignment.TopCenter
         ) {
             Column(
                 modifier = Modifier
+                    .widthIn(max = 640.dp)
                     .fillMaxSize()
-                    .verticalScroll(scrollState) // স্ক্রল স্টেট ব্যবহার
+                    .verticalScroll(scrollState)
             ) {
 
                 // ১. ক্যাটাগরি সিলেকশন হেডার

@@ -51,14 +51,20 @@ fun AboutScreen(onMenuClick: () -> Unit) {
             )
         }
     ) { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .background(MaterialTheme.colorScheme.background),
-            horizontalAlignment = Alignment.CenterHorizontally
+            contentAlignment = Alignment.TopCenter
         ) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
             Spacer(modifier = Modifier.height(30.dp))
 
             // 1. App Logo & Name
@@ -193,6 +199,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                 fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.height(20.dp))
+            }
         }
     }
 }

@@ -50,22 +50,28 @@ fun CategoryManualScreen(
             )
         }
     ) { paddingValues ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(paddingValues),
+            contentAlignment = Alignment.TopCenter
         ) {
-            // সকল সেকশনের নাম সংগ্রহ করুন
-            val sections = Category.getAllSections() // Category enum এ এই ফাংশনটি যোগ করতে হবে
+            LazyColumn(
+                modifier = Modifier
+                    .widthIn(max = 640.dp)
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                val sections = Category.getAllSections()
 
-            sections.forEach { sectionName ->
-                stickyHeader {
-                    CategorySectionHeader(sectionName = sectionName)
-                }
-                val categoriesInSection = Category.getCategoriesBySection(sectionName)
-                items(categoriesInSection) { category ->
-                    CategoryItem(category = category)
+                sections.forEach { sectionName ->
+                    stickyHeader {
+                        CategorySectionHeader(sectionName = sectionName)
+                    }
+                    val categoriesInSection = Category.getCategoriesBySection(sectionName)
+                    items(categoriesInSection, key = { it.dbKey }) { category ->
+                        CategoryItem(category = category)
+                    }
                 }
             }
         }
