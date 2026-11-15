@@ -27,13 +27,13 @@ fun LanguageDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         shape = RoundedCornerShape(20.dp),
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
                 text = stringResource(R.string.title_select_language),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
-                color = tealColor
+                color = MaterialTheme.colorScheme.primary
             )
         },
         text = {
@@ -52,11 +52,19 @@ fun LanguageDialog(
                             text = lang.name,
                             fontSize = 18.sp,
                             modifier = Modifier.weight(1f),
-                            color = if (currentLanguageCode == lang.code) tealColor else Color.Black,
+                            color = if (currentLanguageCode == lang.code) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
                             fontWeight = if (currentLanguageCode == lang.code) FontWeight.Bold else FontWeight.Normal
                         )
                         if (currentLanguageCode == lang.code) {
-                            Icon(Icons.Default.CheckCircle, contentDescription = null, tint = tealColor)
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                         }
                     }
                 }

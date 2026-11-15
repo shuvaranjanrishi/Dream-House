@@ -63,18 +63,21 @@ fun PolicyDialog(onDismiss: () -> Unit) {
                 Text(
                     text = stringResource(R.string.policy_excluded),
                     fontSize = 13.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Bold
                 )
             }
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.btn_close), color = tealColor)
+                Text(
+                    stringResource(R.string.btn_close),
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         },
         shape = RoundedCornerShape(12.dp),
-        containerColor = Color.White
+        containerColor = MaterialTheme.colorScheme.surface
     )
 }
 
@@ -83,7 +86,7 @@ fun PolicyStepItem(text: String) {
     Text(
         text = text,
         fontSize = 13.sp,
-        color = Color.Black.copy(alpha = 0.8f),
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.88f),
         lineHeight = 18.sp
     )
 }

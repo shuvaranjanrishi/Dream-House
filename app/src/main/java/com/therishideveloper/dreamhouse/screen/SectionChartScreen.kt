@@ -86,8 +86,9 @@ fun SectionChartScreen(
                             incomeState = incomeState,
                             expenseState = expenseState,
                             projectName = project?.projectName
-                                ?: "Dream House Project", // আপনি ডাইনামিক করতে পারেন
-                            projectAddress = project?.address ?: "Project Address"
+                                ?: context.getString(R.string.label_default_project_name),
+                            projectAddress = project?.address
+                                ?: context.getString(R.string.label_address)
                         )
                     }) {
                         Icon(Icons.Default.Download, null, tint = Color.White)
@@ -124,7 +125,10 @@ fun SectionChartScreen(
                 }
             } else if (currentState.sectionData.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(stringResource(R.string.label_no_data_available), color = Color.Gray)
+                    Text(
+                        stringResource(R.string.label_no_data_available),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             } else {
                 SectionList(
@@ -219,7 +223,7 @@ fun SectionItem(
                     // এখানে পার্সেন্টেজ দেখানো হচ্ছে
                     Text(
                         text = "$percentage%",
-                        color = Color.Gray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -227,7 +231,7 @@ fun SectionItem(
                     Icon(
                         imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                         contentDescription = null,
-                        tint = Color.Gray,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -270,7 +274,7 @@ fun CategoryRow(category: Category, catTotal: Double, sectionTotal: Double) {
                 category.icon,
                 contentDescription = null,
                 modifier = Modifier.size(20.dp),
-                tint = Color.Gray
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.width(12.dp))
 
@@ -309,9 +313,9 @@ fun SummaryCard(income: Double, expense: Double) {
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = tealColor.copy(alpha = 0.05f)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f))
     ) {
         Row(
             modifier = Modifier
@@ -325,7 +329,7 @@ fun SummaryCard(income: Double, expense: Double) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = stringResource(R.string.tab_income),
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.labelSmall
                 )
                 Text(
@@ -333,7 +337,7 @@ fun SummaryCard(income: Double, expense: Double) {
                         context,
                         income.roundToInt().toString()
                     ),
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -344,7 +348,7 @@ fun SummaryCard(income: Double, expense: Double) {
                     .padding(horizontal = 16.dp, vertical = 4.dp)
                     .fillMaxHeight(),
                 thickness = 1.dp,
-                color = Color.DarkGray
+                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.45f)
             )
 
             Column(
@@ -353,7 +357,7 @@ fun SummaryCard(income: Double, expense: Double) {
             ) {
                 Text(
                     text = stringResource(R.string.tab_expense),
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.labelSmall
                 )
                 Text(
@@ -361,7 +365,7 @@ fun SummaryCard(income: Double, expense: Double) {
                         context,
                         expense.roundToInt().toString()
                     ),
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )

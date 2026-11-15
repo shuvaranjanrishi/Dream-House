@@ -186,8 +186,8 @@ fun NoteTypeButton(
         onClick = onClick,
         modifier = modifier.height(48.dp),
         shape = RoundedCornerShape(12.dp),
-        color = if (isSelected) activeColor else Color.LightGray.copy(alpha = 0.15f),
-        contentColor = if (isSelected) Color.White else Color.Gray
+        color = if (isSelected) activeColor else MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(label, fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -222,7 +222,7 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(1.dp)
     ) {
         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -243,11 +243,16 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
             Spacer(modifier = Modifier.width(12.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(note.description, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                Text(
+                    note.description,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
                 Text(
                     DateUtils.formatToDisplay(context, note.date),
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -265,11 +270,11 @@ fun NoteItem(note: Note, onDelete: () -> Unit) {
                     text = stringResource(type.titleRes).uppercase(),
                     fontSize = 9.sp,
                     fontWeight = FontWeight.Bold,
-                    color = type.color.copy(alpha = 0.6f)
+                    color = type.color.copy(alpha = 0.7f)
                 )
             }
             IconButton(onClick = { showDeleteConfirm = true }) {
-                Icon(Icons.Default.DeleteOutline, "Delete", tint = Color.Red.copy(alpha = 0.6f))
+                Icon(Icons.Default.DeleteOutline, "Delete", tint = Color.Red.copy(alpha = 0.7f))
             }
         }
     }
@@ -281,17 +286,22 @@ fun NoteDisclaimerCard() {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = tealColor.copy(alpha = 0.05f)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f))
     ) {
         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.Info, null, tint = tealColor, modifier = Modifier.size(20.dp))
+            Icon(
+                Icons.Default.Info,
+                null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(20.dp)
+            )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = stringResource(R.string.disclaimer_note),
                 fontSize = 11.sp,
-                color = Color.DarkGray,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 lineHeight = 16.sp
             )
         }

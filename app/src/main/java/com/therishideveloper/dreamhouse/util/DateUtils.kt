@@ -17,14 +17,14 @@ object DateUtils {
     private val locale = Locale.US
 
     fun getTodayDateForHomeScreen(context: Context): String {
-        val locale = context.resources.configuration.locales[0]
+        val locale = Locale.forLanguageTag(LocaleHelper.getSavedLocale(context))
         val sdf = SimpleDateFormat(DATE_FORMAT_FULL_DISPLAY, locale)
         val formattedDate = sdf.format(Date())
         return NumberUtils.formatByLocale(context, formattedDate)
     }
 
     fun formatToDisplay(context: Context, dateMillis: Long): String {
-        val locale = context.resources.configuration.locales[0]
+        val locale = Locale.forLanguageTag(LocaleHelper.getSavedLocale(context))
         val sdf = SimpleDateFormat(DATE_FORMAT_DISPLAY, locale)
         val formattedDate = sdf.format(dateMillis)
         return NumberUtils.formatByLocale(context, formattedDate)
@@ -105,7 +105,7 @@ object DateUtils {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.MONTH, monthIndex)
         val pattern = if (isShort) "MMM" else "MMMM"
-        val locale = context.resources.configuration.locales[0]
+        val locale = Locale.forLanguageTag(LocaleHelper.getSavedLocale(context))
         val sdf = SimpleDateFormat(pattern, locale)
         return sdf.format(calendar.time)
     }

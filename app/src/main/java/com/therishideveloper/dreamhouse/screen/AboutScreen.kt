@@ -56,7 +56,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .background(Color(0xFFF5F7FA)),
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(30.dp))
@@ -65,10 +65,11 @@ fun AboutScreen(onMenuClick: () -> Unit) {
             Card(
                 shape = RoundedCornerShape(28.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
                 modifier = Modifier.size(100.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.app_logo), // আপনার লোগো দিন
+                    painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "Logo",
                     modifier = Modifier
                         .fillMaxSize()
@@ -81,12 +82,12 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                 text = strings.appName,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = tealColor
+                color = MaterialTheme.colorScheme.primary
             )
             Text(
                 text = strings.appSlogan,
                 fontSize = 14.sp,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontStyle = FontStyle.Italic
             )
 
@@ -96,14 +97,14 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     .fillMaxWidth()
                     .padding(16.dp),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Text(
                         text = stringResource(R.string.desc_project),
                         fontSize = 14.sp,
                         lineHeight = 20.sp,
-                        color = Color.DarkGray
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -124,7 +125,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                         Text(
                             text = feature,
                             fontSize = 13.sp,
-                            color = tealColor,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(vertical = 4.dp),
                             fontWeight = FontWeight.Medium
                         )
@@ -138,7 +139,9 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = tealColor.copy(0.05f))
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
+                )
             ) {
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -147,7 +150,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     Icon(
                         Icons.Default.Code,
                         null,
-                        tint = tealColor,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(40.dp)
                     )
                     Spacer(modifier = Modifier.width(16.dp))
@@ -155,22 +158,23 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                         Text(
                             strings.labelDeveloper,
                             fontSize = 12.sp,
-                            color = Color.Gray
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             strings.labelDevName,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             strings.devBrand,
                             fontSize = 13.sp,
-                            color = tealColor
+                            color = MaterialTheme.colorScheme.primary
                         )
                         Text(
                             strings.devEmail,
                             fontSize = 12.sp,
-                            color = Color.Gray
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -185,7 +189,7 @@ fun AboutScreen(onMenuClick: () -> Unit) {
                     appVersion
                 ),
                 fontSize = 12.sp,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.height(20.dp))

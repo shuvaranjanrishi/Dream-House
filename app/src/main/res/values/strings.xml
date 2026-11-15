@@ -438,4 +438,40 @@
     <string name="label_update_project">Update Project</string>
     <string name="err_previous_stage_missing">Please add the previous stage first!</string>
 
+    <!--Drawer & Theme-->
+    <string name="cd_change_language">Change Language</string>
+    <string name="cd_toggle_theme">Toggle Dark/Light Theme</string>
+    <string name="cd_resize_calculator">Resize Calculator</string>
+    <string name="cd_increase_size">Increase Size</string>
+    <string name="cd_decrease_size">Decrease Size</string>
+
+    <!--Developer Info Screen-->
+    <string name="menu_developer_info">Developer Info</string>
+    <string name="dev_badge_brand">The Rishi Developer</string>
+    <string name="dev_role">Software Engineer</string>
+    <string name="dev_university">Sylhet International University</string>
+    <string name="dev_send_email_label">Send Email:</string>
+    <string name="dev_copy_email">Copy Email</string>
+    <string name="dev_email_copied">Email copied to clipboard</string>
+    <string name="dev_mission_title">Mission &amp; Tech Service</string>
+    <string name="dev_mission_desc">Our core effort is to craft accurate, rich, and user-friendly mobile applications combining modern technology with seamless usability. Your valuable feedback or suggestions are always warmly welcomed.</string>
+    <string name="dev_more_apps_title">More Apps (The Rishi Developer)</string>
+    <string name="dev_play_store">Google Play Store</string>
+    <string name="dev_more_apps_subtitle">Explore and install other popular mobile apps created by The Rishi Developer directly on Play Store:</string>
+    <string name="dev_btn_install">Install</string>
+    <string name="dev_btn_all_apps">View all apps on Google Play Store</string>
+    <string name="dev_footer_copyright">The Rishi Developer · All Rights Reserved · 2026</string>
+
+    <string name="app_children_name_title">Sanatani Children\'s Names</string>
+    <string name="app_children_name_cat">Religion &amp; Family</string>
+    <string name="app_children_name_desc">Meaningful Hindu Sanatani boy and girl names with origins…</string>
+
+    <string name="app_daily_expense_title">Daily Expense - Income &amp; Expense</string>
+    <string name="app_daily_expense_cat">Finance &amp; Accounting</string>
+    <string name="app_daily_expense_desc">Offline personal income and expense tracker, charts &amp; Excel…</string>
+
+    <string name="app_dream_house_title">Dream House - Construction Tracker</string>
+    <string name="app_dream_house_cat">House &amp; Project Management</string>
+    <string name="app_dream_house_desc">Home building cost tracker, material estimator &amp; progress…</string>
+
 </resources>

@@ -38,7 +38,7 @@ object ExcelGenerator {
             val type = TransactionType.fromDbKey(tx.transactionType)
             val typeLabel = context.getString(type.titleRes)
             val amount = NumberUtils.formatByLocale(context, tx.amount.toString())
-            row.createCell(0).setCellValue(DateUtils.formatToDisplay(tx.date))
+            row.createCell(0).setCellValue(DateUtils.formatToDisplay(context, tx.date))
             row.createCell(1).setCellValue(categoryLabel)
             row.createCell(2).setCellValue(tx.description)
             row.createCell(3).setCellValue(amount)

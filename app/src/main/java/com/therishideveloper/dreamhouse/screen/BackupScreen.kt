@@ -105,7 +105,7 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
                 Text(
                     text = stringResource(R.string.backup_subtitle),
                     fontSize = 13.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(bottom = 28.dp)
                 )
 
@@ -123,7 +123,7 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
                                 shareLauncher.launch(
                                     Intent.createChooser(
                                         intent,
-                                        "Save Backup File"
+                                        context.getString(R.string.export_backup)
                                     )
                                 )
                             } else {
@@ -207,7 +207,7 @@ fun BackupScreen(onMenuClick: () -> Unit, viewModel: TransactionViewModel) {
             dismissButton = {
                 TextButton(onClick = {
                     showRestoreDialog = false
-                }) { Text(stringResource(android.R.string.cancel)) }
+                }) { Text(stringResource(R.string.btn_cancel)) }
             }
         )
     }
@@ -219,7 +219,7 @@ fun InfoSection() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(containerColor = tealColor.copy(alpha = 0.06f))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f))
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             SectionHeader(
@@ -239,7 +239,7 @@ fun WhyBackupSection() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF9F9F9))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             SectionHeader(
@@ -257,9 +257,14 @@ fun WhyBackupSection() {
 @Composable
 fun SectionHeader(title: String, icon: ImageVector) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(icon, null, tint = tealColor, modifier = Modifier.size(18.dp))
+        Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = title, fontWeight = FontWeight.ExtraBold, color = tealColor, fontSize = 15.sp)
+        Text(
+            text = title,
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 15.sp
+        )
     }
 }
 
@@ -271,9 +276,14 @@ fun BulletItem(text: String) {
                 .padding(top = 7.dp)
                 .size(5.dp)
                 .clip(CircleShape)
-                .background(tealColor)
+                .background(MaterialTheme.colorScheme.primary)
         )
         Spacer(modifier = Modifier.width(12.dp))
-        Text(text = text, fontSize = 13.sp, color = Color.DarkGray, lineHeight = 19.sp)
+        Text(
+            text = text,
+            fontSize = 13.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            lineHeight = 19.sp
+        )
     }
 }

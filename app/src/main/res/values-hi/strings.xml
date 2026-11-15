@@ -179,7 +179,7 @@
     <string name="dev_email">therishideveloper95@gmail.com</string>
     <string name="label_main_menu">मुख्य मेनू</string>
     <string name="label_settings">सेटिंग्स और टूल्स</string>
-    <string name="label_help">সহায়তা</string>
+    <string name="label_help">सहायता</string>
     <string name="label_more">सहायता और परिचय</string>
     <string name="share_text">अपने दैनिक खर्चों को आसानी से प्रबंधित करने के लिए इस अद्भुत Daily Expense ऐप को देखें! यहां डाउनलोड करें: </string>
 
@@ -408,7 +408,7 @@
     <string name="error_empty_fields">सभी फ़ील्ड आवश्यक हैं</string>
     <string name="error_area_zero">क्षेत्रफल शून्य से अधिक होना चाहिए</string>
     <string name="label_material_rates">सामग्री की इकाई दर</string>
-    <string name="msg_pdf_saved">PDF saved to Downloads/</string>
+    <string name="msg_pdf_saved">Downloads/ में PDF सहेजा गया!</string>
     <string name="pdf_doc_title">अनुभाग वार श्रेणी रिपोर्ट</string>
     <string name="pdf_generated_on">जनरेट किया गया: </string>
     <string name="pdf_developer">डेवलपर: %s</string>
@@ -438,5 +438,41 @@
     <string name="label_create_project">सपनों का घर बनाएं</string>
     <string name="label_update_project">प्रोजेक्ट अपडेट करें</string>
     <string name="err_previous_stage_missing">कृपया पहले पिछला चरण जोड़ें!</string>
+
+    <!--Drawer & Theme-->
+    <string name="cd_change_language">भाषा बदलें</string>
+    <string name="cd_toggle_theme">डार्क/लाइट थीम बदलें</string>
+    <string name="cd_resize_calculator">कैलकुलेटर का आकार बदलें</string>
+    <string name="cd_increase_size">आकार बढ़ाएं</string>
+    <string name="cd_decrease_size">आकार घटाएं</string>
+
+    <!--Developer Info Screen-->
+    <string name="menu_developer_info">डेवलपर परिचय</string>
+    <string name="dev_badge_brand">द ऋषि डेवलपर (The Rishi Developer)</string>
+    <string name="dev_role">सॉफ़्टवेयर इंजीनियर</string>
+    <string name="dev_university">सिलहट इंटरनेशनल यूनिवर्सिटी</string>
+    <string name="dev_send_email_label">ईमेल भेजें:</string>
+    <string name="dev_copy_email">कॉपी करें</string>
+    <string name="dev_email_copied">ईमेल क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="dev_mission_title">लक्ष्य और तकनीक सेवा</string>
+    <string name="dev_mission_desc">आधुनिक तकनीक और सहज डिज़ाइन के समन्वय से सटीक, समृद्ध और उपयोगकर्ता-अनुकूल मोबाइल एप्लिकेशन बनाना हमारा मुख्य प्रयास है। आपके किसी भी बहुमूल्य सुझाव या प्रतिक्रिया का स्वागत है।</string>
+    <string name="dev_more_apps_title">अधिक ऐप्स (The Rishi Developer)</string>
+    <string name="dev_play_store">गूगल प्ले स्टोर</string>
+    <string name="dev_more_apps_subtitle">द ऋषि डेवलपर द्वारा बनाए गए अन्य लोकप्रिय मोबाइल ऐप्स सीधे प्ले स्टोर पर देखें और इंस्टॉल करें:</string>
+    <string name="dev_btn_install">इंस्टॉल</string>
+    <string name="dev_btn_all_apps">गूगल प्ले स्टोर पर सभी ऐप्स देखें</string>
+    <string name="dev_footer_copyright">द ऋषि डेवलपर · सर्वाधिकार सुरक्षित · 2026</string>
+
+    <string name="app_children_name_title">सनातनी बच्चों के सुंदर नाम</string>
+    <string name="app_children_name_cat">धर्म और परिवार</string>
+    <string name="app_children_name_desc">अर्थ सहित हिंदू सनातनी पुत्र व कन्या संतान के नाम…</string>
+
+    <string name="app_daily_expense_title">Daily Expense - दैनिक आय व्यय</string>
+    <string name="app_daily_expense_cat">वित्त और हिसाब</string>
+    <string name="app_daily_expense_desc">ऑफ़लाइन व्यक्तिगत आय-व्यय ट्रैकर, चार्ट और एक्सेल…</string>
+
+    <string name="app_dream_house_title">Dream House - घर निर्माण हिसाब</string>
+    <string name="app_dream_house_cat">हाउस और प्रोजेक्ट प्रबंधन</string>
+    <string name="app_dream_house_desc">घर निर्माण खर्च ट्रैकर, बजट और सामग्री अनुमान…</string>
 
 </resources>

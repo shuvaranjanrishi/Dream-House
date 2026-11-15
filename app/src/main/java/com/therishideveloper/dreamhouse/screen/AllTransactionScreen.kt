@@ -179,7 +179,7 @@ fun AllTransactionScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(Color(0xFFF8F9FA))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             // 1. Search & Date Selector Row
             SearchAndDateRow(
@@ -320,7 +320,13 @@ fun SearchAndDateRow(
                     )
                 )
             },
-            leadingIcon = { Icon(Icons.Default.Search, null, tint = Color.Gray) },
+            leadingIcon = {
+                Icon(
+                    Icons.Default.Search,
+                    null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            },
             trailingIcon = {
                 if (selectedDate.isNotEmpty()) {
                     IconButton(onClick = onDateClear) { Icon(Icons.Default.Close, null) }
@@ -328,20 +334,20 @@ fun SearchAndDateRow(
             },
             shape = RoundedCornerShape(12.dp),
             singleLine = true,
-            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = tealColor)
+            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MaterialTheme.colorScheme.primary)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Surface(
             onClick = onDatePickerClick,
             modifier = Modifier.size(54.dp),
             shape = RoundedCornerShape(12.dp),
-            color = if (selectedDate.isEmpty()) tealColor.copy(0.1f) else tealColor
+            color = if (selectedDate.isEmpty()) MaterialTheme.colorScheme.primary.copy(0.14f) else tealColor
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Icon(
                     Icons.Default.DateRange,
                     null,
-                    tint = if (selectedDate.isEmpty()) tealColor else Color.White
+                    tint = if (selectedDate.isEmpty()) MaterialTheme.colorScheme.primary else Color.White
                 )
             }
         }
@@ -353,22 +359,21 @@ fun TransactionTabRow(selectedTab: Int, onTabSelected: (Int) -> Unit) {
     TabRow(
         selectedTabIndex = selectedTab,
         containerColor = Color.Transparent,
-        contentColor = tealColor,
+        contentColor = MaterialTheme.colorScheme.primary,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
                 Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
-                color = tealColor
+                color = MaterialTheme.colorScheme.primary
             )
         },
         divider = {}
     ) {
-        // Localized Tab Names could be added here later via stringResource
         val tabs = listOf(R.string.filter_all, R.string.income, R.string.expense)
 
         tabs.forEachIndexed { index, title ->
             Tab(
-                selectedContentColor = tealColor,
-                unselectedContentColor = Color.Gray,
+                selectedContentColor = MaterialTheme.colorScheme.primary,
+                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 selected = selectedTab == index,
                 onClick = { onTabSelected(index) },
                 text = {

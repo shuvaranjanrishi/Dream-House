@@ -30,6 +30,7 @@ import com.therishideveloper.dreamhouse.data.model.TransactionPeriod
 import com.therishideveloper.dreamhouse.data.model.TransactionType
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
 import com.therishideveloper.dreamhouse.util.DateUtils
+import com.therishideveloper.dreamhouse.util.LocaleHelper
 import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.TransactionViewModel
 import java.util.Calendar
@@ -101,7 +102,8 @@ fun TransactionListScreen(
 
     val allRecords = stringResource(R.string.label_all_records)
 
-    val displayText = remember(transactionPeriod, date, selectedMonth, selectedYear) {
+    val currentLang = LocaleHelper.getSavedLocale(context)
+    val displayText = remember(transactionPeriod, date, selectedMonth, selectedYear, currentLang) {
         when (transactionPeriod) {
             TransactionPeriod.MONTHLY.dbKey -> {
                 DateUtils.getLocalizedMonthYear(context, selectedMonth, selectedYear)
@@ -157,7 +159,7 @@ fun TransactionListScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(Color(0xFFF5F5F5))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             DateFilterHeader(
                 text = displayText,
@@ -192,7 +194,7 @@ fun DateFilterHeader(text: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() },
-        color = Color.White,
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp
     ) {
         Row(
@@ -200,9 +202,14 @@ fun DateFilterHeader(text: String, onClick: () -> Unit) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = text, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = tealColor)
+            Text(
+                text = text,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.primary
+            )
             Spacer(Modifier.width(8.dp))
-            Icon(Icons.Default.ArrowDropDown, null, tint = tealColor)
+            Icon(Icons.Default.ArrowDropDown, null, tint = MaterialTheme.colorScheme.primary)
         }
     }
 }

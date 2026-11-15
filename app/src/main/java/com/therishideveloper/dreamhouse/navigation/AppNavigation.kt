@@ -22,6 +22,7 @@ import com.therishideveloper.dreamhouse.screen.LanguageScreen
 import com.therishideveloper.dreamhouse.screen.BackupScreen
 import com.therishideveloper.dreamhouse.screen.CategoryChartScreen
 import com.therishideveloper.dreamhouse.screen.ConstructionStageScreen
+import com.therishideveloper.dreamhouse.screen.DeveloperScreen
 import com.therishideveloper.dreamhouse.screen.EstimationCalculatorScreen
 import com.therishideveloper.dreamhouse.screen.EstimationScreen
 import com.therishideveloper.dreamhouse.screen.HomeScreen
@@ -234,6 +235,11 @@ fun AppNavigation(
         }
         composable(Screens.AboutScreen.route) {
             AboutScreen(
+                onMenuClick = onOpenDrawer,
+            )
+        }
+        composable(Screens.DeveloperScreen.route) {
+            DeveloperScreen(
                 onMenuClick = onOpenDrawer,
             )
         }

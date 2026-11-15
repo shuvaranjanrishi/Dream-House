@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
@@ -113,7 +115,8 @@ fun HomeScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(Color(0xFFF5F5F5))
+                .background(MaterialTheme.colorScheme.background)
+                .verticalScroll(rememberScrollState())
         ) {
             DisplayTodayDate()
             // --- Summary Card ---
@@ -121,26 +124,26 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
                 Row(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(modifier = Modifier.size(100.dp)) {
+                    Box(modifier = Modifier.size(96.dp)) {
                         SolidPieChart(incomeProgress, tealColor, softRedColor)
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(14.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         SummaryClickableRow(
                             stringResource(R.string.income),
                             totalIncome.toString(),
-                            tealColor
+                            MaterialTheme.colorScheme.primary
                         ) {
                             navController.navigate("income_expense_screen/" + TransactionType.INCOME.dbKey)
                         }
-                        Spacer(modifier = Modifier.height(4.dp))
+                        Spacer(modifier = Modifier.height(6.dp))
                         SummaryClickableRow(
                             stringResource(R.string.expense),
                             totalExpense.toString(),
@@ -148,30 +151,37 @@ fun HomeScreen(
                         ) {
                             navController.navigate("income_expense_screen/" + TransactionType.EXPENSE.dbKey)
                         }
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                        )
                         TransactionSummaryRow(
                             stringResource(R.string.balance),
                             balance.toString(),
-                            tealColor
+                            if (balance >= 0) MaterialTheme.colorScheme.primary else softRedColor
                         )
                     }
                 }
             }
             Column(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .padding(horizontal = 8.dp)
             ) {
                 LazyHorizontalGrid(
                     rows = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(240.dp),
-                    horizontalArrangement = Arrangement.spacedBy(0.dp),
-                    verticalArrangement = Arrangement.spacedBy(0.dp)
+                        .height(248.dp),
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     items(DashboardUtils.getDashboardMenus()) { item ->
-                        Box(modifier = Modifier.width(125.dp)) {
+                        Box(
+                            modifier = Modifier
+                                .width(124.dp)
+                                .fillMaxHeight()
+                        ) {
                             MenuGridItem(item = item) { route ->
                                 handleNavigation(navController, route)
                             }
@@ -179,10 +189,12 @@ fun HomeScreen(
                     }
                 }
 
+                Spacer(modifier = Modifier.height(8.dp))
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     ActionButton(
@@ -200,7 +212,7 @@ fun HomeScreen(
                         navController.navigate(Screens.AddExpenseScreen.route)
                     }
                 }
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(modifier = Modifier.height(84.dp))
             }
         }
 

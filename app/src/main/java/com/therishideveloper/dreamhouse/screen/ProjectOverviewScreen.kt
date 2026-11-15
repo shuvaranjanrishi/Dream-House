@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,7 @@ import com.therishideveloper.dreamhouse.data.model.StageStatus
 import com.therishideveloper.dreamhouse.data.model.ConstructionStage
 import com.therishideveloper.dreamhouse.navigation.Screens
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -133,6 +135,7 @@ fun ActionCardWithProgress(
     stages: List<StageEntity>,
     onClick: () -> Unit
 ) {
+    val context = LocalContext.current
     val completedCount = stages.count { it.status == StageStatus.COMPLETED.dbKey }
     val progressPercentage = if (stages.isNotEmpty()) (completedCount / 8f * 100).toInt() else 0
 
@@ -141,7 +144,7 @@ fun ActionCardWithProgress(
             .fillMaxWidth()
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column {
@@ -152,13 +155,13 @@ fun ActionCardWithProgress(
             ) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = tealColor.copy(alpha = 0.1f)
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
                 ) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
                         modifier = Modifier.padding(8.dp),
-                        tint = tealColor
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
@@ -166,19 +169,20 @@ fun ActionCardWithProgress(
                     Text(
                         text = title,
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = subtitle,
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
-                    tint = Color.LightGray
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                 )
             }
 
@@ -186,13 +190,13 @@ fun ActionCardWithProgress(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(tealColor.copy(alpha = 0.03f)) // হালকা টিল ব্যাকগ্রাউন্ড যা দেখতে প্রিমিয়াম
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.05f))
                     .padding(16.dp)
             ) {
                 Text(
                     text = stringResource(R.string.label_project_progress),
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -213,9 +217,7 @@ fun ActionCardWithProgress(
                                 .fillMaxHeight()
                                 .padding(horizontal = 1.dp)
                                 .background(
-                                    if (isCompleted) stageColors[index] else Color(
-                                        0xFFE0E0E0
-                                    )
+                                    if (isCompleted) stageColors[index] else MaterialTheme.colorScheme.surfaceVariant
                                 )
                         )
                     }
@@ -228,18 +230,21 @@ fun ActionCardWithProgress(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = stringResource(
-                            R.string.label_progress_percentage,
-                            progressPercentage
+                        text = NumberUtils.formatByLocale(
+                            context,
+                            stringResource(
+                                R.string.label_progress_percentage,
+                                progressPercentage
+                            )
                         ),
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Bold,
-                        color = tealColor
+                        color = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = "$completedCount / 8",
+                        text = NumberUtils.formatByLocale(context, "$completedCount / 8"),
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -259,7 +264,7 @@ fun SimpleActionCard(
             .fillMaxWidth()
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -268,13 +273,13 @@ fun SimpleActionCard(
         ) {
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = tealColor.copy(alpha = 0.1f)
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier.padding(8.dp),
-                    tint = tealColor
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -282,19 +287,20 @@ fun SimpleActionCard(
                 Text(
                     text = title,
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = subtitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = null,
                 modifier = Modifier.size(16.dp),
-                tint = Color.LightGray
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
         }
     }

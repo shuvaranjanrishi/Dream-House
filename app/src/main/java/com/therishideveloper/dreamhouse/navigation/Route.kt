@@ -1,19 +1,27 @@
 package com.therishideveloper.dreamhouse.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.NoteAdd
+import androidx.compose.material.icons.automirrored.outlined.NoteAdd
 import androidx.compose.material.icons.filled.Architecture
 import androidx.compose.material.icons.filled.Backup
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.PieChart
+import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Architecture
 import androidx.compose.material.icons.outlined.Backup
+import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.PieChart
+import androidx.compose.material.icons.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.Share
 import com.therishideveloper.dreamhouse.R
 import com.therishideveloper.dreamhouse.data.model.NavItem
@@ -31,6 +39,7 @@ enum class Screens(val route: String) {
     AddExpenseScreen("add_expense_screen"),
     ShareAppScreen("share_app"),
     AboutScreen("about_screen"),
+    DeveloperScreen("developer_screen"),
     CategoryManualScreen("cat_manual_screen"),
     ProjectSetupScreen("project_setup_screen?projectId={projectId}"),
     ConstructionStageScreen("construction_stage_screen"),
@@ -59,36 +68,62 @@ val listOfNavItems = listOf(
         Icons.Outlined.Architecture,
         Screens.ProjectOverviewScreen.route
     ),
-
-    // Settings Section
     NavItem(
         3,
-        R.string.menu_language,
-        "Settings",
-        Icons.Filled.Language,
-        Icons.Outlined.Language,
-        Screens.LanguageScreen.route
+        R.string.menu_category_chart,
+        "Main",
+        Icons.Filled.PieChart,
+        Icons.Outlined.PieChart,
+        Screens.CategoryChartScreen.route
     ),
     NavItem(
         4,
+        R.string.menu_all_transactions,
+        "Main",
+        Icons.Filled.ReceiptLong,
+        Icons.Outlined.ReceiptLong,
+        Screens.AllTransactionsScreen.route
+    ),
+    NavItem(
+        5,
+        R.string.menu_section_chart,
+        "Main",
+        Icons.Filled.BarChart,
+        Icons.Outlined.BarChart,
+        Screens.SectionChartScreen.route
+    ),
+    NavItem(
+        6,
+        R.string.menu_note,
+        "Main",
+        Icons.AutoMirrored.Filled.NoteAdd,
+        Icons.AutoMirrored.Outlined.NoteAdd,
+        Screens.NoteScreen.route
+    ),
+
+    // Settings Section (Language selector moved to drawer bottom bar)
+    NavItem(
+        7,
         R.string.menu_backup,
         "Settings",
         Icons.Filled.Backup,
         Icons.Outlined.Backup,
         Screens.BackupScreen.route
     ),
+
     // Help Section
     NavItem(
-        5,
+        8,
         R.string.cat_guide,
         "Help",
         Icons.Filled.Category,
         Icons.Outlined.Category,
         Screens.CategoryManualScreen.route
     ),
+
     // More Section
     NavItem(
-        6,
+        9,
         R.string.menu_share,
         "More",
         Icons.Filled.Share,
@@ -96,11 +131,19 @@ val listOfNavItems = listOf(
         Screens.ShareAppScreen.route
     ),
     NavItem(
-        7,
+        10,
         R.string.menu_about,
         "More",
         Icons.Filled.Info,
         Icons.Outlined.Info,
         Screens.AboutScreen.route
     ),
+    NavItem(
+        11,
+        R.string.menu_developer_info,
+        "More",
+        Icons.Filled.Code,
+        Icons.Outlined.Code,
+        Screens.DeveloperScreen.route
+    )
 )

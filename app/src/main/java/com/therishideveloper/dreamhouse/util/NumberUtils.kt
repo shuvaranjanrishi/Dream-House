@@ -20,7 +20,7 @@ object NumberUtils {
     }
 
     fun formatByLocale(context: Context, input: String): String {
-        val language = context.resources.configuration.locales[0].language
+        val language = LocaleHelper.getSavedLocale(context)
         return convertDigits(input, language)
     }
 
@@ -28,7 +28,7 @@ object NumberUtils {
 
         val cleanInput = input.replace(",", "")
         val amount = cleanInput.toDoubleOrNull() ?: return input
-        val language = context.resources.configuration.locales[0].language
+        val language = LocaleHelper.getSavedLocale(context)
 
         val commaFormatter = NumberFormat.getInstance(Locale("en", "IN")).apply {
             maximumFractionDigits = 2

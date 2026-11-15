@@ -410,7 +410,7 @@
     <string name="error_empty_fields">সবগুলো ঘর পূরণ করা আবশ্যক</string>
     <string name="error_area_zero">এরিয়া অবশ্যই শূন্যর বেশি হতে হবে</string>
     <string name="label_material_rates">মালামালের একক দর</string>
-    <string name="msg_pdf_saved">PDF saved to Downloads/</string>
+    <string name="msg_pdf_saved">ডাউনলোড ফোল্ডারে PDF সংরক্ষিত হয়েছে!</string>
     <string name="pdf_doc_title">সেকশন ভিত্তিক ক্যাটাগরি রিপোর্ট</string>
     <string name="pdf_generated_on">তৈরির তারিখ: </string>
     <string name="pdf_developer">ডেভেলপার: %s</string>
@@ -440,5 +440,41 @@
     <string name="label_create_project">স্বপ্নের বাড়ি তৈরি করুন</string>
     <string name="label_update_project">প্রজেক্ট আপডেট করুন</string>
     <string name="err_previous_stage_missing">আগের ধাপটি আগে যোগ করুন!</string>
+
+    <!--Drawer & Theme-->
+    <string name="cd_change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="cd_toggle_theme">ডার্ক/লাইট থিম পরিবর্তন করুন</string>
+    <string name="cd_resize_calculator">ক্যালকুলেটর রিসাইজ করুন</string>
+    <string name="cd_increase_size">সাইজ বড় করুন</string>
+    <string name="cd_decrease_size">সাইজ ছোট করুন</string>
+
+    <!--Developer Info Screen-->
+    <string name="menu_developer_info">ডেভেলপার পরিচিতি</string>
+    <string name="dev_badge_brand">দ্য ঋষি ডেভেলপার (The Rishi Developer)</string>
+    <string name="dev_role">সফটওয়্যার ইঞ্জিনিয়ার</string>
+    <string name="dev_university">সিলেট ইন্টারন্যাশনাল ইউনিভার্সিটি</string>
+    <string name="dev_send_email_label">ইমেইল পাঠান:</string>
+    <string name="dev_copy_email">কপি করুন</string>
+    <string name="dev_email_copied">ইমেইল কপি করা হয়েছে</string>
+    <string name="dev_mission_title">লক্ষ্য ও প্রযুক্তি সেবা</string>
+    <string name="dev_mission_desc">আধুনিক প্রযুক্তি ও সহজ ব্যবহারযোগ্য ডিজাইনের সমন্বয়ে নির্ভুল, সমৃদ্ধ এবং ব্যবহারকারীবান্ধব মোবাইল অ্যাপ্লিকেশন তৈরি করাই আমাদের মূল প্রয়াস। আপনার যেকোনো মূল্যবান পরামর্শ বা মতামত সাদরে গ্রহণযোগ্য।</string>
+    <string name="dev_more_apps_title">আরো অ্যাপস (The Rishi Developer)</string>
+    <string name="dev_play_store">গুগল প্লে স্টোর</string>
+    <string name="dev_more_apps_subtitle">দ্য ঋষি ডেভেলপার কর্তৃক তৈরিকৃত অন্যান্য জনপ্রিয় মোবাইল অ্যাপস সরাসরি প্লে স্টোরে দেখুন ও ইনস্টল করুন:</string>
+    <string name="dev_btn_install">ইনস্টল</string>
+    <string name="dev_btn_all_apps">গুগল প্লে স্টোরে সকল অ্যাপস দেখুন</string>
+    <string name="dev_footer_copyright">দ্য ঋষি ডেভেলপার · সর্বস্বত্ব সংরক্ষিত · ২০২৬</string>
+
+    <string name="app_children_name_title">সনাতনী শিশুদের সুন্দর নাম</string>
+    <string name="app_children_name_cat">ধর্ম ও পরিবার</string>
+    <string name="app_children_name_desc">অর্থসহ হিন্দু সনাতনী পুত্র ও কন্যা সন্তানের নাম…</string>
+
+    <string name="app_daily_expense_title">Daily Expense - দৈনিক আয় ব্যয়</string>
+    <string name="app_daily_expense_cat">ফাইন্যান্স ও হিসাব</string>
+    <string name="app_daily_expense_desc">অফলাইন ব্যক্তিগত আয়-ব্যয়ের হিসাব ও চার্ট…</string>
+
+    <string name="app_dream_house_title">Dream House - বাড়ি নির্মাণ হিসাব</string>
+    <string name="app_dream_house_cat">হাউস ও প্রজেক্ট ম্যানেজমেন্ট</string>
+    <string name="app_dream_house_desc">বাড়ি নির্মাণ খরচ ট্র্যাকার, বাজেট ও এস্টিমেশন…</string>
 
 </resources>

@@ -85,7 +85,11 @@ class PdfGenerator(private val context: Context) {
         )
 
         // Date (Right)
-        val dateStr = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(Date())
+        val appLocale = Locale.forLanguageTag(LocaleHelper.getSavedLocale(context))
+        val dateStr = NumberUtils.formatByLocale(
+            context,
+            SimpleDateFormat("dd MMM, yyyy", appLocale).format(Date())
+        )
         drawText(
             canvas,
             dateStr,
@@ -499,8 +503,11 @@ class PdfGenerator(private val context: Context) {
     private fun drawFooter(canvas: Canvas) {
         val footerY = pageHeight - 25f
         drawDivider(canvas, footerY - 10f)
-        val dateTimeStr =
-            SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault()).format(Date())
+        val appLocale = Locale.forLanguageTag(LocaleHelper.getSavedLocale(context))
+        val dateTimeStr = NumberUtils.formatByLocale(
+            context,
+            SimpleDateFormat("dd MMM yyyy hh:mm a", appLocale).format(Date())
+        )
         drawText(
             canvas,
             "${context.getString(R.string.pdf_generated_on)} $dateTimeStr",

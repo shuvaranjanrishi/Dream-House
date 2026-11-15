@@ -75,13 +75,13 @@ fun ConstructionStageScreen(
                 isListEmpty = stages.isEmpty()
             )
         },
-        containerColor = Color(0xFFF8F9FA)
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
 
             // --- Summary Header Section (With Vertical Divider) ---
             Surface(
-                color = Color.White,
+                color = MaterialTheme.colorScheme.surface,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp),
@@ -102,7 +102,7 @@ fun ConstructionStageScreen(
                             Text(
                                 stringResource(R.string.total_allocated_budget),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = Color.Gray
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
                                 text = NumberUtils.formatAmountByLocale(
@@ -111,14 +111,14 @@ fun ConstructionStageScreen(
                                 ),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.DarkGray
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
 
                         VerticalDivider(
                             modifier = Modifier.padding(vertical = 4.dp),
                             thickness = 1.dp,
-                            color = Color.LightGray.copy(alpha = 0.5f)
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.4f)
                         )
 
                         Column(
@@ -128,13 +128,13 @@ fun ConstructionStageScreen(
                             Text(
                                 stringResource(R.string.total_duration),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = Color.Gray
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
                                 text = formatDuration(totalTime),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.DarkGray
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }
@@ -149,7 +149,10 @@ fun ConstructionStageScreen(
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(stringResource(R.string.no_stages_added), color = Color.Gray)
+                    Text(
+                        stringResource(R.string.no_stages_added),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             } else {
                 LazyColumn(

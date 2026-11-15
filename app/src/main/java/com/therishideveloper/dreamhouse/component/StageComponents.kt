@@ -97,7 +97,7 @@ fun StageSelector(
             onDismissRequest = { onExpandedChange(false) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.surface)
         ) {
             allStages.forEachIndexed { index, stage ->
                 DropdownMenuItem(
@@ -106,11 +106,15 @@ fun StageSelector(
                             StepNumberBadge(number = stage.serial)
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
-                                Text(stringResource(stage.titleRes), fontWeight = FontWeight.Bold)
+                                Text(
+                                    stringResource(stage.titleRes),
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                                 Text(
                                     stringResource(stage.descriptionRes),
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = Color.Gray
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
@@ -236,9 +240,13 @@ fun StatusUpdateSection(currentStatusKey: String, onStatusSelected: (String) -> 
                 Text(
                     text = stringResource(currentStatus.titleRes),
                     modifier = Modifier.weight(1f),
-                    color = Color.Black
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                Icon(Icons.Default.ArrowDropDown, null, tint = Color.Gray)
+                Icon(
+                    Icons.Default.ArrowDropDown,
+                    null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
         DropdownMenu(
@@ -246,7 +254,7 @@ fun StatusUpdateSection(currentStatusKey: String, onStatusSelected: (String) -> 
             onDismissRequest = { statusExpanded = false },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.surface)
         ) {
             allStatus.forEachIndexed { index, stageStatus ->
                 DropdownMenuItem(

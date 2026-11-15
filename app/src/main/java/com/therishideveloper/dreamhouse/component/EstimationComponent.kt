@@ -107,7 +107,7 @@ fun SectionTitle(title: String) {
         text = title,
         fontWeight = FontWeight.Bold,
         style = MaterialTheme.typography.titleSmall,
-        color = Color.DarkGray,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.padding(top = 8.dp)
     )
 }
@@ -117,7 +117,10 @@ fun CalculateButton(isLoading: Boolean, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         enabled = !isLoading,
-        colors = ButtonDefaults.buttonColors(containerColor = tealColor),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = tealColor,
+            contentColor = Color.White
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .height(52.dp),
@@ -130,7 +133,11 @@ fun CalculateButton(isLoading: Boolean, onClick: () -> Unit) {
                 strokeWidth = 2.dp
             )
         } else {
-            Text(stringResource(R.string.btn_calculate), fontWeight = FontWeight.Bold)
+            Text(
+                stringResource(R.string.btn_calculate),
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
         }
     }
 }
@@ -147,9 +154,12 @@ fun EstimationDetailsDialog(
         confirmButton = {
             Button(
                 onClick = onSave,
-                colors = ButtonDefaults.buttonColors(containerColor = tealColor)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = tealColor,
+                    contentColor = Color.White
+                )
             ) {
-                Text(stringResource(R.string.btn_save))
+                Text(stringResource(R.string.btn_save), color = Color.White)
             }
         },
         dismissButton = {
@@ -223,7 +233,9 @@ fun AreaAndDateRow(record: EstimationRecord) {
                     record.totalArea
                 )
             } ${stringResource(R.string.unit_sqft)}",
-            color = Color.Gray, fontWeight = FontWeight.Bold, fontSize = 13.sp
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontWeight = FontWeight.Bold,
+            fontSize = 13.sp
         )
         Text(
             "${stringResource(R.string.label_date)} ${
@@ -232,7 +244,8 @@ fun AreaAndDateRow(record: EstimationRecord) {
                     record.date
                 )
             }",
-            color = Color.Gray, fontSize = 12.sp
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 12.sp
         )
     }
 }
@@ -248,7 +261,9 @@ fun FloorInfoRow(record: EstimationRecord) {
                     record.foundationFloors.toString()
                 )
             } ${stringResource(R.string.unit_floor)}",
-            color = tealColor, fontWeight = FontWeight.SemiBold, fontSize = 12.sp
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 12.sp
         )
         Text(
             text = "${stringResource(R.string.label_build_floor)}: ${
@@ -257,7 +272,9 @@ fun FloorInfoRow(record: EstimationRecord) {
                     record.floorsToBuild.toString()
                 )
             } ${stringResource(R.string.unit_floor)}",
-            color = tealColor, fontWeight = FontWeight.SemiBold, fontSize = 12.sp
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 12.sp
         )
     }
 }
@@ -434,14 +451,14 @@ fun DialogRowItem(label: String, qty: String, cost: String) {
         Text(
             label,
             modifier = Modifier.weight(1.2f),
-            color = Color.Gray,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             lineHeight = 16.sp
         )
         Text(
             qty,
             modifier = Modifier.weight(1f),
-            color = Color.Gray,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             lineHeight = 16.sp
         )
@@ -451,7 +468,7 @@ fun DialogRowItem(label: String, qty: String, cost: String) {
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.End,
             fontSize = 12.sp,
-            color = Color.Gray
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
 }
@@ -522,7 +539,7 @@ fun EstimationContent(
             stringResource(R.string.label_material_breakdown),
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
-            color = Color.Gray
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         if (isEmpty) {
@@ -534,7 +551,7 @@ fun EstimationContent(
             ) {
                 Text(
                     stringResource(R.string.msg_no_estimation),
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
             }
@@ -676,7 +693,10 @@ fun EmptyState(padding: PaddingValues) {
             .fillMaxSize()
             .padding(padding), contentAlignment = Alignment.Center
     ) {
-        Text(stringResource(R.string.msg_no_estimation), color = Color.Gray)
+        Text(
+            stringResource(R.string.msg_no_estimation),
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 
@@ -708,7 +728,7 @@ fun MaterialDetailCard(icon: ImageVector, name: String, qty: String, rate: Strin
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(2.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -718,7 +738,7 @@ fun MaterialDetailCard(icon: ImageVector, name: String, qty: String, rate: Strin
                 modifier = Modifier
                     .size(40.dp)
                     .background(
-                        tealColor.copy(alpha = 0.1f),
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                         RoundedCornerShape(8.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -727,24 +747,34 @@ fun MaterialDetailCard(icon: ImageVector, name: String, qty: String, rate: Strin
                     imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier.size(24.dp),
-                    tint = tealColor
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
             Spacer(Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(name, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = Color.Black)
+                Text(
+                    name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
                 Text(
                     stringResource(R.string.label_qty_short) + ": $qty",
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     stringResource(R.string.label_rate_short) + ": $rate",
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            Text(cost, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color(0xFF00796B))
+            Text(
+                cost,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }

@@ -105,7 +105,7 @@ fun NoteScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(Color(0xFFF8F9FA))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             Spacer(modifier = Modifier.height(8.dp))
             NoteDisclaimerCard()
@@ -114,7 +114,7 @@ fun NoteScreen(
                 modifier = Modifier
                     .padding(horizontal = 8.dp, vertical = 4.dp)
                     .fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
                 Row(
@@ -134,17 +134,18 @@ fun NoteScreen(
                         TransactionSummaryRow(
                             stringResource(R.string.label_total_receivable),
                             "$totalReceivable",
-                            tealColor
+                            MaterialTheme.colorScheme.primary
                         )
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 6.dp),
+                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                        )
                         TransactionSummaryRow(
                             if (balanceAmount >= 0) stringResource(R.string.label_net_receivable) else stringResource(
                                 R.string.label_net_debt
                             ),
-                            NumberUtils.formatAmountByLocale(
-                                context, balanceAmount.toString()
-                            ),
-                            if (balanceAmount >= 0) tealColor else softRedColor
+                            balanceAmount.toString(),
+                            if (balanceAmount >= 0) MaterialTheme.colorScheme.primary else softRedColor
                         )
                     }
                 }

@@ -31,6 +31,7 @@ import com.therishideveloper.dreamhouse.component.showToast
 import com.therishideveloper.dreamhouse.data.entity.ProjectEntity
 import com.therishideveloper.dreamhouse.data.model.DreamHouseStrings
 import com.therishideveloper.dreamhouse.ui.theme.tealColor
+import com.therishideveloper.dreamhouse.util.NumberUtils
 import com.therishideveloper.dreamhouse.viewmodel.ProjectViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -146,7 +147,7 @@ fun ProjectSetupScreen(
                 strings.labelProjectTimeline,
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.Bold,
-                color = Color.Gray
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -174,8 +175,8 @@ fun ProjectSetupScreen(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                color = tealColor.copy(alpha = 0.05f),
-                border = BorderStroke(1.dp, tealColor.copy(alpha = 0.2f))
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f))
             ) {
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -184,14 +185,17 @@ fun ProjectSetupScreen(
                     Icon(
                         Icons.Default.CalendarToday,
                         null,
-                        tint = tealColor,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
-                        text = stringResource(R.string.label_total_days_needed, totalDays.toInt()),
+                        text = NumberUtils.formatByLocale(
+                            context,
+                            stringResource(R.string.label_total_days_needed, totalDays.toInt())
+                        ),
                         fontWeight = FontWeight.Bold,
-                        color = tealColor,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 16.sp
                     )
                 }
@@ -227,7 +231,10 @@ fun ProjectSetupScreen(
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = tealColor)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = tealColor,
+                    contentColor = Color.White
+                )
             ) {
                 Text(
                     text = if (projectId == null) strings.labelCreateProject else strings.labelUpdateProject,

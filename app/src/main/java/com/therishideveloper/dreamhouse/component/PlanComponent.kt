@@ -70,7 +70,7 @@ fun ProjectBudgetCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Column(
@@ -79,7 +79,7 @@ fun ProjectBudgetCard(
         ) {
 
             Surface(
-                color = tealColor.copy(alpha = 0.1f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Column(
@@ -92,7 +92,7 @@ fun ProjectBudgetCard(
                         modifier = Modifier.padding(horizontal = 20.dp),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.ExtraBold,
-                        color = tealColor,
+                        color = MaterialTheme.colorScheme.primary,
                         lineHeight = 20.sp
                     )
                     Text(
@@ -100,7 +100,7 @@ fun ProjectBudgetCard(
                         modifier = Modifier.padding(horizontal = 20.dp),
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -135,17 +135,20 @@ fun ProjectBudgetCard(
                     Text(
                         stringResource(R.string.label_master_budget),
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = NumberUtils.formatAmountByLocale(context, totalBudget.toString()),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
-                VerticalDivider(thickness = 1.dp, color = Color.LightGray.copy(0.4f))
+                VerticalDivider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.outline.copy(0.4f)
+                )
 
                 Column(
                     modifier = Modifier.weight(1f),
@@ -154,13 +157,13 @@ fun ProjectBudgetCard(
                     Text(
                         stringResource(R.string.total_duration),
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = formatDuration(totalDurationDays),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = "(${
@@ -170,7 +173,7 @@ fun ProjectBudgetCard(
                             )
                         } - ${DateUtils.formatToDisplay(context, endDate)})",
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
@@ -187,7 +190,7 @@ fun ProjectBudgetCard(
                     (budgetProgress * 100).toInt().toString()
                 ) + "%",
                 progress = budgetProgress.coerceIn(0f, 1f),
-                accentColor = if (isBudgetOverflow) softRedColor else tealColor
+                accentColor = if (isBudgetOverflow) softRedColor else MaterialTheme.colorScheme.primary
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -202,7 +205,7 @@ fun ProjectBudgetCard(
                     (timeProgress * 100).toInt().toString()
                 ) + "%",
                 progress = timeProgress.coerceIn(0f, 1f),
-                accentColor = if (isTimeOverflow) softRedColor else tealColor
+                accentColor = if (isTimeOverflow) softRedColor else MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -216,7 +219,7 @@ fun ProgressSection(leftText: String, rightText: String, progress: Float, accent
                 leftText,
                 style = MaterialTheme.typography.labelSmall,
                 fontWeight = FontWeight.Bold,
-                color = Color.Gray
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
                 rightText,
@@ -282,7 +285,7 @@ fun StageCard(
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp
     ) {
         Row(
@@ -292,12 +295,12 @@ fun StageCard(
             Surface(
                 modifier = Modifier.size(36.dp),
                 shape = RoundedCornerShape(12.dp),
-                color = tealColor.copy(alpha = 0.1f)
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = NumberUtils.formatByLocale(context, stage.serial.toString()),
-                        color = tealColor,
+                        color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -311,7 +314,7 @@ fun StageCard(
                     text = stringResource(displayNameRes),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF333333)
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Spacer(modifier = Modifier.height(2.dp))
@@ -327,7 +330,7 @@ fun StageCard(
                         durationDays.toString()
                     ) + stringResource(R.string.days),
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -344,7 +347,7 @@ fun StageCard(
                     Icon(
                         imageVector = Icons.Default.Edit,
                         contentDescription = "Edit Stage",
-                        tint = Color.Gray,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -356,7 +359,7 @@ fun StageCard(
                     ),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
-                    color = tealColor
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 val status = StageStatus.fromDbKey(stage.status)
@@ -370,7 +373,7 @@ fun StageCard(
                     Text(
                         text = stringResource(status.titleRes),
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
                 }
@@ -409,10 +412,10 @@ fun DateSelectionRow(
                 .padding(top = 8.dp)
                 .size(56.dp),
             shape = RoundedCornerShape(12.dp),
-            color = tealColor.copy(0.1f)
+            color = MaterialTheme.colorScheme.primary.copy(0.12f)
         ) {
             Box(contentAlignment = Alignment.Center) {
-                Icon(Icons.Default.DateRange, null, tint = tealColor)
+                Icon(Icons.Default.DateRange, null, tint = MaterialTheme.colorScheme.primary)
             }
         }
     }
@@ -424,15 +427,15 @@ fun StepNumberBadge(number: Int) {
     Surface(
         modifier = Modifier.size(28.dp),
         shape = RoundedCornerShape(6.dp),
-        color = Color(0xFFF0F0F0),
-        border = BorderStroke(1.dp, Color.LightGray)
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(
                 text = NumberUtils.formatByLocale(context, number.toString()),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }
