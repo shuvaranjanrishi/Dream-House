@@ -2,6 +2,7 @@ package com.therishideveloper.dreamhouse
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,13 +39,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -83,27 +87,68 @@ class MainActivity : ComponentActivity() {
         super.attachBaseContext(LocaleHelper.wrapContext(newBase))
     }
 
+    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+        if (overrideConfiguration != null) {
+            baseContext?.let { base ->
+                LocaleHelper.applyLocaleToConfiguration(
+                    overrideConfiguration,
+                    LocaleHelper.getSavedLocale(base)
+                )
+            }
+        }
+        super.applyOverrideConfiguration(overrideConfiguration)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        LocaleHelper.applySavedLocale(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
 
-        val savedLang = LocaleHelper.getSavedLocale(this)
-        LocaleHelper.applyLocale(this, savedLang)
+        LocaleHelper.applySavedLocale(this)
 
         setContent {
             var isDarkTheme by remember { mutableStateOf(ThemeHelper.isDarkTheme(this)) }
+            var currentLang by remember { mutableStateOf(LocaleHelper.getSavedLocale(this)) }
+            val baseConfig = LocalConfiguration.current
+            val localizedContext = remember(currentLang, baseConfig) {
+                LocaleHelper.createLocalizedContextWrapper(
+                    base = this@MainActivity,
+                    langCode = currentLang,
+                    baseConfig = baseConfig
+                )
+            }
+            val localizedConfig = remember(localizedContext) {
+                Configuration(localizedContext.resources.configuration)
+            }
 
-            DreamHouseTheme(darkTheme = isDarkTheme) {
-                Surface(color = MaterialTheme.colorScheme.background) {
-                    SetupNavigation(
-                        isDarkTheme = isDarkTheme,
-                        onToggleTheme = {
-                            val newValue = !isDarkTheme
-                            isDarkTheme = newValue
-                            ThemeHelper.setDarkTheme(this@MainActivity, newValue)
+            CompositionLocalProvider(
+                LocalContext provides localizedContext,
+                LocalConfiguration provides localizedConfig
+            ) {
+                key(currentLang) {
+                    DreamHouseTheme(darkTheme = isDarkTheme) {
+                        Surface(color = MaterialTheme.colorScheme.background) {
+                            SetupNavigation(
+                                isDarkTheme = isDarkTheme,
+                                currentLang = currentLang,
+                                onToggleTheme = {
+                                    val newValue = !isDarkTheme
+                                    isDarkTheme = newValue
+                                    ThemeHelper.setDarkTheme(this@MainActivity, newValue)
+                                },
+                                onLanguageChange = { selectedCode ->
+                                    LocaleHelper.applyLocale(this@MainActivity, selectedCode)
+                                    currentLang = selectedCode
+                                    recreate()
+                                }
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
@@ -112,7 +157,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun SetupNavigation(
         isDarkTheme: Boolean,
-        onToggleTheme: () -> Unit
+        currentLang: String,
+        onToggleTheme: () -> Unit,
+        onLanguageChange: (String) -> Unit
     ) {
         val projectViewModel: ProjectViewModel = hiltViewModel()
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -338,12 +385,11 @@ class MainActivity : ComponentActivity() {
 
         if (showLanguageDialog) {
             LanguageDialog(
-                currentLanguageCode = LocaleHelper.getSavedLocale(context),
+                currentLanguageCode = currentLang,
                 onDismiss = { showLanguageDialog = false },
                 onLanguageSelected = { selectedCode ->
-                    LocaleHelper.applyLocale(this@MainActivity, selectedCode)
                     showLanguageDialog = false
-                    recreate()
+                    onLanguageChange(selectedCode)
                 }
             )
         }

@@ -12,8 +12,13 @@ class BaseApplication : Application() {
         super.attachBaseContext(LocaleHelper.wrapContext(base))
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        LocaleHelper.applySavedLocale(this)
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        LocaleHelper.applyLocale(this, LocaleHelper.getSavedLocale(this))
+        LocaleHelper.applySavedLocale(this)
     }
 }

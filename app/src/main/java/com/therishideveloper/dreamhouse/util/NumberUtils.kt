@@ -37,7 +37,8 @@ object NumberUtils {
 
         val formattedNumber = commaFormatter.format(amount)
         val finalNumber = convertDigits(formattedNumber, language)
-        val symbol = context.getString(R.string.currency_symbol)
+        val localizedContext = LocaleHelper.getLocalizedContext(context, language)
+        val symbol = localizedContext.getString(R.string.currency_symbol)
 
         return "$symbol $finalNumber"
     }

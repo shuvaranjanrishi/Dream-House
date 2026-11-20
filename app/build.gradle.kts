@@ -62,6 +62,11 @@ android {
             useLegacyPackaging = false
         }
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
