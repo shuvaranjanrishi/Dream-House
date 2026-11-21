@@ -187,7 +187,10 @@ fun DateSection(
 @Composable
 fun DurationBadge(totalDays: Int) {
     val context = LocalContext.current
-    val formattedDays = NumberUtils.formatByLocale(context, totalDays.toString())
+    val durationText = NumberUtils.formatByLocale(
+        context,
+        stringResource(R.string.label_total_days_needed, totalDays)
+    )
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
@@ -203,7 +206,7 @@ fun DurationBadge(totalDays: Int) {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = stringResource(R.string.label_total_days_needed, formattedDays),
+                text = durationText,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 15.sp
